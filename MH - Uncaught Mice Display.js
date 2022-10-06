@@ -49,8 +49,8 @@ function uncaughtBoxRender(){
           for(var i=0; i< miceListCategory.length;i++){
             if(miceListCategory[i].type == currentLocation){
               console.log("Current location_type is " + miceListCategory[i].type);
-              var miceTotal = miceListCategory[i].total
-              var locationMiceList = currentLocation.subgroups[0].mice
+              var miceTotal = miceListCategory[i].subgroups.total
+              var locationMiceList = mistListCategory[i].subgroups[0].mice
               var uncaughtMiceList = {}
               for (var i=0; i<miceTotal -1; i++){
                 uncaughtMiceList.push(locationMiceList[i].name)
