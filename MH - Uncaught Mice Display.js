@@ -31,6 +31,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.bottom = "3px";
   uncaughtBtn.style.background = "#e5dac0";
   uncaughtBtn.style.borderColor = "#9f9171";
+  uncaughtBtn.style.fontSize = "10px"
   uncaughtBtn.style.padding = "0px"
 
   //Button function --- 
@@ -76,10 +77,11 @@ function uncaughtBoxRender(){
                 alert ("All mice in this location have been caught")
                 uncaughtBtn.innerHTML = "0";
                 uncaughtBtn.style.background = "green";
-                uncaughtBtn.style.color = "white"
+                uncaughtBtn.style.color = "white";
+                uncaughtBtn.style.borderColor = "green";
               }
 
-              break
+              break;
             }
           }
 
