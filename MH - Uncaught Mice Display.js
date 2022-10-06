@@ -59,9 +59,10 @@ function uncaughtBoxRender(){
               //String it up
               var str = "Uncaught Mice: "
               for (var i=0; i< uncaughtMiceList.length; i++){
-                str = str + "/n" + uncaughtMiceList[i]
+                str = str + "\n" + uncaughtMiceList[i]
               }
               console.log(str);
+              alert(str);
 
               break
             }
