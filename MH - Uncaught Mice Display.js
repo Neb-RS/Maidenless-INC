@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Uncaught Mice Dispaly
-// @version      1.0.1
+// @version      1.0.2
 // @description  Shows uncaught mice at any location
 // @author       MI
 // @match        https://www.mousehuntgame.com/*
@@ -24,7 +24,7 @@ function uncaughtBoxRender(){
   var uncaughtBtn = document.createElement("button");
   uncaughtBtn.style.backgroundSize = "30px"
   uncaughtBtn.className = "mi-uncaught-box";
-  uncaughtBtn.style.position = absolute;
+  uncaughtBtn.style.position = "absolute";
   uncaughtBtn.style.width = "30px";
   uncaughtBtn.style.height = "30px";
   uncaughtBtn.style.borderRadius = "5px";
