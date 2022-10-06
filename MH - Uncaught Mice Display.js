@@ -43,7 +43,7 @@ function uncaughtBoxRender(){
         var response = JSON.parse(res.responseText);
         if (response){
           var miceListCategory = {}
-          miceListCategory = response.page.tabs.mice.subtabs[1].mouseList.categories;
+          miceListCategory = response.page.tabs.mice.subtabs[1].mouse_list.categories;
           console.log(miceList);
         }
       } catch (error){
