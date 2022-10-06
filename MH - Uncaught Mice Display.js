@@ -31,7 +31,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.bottom = "3px";
   uncaughtBtn.style.background = "#e5dac0";
   uncaughtBtn.style.borderColor = "#9f9171";
-  uncaughtBtn.vaclue = "2";
+  uncaughtBtn.value = "2";
 
   //Button function --- 
   var currentLocation = user.environment_type;
