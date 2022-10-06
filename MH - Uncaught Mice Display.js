@@ -42,7 +42,8 @@ function uncaughtBoxRender(){
       try{
         var response = JSON.parse(res.responseText);
         if (response){
-          var miceList = response.page.tabs.mice.subtabs[1].mouseList.categories;
+          var miceListCategory = {}
+          miceListCategory = response.page.tabs.mice.subtabs[1].mouseList.categories;
           console.log(miceList);
         }
       } catch (error){
