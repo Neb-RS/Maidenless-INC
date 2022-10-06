@@ -12,7 +12,7 @@
 
 $(document).ready(function(){
   if($(".campPage-trap-armedItemContainer")[0]){
-     typeof $("#mi-uncaught-box")[0] == "object"? null : uncaughtBoxRender()
+     typeof $(".mi-uncaught-box")[0] == "object"? null : uncaughtBoxRender()
   }
 })
 
@@ -31,7 +31,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.bottom = "3px";
   uncaughtBtn.style.background = "#e5dac0";
   uncaughtBtn.style.borderColor = "#9f9171";
-  uncaughtBtn.value = "2";
+  uncaughtBtn.innerHTML = "2";
 
   //Button function --- 
   var currentLocation = user.environment_type;
