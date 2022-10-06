@@ -22,12 +22,15 @@ function uncaughtBoxRender(){
 
   //Box styles
   var uncaughtBtn = document.createElement("button");
-  uncaughtBtn.style.backgroundSize = "30px"
   uncaughtBtn.className = "mi-uncaught-box";
   uncaughtBtn.style.position = "absolute";
-  uncaughtBtn.style.width = "30px";
-  uncaughtBtn.style.height = "30px";
-  uncaughtBtn.style.borderRadius = "5px";
+  uncaughtBtn.style.width = "17px";
+  uncaughtBtn.style.height = "17px";
+  uncaughtBtn.style.borderRadius = "4px";
+  uncaughtBtn.style.left = "1px";
+  uncaughtBtn.style.bottom = "3px";
+  uncaughtBtn.style.background = "#e5dac0";
+  uncaughtBtn.style.borderColor = "#9f9171";
 
   locationWrapper.insertAdjacentElement("afterend",uncaughtBtn)
 
