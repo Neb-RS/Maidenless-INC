@@ -74,11 +74,11 @@ function uncaughtBoxRender(){
                 alert (str)
                 uncaughtBtn.innerHTML = uncaughtMiceList.length;
               } else {
-                alert ("All mice in this location have been caught")
                 uncaughtBtn.innerHTML = "0";
                 uncaughtBtn.style.background = "green";
                 uncaughtBtn.style.color = "white";
                 uncaughtBtn.style.borderColor = "green";
+                alert ("All mice in this location have been caught")
               }
 
               break;
