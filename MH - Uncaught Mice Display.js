@@ -31,6 +31,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.bottom = "3px";
   uncaughtBtn.style.background = "#e5dac0";
   uncaughtBtn.style.borderColor = "#9f9171";
+  uncaughtBtn.vaclue = "2";
 
   //Button function --- 
   var currentLocation = user.environment_type;
@@ -65,8 +66,13 @@ function uncaughtBoxRender(){
               for (var i=0; i< uncaughtMiceList.length; i++){
                 str = str + "\n" + uncaughtMiceList[i]
               }
-              console.log(str);
-              alert(str);
+              
+              //Different announcement if all mice caught
+              if (uncaughtMiceList.length > 0){
+                alert (str)
+              } else {
+                alert ("All mice in this location have been caught")
+              }
 
               break
             }
