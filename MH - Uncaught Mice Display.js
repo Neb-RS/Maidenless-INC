@@ -49,7 +49,16 @@ function uncaughtBoxRender(){
           for(var i=0; i< miceListCategory.length;i++){
             console.log(miceListCategory[i].type);
             if(miceListCategory[i].type == currentLocation){
-              console.log("Current Location is " + miceListCategory[i].type);
+              console.log("Current location_type is " + miceListCategory[i].type);
+              var currentLocation = miceListCategory[i]
+              var miceTotal = miceListCategory[i].total
+              var locationMiceList = currentLocation.subgroups[0].mice
+              var uncaughtMiceList = {}
+              for (var i=0; i<miceTotal -1; i++){
+                uncaughtMiceList.push(locationMiceList[i].name)
+              }
+              console.log(uncaughtMiceList);
+
               break
             }
           }
