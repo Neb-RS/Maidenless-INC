@@ -33,7 +33,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.borderColor = "#9f9171";
 
   //Button function --- 
-  var currentLocation = user.environment_type.replace("'","");
+  var currentLocation = user.environment_type
   //Firstly calls for the location informations
   uncaughtBtn.onclick = function(){
     console.log("Requesting Information of Location Mice from Server");
@@ -48,8 +48,8 @@ function uncaughtBoxRender(){
           //console.log(miceListCategory);
           //Loops through the parsed data to find the matching location
           for(var i=0; 0 < miceListCategory.length;i++){
-            console.log(miceListCategory[i].type);
-            if(miceListCategory[i].type == currentLocation){
+            loopedLocation = JSON.stringify(miceListCategory[i].type)
+            if(loopedLocation == currentLocation){
               console.log("User is currently in " + miceListCategory[i]);
             }
           }
