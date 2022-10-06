@@ -33,6 +33,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.borderColor = "#9f9171";
   uncaughtBtn.style.fontSize = "10px"
   uncaughtBtn.style.padding = "0px"
+  uncaughtBtn.style.innerHTML = "?"
 
   //Button function --- 
   var currentLocation = user.environment_type;
