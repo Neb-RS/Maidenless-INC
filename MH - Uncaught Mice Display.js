@@ -47,7 +47,6 @@ function uncaughtBoxRender(){
           miceListCategory = response.page.tabs.mice.subtabs[1].mouse_list.categories;
           //Loops through the parsed data to find the matching locationx  
           for(var i=0; i< miceListCategory.length;i++){
-            console.log(miceListCategory[i].type);
             if(miceListCategory[i].type == currentLocation){
               console.log("Current location_type is " + miceListCategory[i].type);
               var currentLocation = miceListCategory[i]
