@@ -31,7 +31,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.bottom = "3px";
   uncaughtBtn.style.background = "#e5dac0";
   uncaughtBtn.style.borderColor = "#9f9171";
-  uncaughtBtn.innerHTML = "2";
+  uncaughtBtn.style.padding = "0px"
 
   //Button function --- 
   var currentLocation = user.environment_type;
@@ -68,10 +68,15 @@ function uncaughtBoxRender(){
               }
               
               //Different announcement if all mice caught
+              //Changes colour if all caught
               if (uncaughtMiceList.length > 0){
                 alert (str)
+                uncaughtBtn.innerHTML = uncaughtMiceList.length;
               } else {
                 alert ("All mice in this location have been caught")
+                uncaughtBtn.innerHTML = "0";
+                uncaughtBtn.style.background = "green";
+                uncaughtBtn.style.color = "white"
               }
 
               break
