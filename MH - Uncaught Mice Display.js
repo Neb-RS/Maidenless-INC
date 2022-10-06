@@ -1,6 +1,6 @@
 // ==UserScript==
-// @name         MH - Uncaught Mice Dispaly
-// @version      1.0.3
+// @name         MH - Uncaught Mice Display
+// @version      1.0.4
 // @description  Shows uncaught mice at any location
 // @author       MI
 // @match        https://www.mousehuntgame.com/*
@@ -36,7 +36,7 @@ function uncaughtBoxRender(){
   //Firstly calls for the locaiton informations
   uncaughtBtn.onclick = function(){
     console.log("Requesting Information of Location Mice from Server");
-    postReq("https://www.mousehuntgame.com/managers/ajax/pages/page.php"
+    postReq("https://www.mousehuntgame.com/managers/ajax/pages/page.php",
     `sn=Hitgrab&hg_is_ajax=1&page_class=HunterProfile&page_arguments%5Btab%5D=mice&page_arguments%5Bsub_tab%5D=location&last_read_journal_entry_id=${lastReadJournalEntryId}&uh=${user.unique_hash}`
     ). then(res =>{
       try{
