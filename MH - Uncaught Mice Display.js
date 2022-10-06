@@ -44,7 +44,7 @@ function uncaughtBoxRender(){
         if (response){
           var miceListCategory = {}
           miceListCategory = response.page.tabs.mice.subtabs[1].mouse_list.categories;
-          console.log(miceList);
+          console.log(miceListCategory);
         }
       } catch (error){
         console.log(error)
