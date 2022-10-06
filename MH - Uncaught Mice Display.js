@@ -33,7 +33,7 @@ function uncaughtBoxRender(){
   uncaughtBtn.style.borderColor = "#9f9171";
 
   //Button function --- 
-  var currentLocation = user.environment_type
+  var currentLocation = JSON.stringify(user.environment_type);
   //Firstly calls for the location informations
   uncaughtBtn.onclick = function(){
     console.log("Requesting Information of Location Mice from Server");
