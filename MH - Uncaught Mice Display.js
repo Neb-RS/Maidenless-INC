@@ -51,11 +51,17 @@ function uncaughtBoxRender(){
               console.log("Current location_type is " + miceListCategory[i].type);
               var miceTotal = miceListCategory[i].total
               var locationMiceList = miceListCategory[i].subgroups[0].mice
+              //Mega lists which shows all the mice uncaught in that area
               var uncaughtMiceList = [];
               for (var i=0; i<miceTotal -1; i++){
                 uncaughtMiceList.push(locationMiceList[i].name)
               }
-              console.log(uncaughtMiceList);
+              //String it up
+              var str = "Uncaught Mice: "
+              for (var i=0; i< uncaughtMiceList.length; i++){
+                str = str + "/n" + uncaughtMiceList[i]
+              }
+              console.log(str);
 
               break
             }
