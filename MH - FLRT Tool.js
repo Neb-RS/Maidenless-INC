@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name FLRT Tool
-// @version 0.0.3
+// @version 0.0.4
 // @description Free Leech Return Tradebles
 // @author Maidenless
 // @match https://www.mousehuntgame.com/*
@@ -85,7 +85,7 @@ function render(){
     toolContent.id = "flrt-tool-content"
 
     //Content Table
-    const contentTable = document.createElement(table);
+    const contentTable = document.createElement("table");
     contentTable.id = "flrt-tool-table";
     table.style.textAlign = "left";
     table.style.borderSpacing = "1em 0";
