@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name FLRT Tool
-// @version 0.0.6
+// @version 0.0.7
 // @description Free Leech Return Tradebles
 // @author Maidenless
 // @match https://www.mousehuntgame.com/*
@@ -112,7 +112,7 @@ function render(){
             //Treasure chests directory
             treasureChestsList = response.page.tabs[4]
             console.log(treasureChestsList);
-            treasureChestsList = response.page.tabs[4].subtags[0].tags[8].items
+            treasureChestsList = response.page.tabs[4].subtabs[0].tags[8].items
             //Loops all treasure chests in inventory
             for (var i=0; i<treasureChestsList.length; i++){
                 var chestName = treasureChestsList[i].name;
