@@ -87,8 +87,8 @@ function render(){
     //Content Table
     const contentTable = document.createElement("table");
     contentTable.id = "flrt-tool-table";
-    table.style.textAlign = "left";
-    table.style.borderSpacing = "1em 0";
+    contentTable.style.textAlign = "left";
+    contentTable.style.borderSpacing = "1em 0";
 
     //Content 1 : Map
     const map_row = document.createElement("tr");
