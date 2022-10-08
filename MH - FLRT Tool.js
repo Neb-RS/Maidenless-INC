@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name FLRT Tool
-// @version 0.0.4
+// @version 0.0.5
 // @description Free Leech Return Tradebles
 // @author Maidenless
 // @match https://www.mousehuntgame.com/*
@@ -105,7 +105,7 @@ function render(){
     //Gets list of treasure chests
     console.log("Accessing all treasure chests in Inventory")
     postReq("https://www.mousehuntgame.com/managers/ajax/pages/page.php",
-    `sn=Hitgrab&hg_is_ajax=1&page_class=Inventory&page_arguments%5Btab%5D=special&page_arguments%5Bsub_tab%5D=all&page_arguments%5Btag%5D=treasure_chests&last_read_journal_entry_id=${LastReadJournalEntryId}&uh=${user.unique_hash}`
+    `sn=Hitgrab&hg_is_ajax=1&page_class=Inventory&page_arguments%5Btab%5D=special&page_arguments%5Bsub_tab%5D=all&page_arguments%5Btag%5D=treasure_chests&last_read_journal_entry_id=${lastReadJournalEntryId}&uh=${user.unique_hash}`
     ). then(res =>{
         try{
             var response = JSON.parse(res.responseText);
