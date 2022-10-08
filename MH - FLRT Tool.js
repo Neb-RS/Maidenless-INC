@@ -1,10 +1,10 @@
 // ==UserScript==
 // @name FLRT Tool
-// @version 0.0.1
+// @version 0.0.2
 // @description Free Leech Return Tradebles
 // @author Maidenless
-// @match https://www.mousehuntgame.com/_
-// @match https://apps.facebook.com/mousehunt/_
+// @match https://www.mousehuntgame.com/*
+// @match https://apps.facebook.com/mousehunt/*
 // @icon https://www.google.com/s2/favicons?domain=mousehuntgame.com
 // @grant none
 // @namespace https://greasyfork.org/users/748165
