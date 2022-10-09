@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name FLRT Tool
-// @version 0.0.7
+// @version 1.0.0
 // @description Free Leech Return Tradables
 // @author Maidenless
 // @match https://www.mousehuntgame.com/*
