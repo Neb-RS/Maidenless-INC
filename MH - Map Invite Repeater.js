@@ -2,7 +2,7 @@
 // @name         MH - Map Invite Repeater
 // @description  Repeat invites for RR
 // @author       Maidenless
-// @version      1.0.3
+// @version      1.0.4
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
@@ -92,6 +92,10 @@ function addRepeater(){
 }
 
 async function render(res){
+    document
+    .querySelectorAll("#mi-repeater-box")
+    .forEach(el=>el.remove())
+
     //Render Box
     var div = document.createElement("div");
     div.id = "mi-repeater-box"
