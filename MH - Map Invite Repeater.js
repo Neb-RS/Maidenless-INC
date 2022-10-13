@@ -60,8 +60,13 @@ function addRepeater(){
     inviteNode.appendChild(span);
     //onclick function
     inviteNode.onclick = async()=>{
-        var mapCurrentlyOpened = $(".treasureMapRootView-tab.active.map")[0].children[1].innerText;
+        var mapCurrentlyOpened;
         var maps = user.quests.QuestRelicHunter.maps;
+        if(maps.length >1){
+            mapCurrentlyOpened = $(".treasureMapRootView-tab.active.map")[0].children[1].innerText;
+        } else {
+            mapCurrentlyOpened = user.quests.QuestRelicHunter.maps[0].name;
+        }
         console.log("Map currently opened is " + mapCurrentlyOpened);
         console.log(maps);
         var index = maps.findIndex(item => item.name == mapCurrentlyOpened);
@@ -255,7 +260,6 @@ function sendInvite(snuid,mapId){
         console.log("Sending to snuid " + snuid[i])
         combinedId = combinedId + "&snuids%5B%5D=" + snuid[i]
     }
-    console.log(combinedId);
     return new Promise ((resolve,reject)=>{
         postReq("https://www.mousehuntgame.com/managers/ajax/users/treasuremap.php",
         `sn=Hitgrab&hg_is_ajax=1&action=send_invites&map_id=${mapId}` + combinedId + 
