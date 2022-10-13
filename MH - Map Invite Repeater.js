@@ -191,20 +191,24 @@ async function render(res){
     action.appendChild(saveBtn);
     inviteBtn.onclick = async() =>{
         var nameChecked = $(".mi-checkbox");
+        var combinedId = []
         for (let i=0;i<nameChecked.length;i++){
             if (nameChecked[i].checked == true){
+                console.log(nameChecked + "is checked");
                 var nameInvite = $(".mi-checkbox")[i].parentNode.parentNode.children[1].innerHTML
                 console.log("Inviting " + nameInvite)
                 //Get the snuid from the name
-                console.log(savedHunters);
                 var index = savedHunters.findIndex(item => item.name == nameInvite);
-                console.log(index);
                 var snuid = savedHunters[index].sn_user_id;
-                await sendInvite(snuid,mapId)
-                .then(res=>{
-                    console.log("Sent all map invites");
-                })
+                combinedId.push(snuid);
             }
+        }
+        //only send if there is something to send;
+        if(combinedId != ""){
+            await sendInvite(combinedId,mapId)
+            .then(res=>{
+                alert("Sent all map invites");
+            })
         }
     }
     action.appendChild(inviteBtn);
@@ -245,10 +249,17 @@ function getCurrentHunters(mapId){
 }
 
 function sendInvite(snuid,mapId){
-    console.log("Inviting hunter")
+    console.log("Inviting hunters")
+    var combinedId = [];
+    for(let i=0;i<snuid.length;i++){
+        console.log("Sending to snuid " + snuid[i])
+        combinedId = combinedId + "&snuids%5B%5D=" + snuid[i]
+    }
+    console.log(combinedId);
     return new Promise ((resolve,reject)=>{
         postReq("https://www.mousehuntgame.com/managers/ajax/users/treasuremap.php",
-        `sn=Hitgrab&hg_is_ajax=1&action=send_invites&map_id=${mapId}&snuids%5B%5D=${snuid}&uh=${user.unique_hash}&last_read_journal_entry_id=${lastReadJournalEntryId}`
+        `sn=Hitgrab&hg_is_ajax=1&action=send_invites&map_id=${mapId}` + combinedId + 
+        `&uh=${user.unique_hash}&last_read_journal_entry_id=${lastReadJournalEntryId}`
        ).then(res=>{
             try{
                 var data = JSON.parse(res.responseText);
