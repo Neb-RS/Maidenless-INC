@@ -2,7 +2,7 @@
 // @name         Map Invite Repeater
 // @description  Repeat invites for RR
 // @author       Maidenless
-// @version      1.0.2
+// @version      1.0.3
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
@@ -20,7 +20,7 @@ var mapId;
 //Shows button 
 $(document).ajaxComplete(async(event,xhr,options) => {
     if (options.url == "https://www.mousehuntgame.com/managers/ajax/board/board.php"){
-        $("#mi-invite-repeat")[0] ? null : addRepeater();
+        $(".mi-invite-repeat")[0] ? null : addRepeater();
     }
 })
 
