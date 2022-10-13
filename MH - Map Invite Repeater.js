@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Map Invite Repeater
+// @name         MH - Map Invite Repeater
 // @description  Repeat invites for RR
 // @author       Maidenless
 // @version      1.0.3
@@ -75,6 +75,15 @@ function addRepeater(){
         .then(res=>{
             render(res);
         })
+    }
+    //disable if not maptain   
+    var maptain = $(".treasureMapView-hunter.captain")[0].children[0].children[0].title;
+    var username = user.firstname ? user.firstname : user.lastname;
+    if (maptain.indexOf(username)<0){
+        inviteNode.onclick = function(){
+            return;
+        }
+        inviteNode.style.background = "grey";
     }
     injectNode.insertAdjacentElement("afterend",inviteNode);
     //https://stackoverflow.com/questions/46868091/css-trouble-with-displaynone-not-being-recognized
