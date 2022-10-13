@@ -2,7 +2,7 @@
 // @name         Map Invite Repeater
 // @description  Repeat invites for RR
 // @author       Maidenless
-// @version      1.0.1
+// @version      1.0.2
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
@@ -185,7 +185,7 @@ async function render(res){
     action.appendChild(saveBtn);
     
     const inviteBtn = document.createElement("button");
-    inviteBtn.textContent = "Invite hunters";
+    inviteBtn.textContent = "Invite Hunters";
     inviteBtn.style.cursor = "pointer";
     inviteBtn.style.marginTop = "5px";
     action.appendChild(saveBtn);
