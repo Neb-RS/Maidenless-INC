@@ -1,14 +1,15 @@
 // ==UserScript==
-// @name Map Invite Repeater
-// @version 1.0.0
-// @description Repeat invites for RR
-// @author Maidenless
-// @match https://www.mousehuntgame.com/*
-// @match https://apps.facebook.com/mousehunt/*
+// @name         Map Invite Repeater
+// @description  Repeat invites for RR
+// @author       Maidenless
+// @version      1.0.1
+// @match        https://www.mousehuntgame.com/*
+// @match        https://apps.facebook.com/mousehunt/*
+// @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
 // @resource     https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css
 // @require      https://code.jquery.com/ui/1.12.1/jquery-ui.js
 // @require      https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
-// @icon https://www.google.com/s2/favicons?domain=mousehuntgame.com
+// @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
 
