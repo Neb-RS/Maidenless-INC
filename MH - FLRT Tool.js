@@ -312,9 +312,13 @@ function getTreasureLists(){
         `spostReqn=Hitgrab&hg_is_ajax=1&page_class=Inventory&page_arguments%5Btab%5D=special&page_arguments%5Bsub_tab%5D=all&page_arguments%5Btag%5D=treasure_chests&last_read_journal_entry_id=${lastReadJournalEntryId}&uh=${user.unique_hash}`
         ). then(res =>{
             try{
-                var response = JSON.parse(res.responseText);
+                 var response = JSON.parse(res.responseText);
+                 //subtab directory 
+                 const subDirect = response.page.tabs[4].subtabs[0].tags
+                 var treasureChestIndex = subDirect.findIndex(item=> item.name == "Treasure Chests");
                  //Treasure chests directory
-                 var treasureChestsList = response.page.tabs[4].subtabs[0].tags[8].items
+                 var treasureChestsList = subDirect[treasureChestIndex].items
+                     //var treasureChestsList = response.page.tabs[4].subtabs[0].tags[8].items
                  //Remove last element that is a CSS formatting
                  treasureChestsList.pop();
                  //Loops all treasure chests in inventory
