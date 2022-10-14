@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         MH - Map Invite Repeater
+// @name         MH - Map Re-inviter
 // @description  Repeat invites for RR
 // @author       Maidenless
-// @version      1.0.4
+// @version      1.0.5
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
