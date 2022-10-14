@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name FLRT Tool
-// @version 1.0.0
+// @version 1.0.1
 // @description Free Leech Return Tradables
 // @author Maidenless
 // @match https://www.mousehuntgame.com/*
@@ -116,7 +116,7 @@ function render(treasureChestsList){
     const map_td2 = document.createElement("td");
 
     const map_label = document.createElement("label");
-    map_label.innerText = "Map: ";
+    map_label.innerText = "Chest: ";
     map_td1.appendChild(map_label);
 
     //Map functions
