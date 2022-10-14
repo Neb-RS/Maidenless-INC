@@ -251,6 +251,14 @@ function getCurrentHunters(mapId){
                     const mapHunters = response.treasure_map.hunters;
                     if (mapHunters){
                         console.log("Current Hunters info obtained")
+                        //check whether hunter is active, if they left their names will still be in the list but their
+                        //is_active will be false
+                        for(var i=0;i<mapHunters.length;i++){
+                            if (mapHunters[i].is_active == false){
+                                mapHunters.splice(i,1);
+                                i--;
+                            }
+                        }
                         console.log(mapHunters);
                         resolve(mapHunters);
                     } else {
