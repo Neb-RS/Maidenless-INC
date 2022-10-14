@@ -2,16 +2,17 @@
 // @name         MouseHunt - Hween 2022 Trick/Treat map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/739524-in59te
-// @version      1.1.1
+// @version      1.1.2
 // @description  Color codes mice on trick/treat maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // ==/UserScript==
 
-const displayMinLuck = true;
-const displayAR = true;
-const displayHunterCheese = true;
+const displayMinLuck = true; // Will display minluck for the group of mouse iff true.
+const displayAR = true; // Will display the AR for each uncaught mouse iff true.
+const displayHunterCheese = true; // Will display which group of mouse the hunter if attempting iff true.
+let assignBaitChange = true; // Avoid the bait change event being registered more than once.
 
 // name, AR
 const standardMice = [
@@ -61,7 +62,7 @@ const screamMice = [
     ["Swamp Thang", "19.65%"],
 ];
 
-// name, mice, minimum luck, bait, bait ID, color
+// group name, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
     ["Std", standardMice, 40, "", 114, "#cd87ff"], // light purple
     ["Jack", jackoMice, 40, "Monterey Jack-O-Lantern", 3305, "#f06a60"], // red
@@ -111,12 +112,16 @@ class MiceGroup {
     }
 }
 
-let allMiceGroups = [];
+let allMiceGroups = []; // This contains all info about the various group of mice.
+let miceNameDict = {}; // If displayAR == true, we are forced to modify the <span> element's text to mouse name + AR, so we need to be able to go back to the original mouse name.
 
 function initialise() {
+    // Avoid initialising more than once as the script can be called multiple times by other plug-in.
     if (allMiceGroups.length > 0) {
         return;
     }
+
+    // Populate allMiceGroups from miceGroups
     for (let i = 0; i < miceGroups.length; i++) {
         let miceGroup = new MiceGroup(
             miceGroups[i][0],
@@ -133,9 +138,12 @@ function initialise() {
 }
 
 function addAr(mouseSpan, mouseName, miceGroup) {
-    mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").textContent =
-        mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").textContent
-        + " (" + miceGroup.getAR(mouseName) + ")"
+    const mouseNameWithAr = mouseName + " (" + miceGroup.getAR(mouseName) + ")";
+    //console.log("checking " + mouseNameWithAr + " in dict: " + (mouseNameWithAr in miceNameDict));
+    if (!(mouseNameWithAr in miceNameDict)) {
+        miceNameDict[mouseNameWithAr] = mouseName;
+    }
+    mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").textContent = mouseNameWithAr;
 }
 
 const defaultColor = miceGroups[0][4];
@@ -185,15 +193,20 @@ function colorize() {
         allMiceGroups[i].count = 0;
     }
 
-    document.querySelectorAll(".treasureMapView-goals-group-goal").forEach(el => {
-        // This returns null.
-        el.querySelector("span").style = "color: black; font-size: 11px;";
+    /*
+    for (const key of Object.keys(miceNameDict)) {
+        console.log(key + ": " + miceNameDict[key])
+    }
+    */
 
-        const mouseName = el.querySelector(".treasureMapView-goals-group-goal-name")
-        .textContent;
+    document.querySelectorAll(".treasureMapView-goals-group-goal").forEach(el => {
+        let mouseName = el.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").textContent;
+        // Fix up the mouse name if we added AR info in.
+        if (mouseName in miceNameDict) {
+            mouseName = miceNameDict[mouseName];
+        }
 
         for (let i = 0; i < allMiceGroups.length; i++) {
-            //console.log("checking " + mouseName);
             if (allMiceGroups[i].hasMouse(mouseName)) {
                 el.style.backgroundColor = allMiceGroups[i].color;
                 if (el.className.indexOf(" complete ") < 0) {
@@ -305,6 +318,17 @@ function colorize() {
     document.querySelector("[data-type='show_goals']").onclick = function () {
         colorize();
     };
+
+    if (assignBaitChange) {
+        // Avoid assigning the event more than once.
+        assignBaitChange = false;
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            //Warden added this (waves)
+            $(document).on('click', '.' + allMiceGroups[i].name + 'Span', function() {
+                hg.utils.TrapControl.setBait(allMiceGroups[i].baitId).go();
+            });
+        }
+    }
 }
 
 // Listen to XHRs, opening a map always at least triggers board.php
@@ -332,11 +356,3 @@ XMLHttpRequest.prototype.open = function () {
     });
     originalOpen.apply(this, arguments);
 };
-
-
-//Warden added this (waves)
-for (let i = 0; i < allMiceGroups.length; i++) {
-    $(document).on('click', '.' + allMiceGroups[i].name + 'Span', function() {
-        hg.utils.TrapControl.setBait(allMiceGroups[i].baitId).go();
-    });
-}
