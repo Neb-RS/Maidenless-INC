@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         MouseHunt - Hween 2022 Trick/Treat map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
-// @namespace    https://greasyfork.org/en/users/739524-in59te
-// @version      1.1.2
+// @namespace    https://greasyfork.org/en/users/967077-maidenless
+// @version      1.1.3
 // @description  Color codes mice on trick/treat maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -64,11 +64,11 @@ const screamMice = [
 
 // group name, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
-    ["Std", standardMice, 40, "", 114, "#cd87ff"], // light purple
-    ["Jack", jackoMice, 40, "Monterey Jack-O-Lantern", 3305, "#f06a60"], // red
-    ["Bone", boneMice, 55, "Bonefort Cheese", 3306, "#5ae031"], // green
-    ["Polter", pgMice, 45, "Polter-Geitost", 3307, "#4fcaf0"], // blue
-    ["Scream", screamMice, 45, "Scream Cheese", 3308, "#ffff66"], // yellow
+    ["Std", standardMice, 40, "", 114, "#D7BDE2"], // light purple
+    ["Jack", jackoMice, 40, "Monterey Jack-O-Lantern", 3305, "#F8C471"], // orange
+    ["Bone", boneMice, 55, "Bonefort Cheese", 3306, "#E6B0AA"], // red
+    ["Polter", pgMice, 45, "Polter-Geitost", 3307, "#A9CCE3"], // blue
+    ["Scream", screamMice, 45, "Scream Cheese", 3308, "#AED581"], // green
 ];
 
 class Mouse {
@@ -143,7 +143,7 @@ function addAr(mouseSpan, mouseName, miceGroup) {
     if (!(mouseNameWithAr in miceNameDict)) {
         miceNameDict[mouseNameWithAr] = mouseName;
     }
-    mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").textContent = mouseNameWithAr;
+    mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").firstChild .textContent = mouseNameWithAr;
 }
 
 const defaultColor = miceGroups[0][4];
@@ -200,11 +200,12 @@ function colorize() {
     */
 
     document.querySelectorAll(".treasureMapView-goals-group-goal").forEach(el => {
-        let mouseName = el.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").textContent;
+        let mouseName = el.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").firstChild .textContent;
         // Fix up the mouse name if we added AR info in.
         if (mouseName in miceNameDict) {
             mouseName = miceNameDict[mouseName];
         }
+        //console.log(mouseName);
 
         for (let i = 0; i < allMiceGroups.length; i++) {
             if (allMiceGroups[i].hasMouse(mouseName)) {
