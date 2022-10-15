@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.3
+// @version      1.0.5
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
@@ -18,8 +18,12 @@ var debugging = false;
 $(document).ajaxComplete(async(event,xhr,options) => {
   const maps = user.quests.QuestRelicHunter.maps;
   var index = maps.findIndex(map => map.name.includes("Halloween"));
+  if (index <0){
+    return;
+  }
   var halloween_map_id = maps[index].map_id;
-  if (options.url == "https://www.mousehuntgame.com/managers/ajax/users/changetrap.php" && user.environment_name == "Gloomy Greenwood"){
+  if ((options.url == "https://www.mousehuntgame.com/managers/ajax/users/changetrap.php" || option.url == "https://www.mousehuntgame.com/managers/ajax/users/treasuremap.php"
+  && user.environment_name == "Gloomy Greenwood")){ 
     getMapInfo(halloween_map_id)
     .then(res =>{
       generate(res);
@@ -33,6 +37,9 @@ $(document).ready(function(){
   } else {
     const maps = user.quests.QuestRelicHunter.maps;
     var index = maps.findIndex(map => map.name.includes("Halloween"));
+    if (index <0){
+      return;
+    }
     var halloween_map_id = maps[index].map_id;
     getMapInfo(halloween_map_id)
     .then(res =>{
