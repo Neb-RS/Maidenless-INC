@@ -2,7 +2,7 @@
 // @name         MouseHunt - Hween 2022 Trick/Treat map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.3
+// @version      1.1.4
 // @description  Color codes mice on trick/treat maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -146,7 +146,7 @@ function addAr(mouseSpan, mouseName, miceGroup) {
     mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").firstChild .textContent = mouseNameWithAr;
 }
 
-const defaultColor = miceGroups[0][4];
+const defaultColor = miceGroups[0][5];
 const hunterColor = [defaultColor, defaultColor, defaultColor, defaultColor, defaultColor];
 var numHunters = 0;
 
