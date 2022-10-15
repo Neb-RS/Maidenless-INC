@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.7
+// @version      1.0.8
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
@@ -125,13 +125,14 @@ $(document).ready(function(){
       position: absolute;
       top: 62px ;
       width: 115px
-      margin-left: 5px;
+      left: 15px;
     }
 
     .mi-map-hunters {
-      width: 23px;
-      height: 23px;
+      width: 25px;
+      height: 25px;
       border-radius: 20px;
+      margin-left: -5px;
     }
 
     }`)
