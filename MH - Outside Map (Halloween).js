@@ -122,13 +122,15 @@ $(document).ready(function(){
     }
 
     .mi-hunter-div {
-      margin-top: 62px;
+      position: absolute;
+      top: 62px ;
+      width: 115px
       margin-left: 5px;
     }
 
     .mi-map-hunters {
-      width: 26px;
-      height: 26px;
+      width: 23px;
+      height: 23px;
       border-radius: 20px;
     }
 
