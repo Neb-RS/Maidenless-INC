@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.5
+// @version      1.0.6
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
@@ -22,8 +22,9 @@ $(document).ajaxComplete(async(event,xhr,options) => {
     return;
   }
   var halloween_map_id = maps[index].map_id;
-  if ((options.url == "https://www.mousehuntgame.com/managers/ajax/users/changetrap.php" || option.url == "https://www.mousehuntgame.com/managers/ajax/users/treasuremap.php"
-  && user.environment_name == "Gloomy Greenwood")){ 
+  if ((options.url == "https://www.mousehuntgame.com/managers/ajax/users/changetrap.php" 
+  || options.url == "https://www.mousehuntgame.com/managers/ajax/users/treasuremap.php")
+  && user.environment_name == "Gloomy Greenwood"){ 
     getMapInfo(halloween_map_id)
     .then(res =>{
       generate(res);
