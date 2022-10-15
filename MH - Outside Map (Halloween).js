@@ -12,7 +12,7 @@
 // @namespace    https://greasyfork.org/users/748165
 // ==/UserScript==
 
-var debugging = true;
+var debugging = false;
 
 $(document).ready(function(){
   if (user.environment_name != "Gloomy Greenwood"){
