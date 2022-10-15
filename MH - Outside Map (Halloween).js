@@ -124,7 +124,7 @@ $(document).ready(function(){
     .mi-hunter-div {
       position: absolute;
       top: 62px ;
-      width: 115px
+      width: 115px;
       left: 15px;
     }
 
