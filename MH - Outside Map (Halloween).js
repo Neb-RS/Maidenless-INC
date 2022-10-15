@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.6
+// @version      1.0.7
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
