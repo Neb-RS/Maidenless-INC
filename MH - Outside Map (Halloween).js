@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.0
+// @version      1.0.1
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
@@ -41,31 +41,31 @@ $(document).ready(function(){
       }
     };
 
-    //Add a mutation observer, stolen grom bad
-    const onPageChange = (callbacks) => {
-      const observer = new MutationObserver(() => {
-        if (callbacks.change) {
-          callbacks.change();
-        }
-      });
-  
-      const observerTarget = $(".mousehuntHud-userStat.treasureMap")[0];
+    //Add a mutation observer
+      const observerTarget = $(".mousehuntHud-userStat.treasureMap")[0].children[2];
+
       if (observerTarget) {
+
+        const observer = new MutationObserver((mutation)=> {
+          mutationCallback();
+          //console.log(mutation)
+          //observer.disconnect();
+        });
+
+        function mutationCallback(){
+          //console.log("Change")
+          getMapInfo(halloween_map_id)
+          .then(res =>{
+            generate(res);
+          })
+        }
+
         observer.observe(observerTarget, {
           childList: true,
+          subtree: true,
         });
       }
-    };
 
-      const updateRender = () =>{
-        getMapInfo(halloween_map_id)
-        .then(res =>{
-          generate(res);
-        })
-      }
-
-
-    onPageChange({change: updateRender})
 
     addStyles(`
     #minluck-button {
