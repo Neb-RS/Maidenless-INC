@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.1
+// @version      1.0.2
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
@@ -12,7 +12,7 @@
 // @namespace    https://greasyfork.org/users/748165
 // ==/UserScript==
 
-var debugging = false;
+var debugging = true;
 
 $(document).ready(function(){
   if (user.environment_name != "Gloomy Greenwood"){
@@ -82,7 +82,22 @@ $(document).ready(function(){
       color: white;
       text-align: center;
       z-index: 1;
-      background: mediumseagreen;
+      background: darkgreen;
+      cursor: pointer;
+    }
+
+    .mi-caught-div {
+      position: absolute;
+      top: 38px;
+      border: 2px solid mediumvioletred;
+      border-radius: 20px;
+      width: 15px;
+      height: 15px;
+      color: white;
+      text-align: center;
+      z-index: 1;
+      background: darkred;
+      cursor: pointer;
     }
 
     .mi-hunter-div {
@@ -100,7 +115,7 @@ $(document).ready(function(){
   }
 });
 
-function generate([cheese,hunters]){
+function generate([cheese,hunters,mouse]){
 
   document
   .querySelectorAll(".mi-uncaught-div")
@@ -115,8 +130,13 @@ function generate([cheese,hunters]){
   for (var i=0;i<cheese.length;i++){
     //div for cheese
     var mouseDiv = document.createElement("div");
-    mouseDiv.className = "mi-uncaught-div"
+    mouseDiv.className = cheese[i] == 0? "mi-caught-div" : "mi-uncaught-div"
     mouseDiv.innerText = cheese[i];
+    var mouseTitle = "Uncaught mice: "
+    for (let k=0;k<mouse[i].length;k++){
+      mouseTitle = mouseTitle + "\n" + mouse[i][k]
+    }
+    mouseDiv.title = mouseTitle;
     insertLocation[i].appendChild(mouseDiv);
     
     //another div for hunters
@@ -129,6 +149,7 @@ function generate([cheese,hunters]){
     var hunterPic = document.createElement("img");
     hunterPic.className = "mi-map-hunters"
     hunterPic.src = hunters[i].profile_pic;
+    hunterPic.title = hunters[i].name;
     var hDiv = $(".mi-hunter-div");  
 
     if (hunters[i].bait_name == "Super|brie+"){  
@@ -186,18 +207,31 @@ function getMapInfo(map_id){
                     var cheese = [0,0,0,0,0]
                     var cheese_array = response.user.quests.QuestHalloweenBoilingCauldron.mice;
                     //Afterthought: I realise that the array give is not numerical
-                    var converted_cheese_array ={
+                    var mouse ={
+                      [0]: [],
+                      [1]: [],
+                      [2]: [],
+                      [3]: [],
+                      [4]: [],
+                    }
+                    var converted_cheese_array = {
                     [0]: cheese_array.cauldron_tier_1_cheese,
                     [1]: cheese_array.cauldron_tier_2_cheese,
                     [2]: cheese_array.cauldron_tier_3_cheese,
                     [3]: cheese_array.cauldron_tier_4_cheese,
                     }
+                    var converted_mouse_array = {}
                     //reiterate over 4 tiers
                     var j =0;
                     while(treasure_mice.length != 0){
                       var index = converted_cheese_array[j].findIndex(item => item.type == treasure_mice[0].type)
                       if (index >-1){
+                        //add 1 to cheese
                         cheese[j] = cheese[j] + 1;
+                        //add 1 to mice list
+                        var initMice = mouse[j+1];
+                        initMice.push(treasure_mice[0].name);
+                        mouse[j+1] = initMice;
                         treasure_mice.splice(0,1);
                         j = 0;
                       } else if (j < 3){
@@ -206,6 +240,9 @@ function getMapInfo(map_id){
                         //Standard baitmi
                         treasure_mice.splice (0,1);
                         cheese[4] ++;
+                        var initMice = mouse[j];
+                        initMice.push(treasure_mice[0].name);
+                        mouse[j+1] = initMice;
                         j=0;
                       }
                     };
@@ -213,8 +250,12 @@ function getMapInfo(map_id){
                     var std = cheese[4];
                     cheese.unshift(std);
                     cheese.pop();
+                    //mouse.unshift(stdm);
+                    //mouse.pop();
                     debugging? console.log("Remaining order of cheese"): null;
                     debugging? console.log(cheese): null;
+                    debugging? console.log("Names of mice") : null;
+                    debugging? console.log(mouse): null;
 
                     //Step 4: Get the hunters
                     var hunters_active = []
@@ -226,7 +267,7 @@ function getMapInfo(map_id){
                     }
                     debugging? console.log("Active hunters are"): null;
                     debugging? console.log(hunters_active): null;
-                    resolve([cheese,hunters_active]);
+                    resolve([cheese,hunters_active,mouse]);
                 }
             } catch (error){
                 console.log(error)
