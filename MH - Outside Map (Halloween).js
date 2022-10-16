@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         MH - Outside Map (Halloween)
-// @version      1.0.8
+// @version      1.0.9
 // @description  Brings map information outside
 // @author       Maidenless
 // @match        https://www.mousehuntgame.com/*
@@ -176,9 +176,7 @@ function generate([cheese,hunters,mouse]){
     hunterPic.title = hunters[i].name;
     var hDiv = $(".mi-hunter-div");  
 
-    if (hunters[i].bait_name == "Super|brie+"){  
-      hDiv[0].appendChild(hunterPic);
-    } else if (hunters[i].bait_name == "Monterey Jack-O-Lantern"){
+    if (hunters[i].bait_name == "Monterey Jack-O-Lantern"){
       hDiv[1].appendChild(hunterPic);
     } else if (hunters[i].bait_name == "Bonefort Cheese"){
       hDiv[2].appendChild(hunterPic);
@@ -186,6 +184,8 @@ function generate([cheese,hunters,mouse]){
       hDiv[3].appendChild(hunterPic);
     } else if (hunters[i].bait_name == "Scream Cheese"){
       hDiv[4].appendChild(hunterPic);
+    } else {  
+      hDiv[0].appendChild(hunterPic);
     }
   }
 }
