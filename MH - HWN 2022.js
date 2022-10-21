@@ -2,7 +2,7 @@
 // @name         MouseHunt - Hween 2022 Trick/Treat map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.4
+// @version      1.1.5
 // @description  Color codes mice on trick/treat maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -66,7 +66,7 @@ const screamMice = [
 const miceGroups = [
     ["Std", standardMice, 40, "", 114, "#D7BDE2"], // light purple
     ["Jack", jackoMice, 40, "Monterey Jack-O-Lantern", 3305, "#F8C471"], // orange
-    ["Bone", boneMice, 55, "Bonefort Cheese", 3306, "#E6B0AA"], // red
+    ["Bone", boneMice, 45, "Bonefort Cheese", 3306, "#E6B0AA"], // red
     ["Polter", pgMice, 45, "Polter-Geitost", 3307, "#A9CCE3"], // blue
     ["Scream", screamMice, 45, "Scream Cheese", 3308, "#AED581"], // green
 ];
