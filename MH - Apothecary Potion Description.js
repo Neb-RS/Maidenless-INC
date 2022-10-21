@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name        MH - Apothecary Description
+// @name        MH - Apothecary Potion Description
 // @version     1.0.0
 // @description Show potion description in Apothecary
 // @author      Maidenless
