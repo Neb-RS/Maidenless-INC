@@ -2,7 +2,7 @@
 // @name         MH - Map Re-inviter
 // @description  Repeat invites for RR
 // @author       Maidenless
-// @version      1.0.5
+// @version      1.0.6
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
@@ -77,14 +77,14 @@ function addRepeater(){
         })
     }
     //disable if not maptain   
-    var maptain = $(".treasureMapView-hunter.captain")[0].children[0].children[0].title;
+    /*var maptain = $(".treasureMapView-hunter.captain")[0].children[0].children[0].title;
     var username = user.firstname ? user.firstname : user.lastname;
     if (maptain.indexOf(username)<0){
         inviteNode.onclick = function(){
             return;
         }
         inviteNode.style.background = "grey";
-    }
+    }*/
     injectNode.insertAdjacentElement("afterend",inviteNode);
     //https://stackoverflow.com/questions/46868091/css-trouble-with-displaynone-not-being-recognized
     var displayValue = window.getComputedStyle($(".mi-invite-repeat")[0]).display
@@ -212,7 +212,7 @@ async function render(res){
         var combinedId = []
         for (let i=0;i<nameChecked.length;i++){
             if (nameChecked[i].checked == true){
-                console.log(nameChecked + "is checked");
+                console.log(nameChecked[i] + "is checked");
                 var nameInvite = $(".mi-checkbox")[i].parentNode.parentNode.children[1].innerHTML
                 console.log("Inviting " + nameInvite)
                 //Get the snuid from the name
