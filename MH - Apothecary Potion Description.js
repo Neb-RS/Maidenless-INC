@@ -1,10 +1,12 @@
 // ==UserScript==
 // @name        MH - Apothecary Potion Description
-// @version     1.0.0
+// @version     1.0.1
 // @description Show potion description in Apothecary
 // @author      Maidenless
 // @match       https://www.mousehuntgame.com/shops.php?tab=general_store&sub_tab=all
+// @match       https://www.mousehuntgame.com/shops.php?tab=general_store
 // @match       https://apps.facebook.com/mousehunt/shops.php?tab=general_store&sub_tab=all
+// @match       https://apps.facebook.com/mousehunt/shops.php?tab=general_store
 // @resource    https://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css
 // @require     https://code.jquery.com/ui/1.12.1/jquery-ui.js
 // @require     https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js
