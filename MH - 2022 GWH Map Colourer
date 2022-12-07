@@ -2,7 +2,7 @@
 // @name         MouseHunt - GWH 2022 Nice/Naughty map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.1
+// @version      1.0.2
 // @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -14,9 +14,9 @@
 const displayMinLuck = true; // Will display minluck for the group of mouse iff true.
 const displayAR = false; // Will display the AR for each uncaught mouse iff true.
 const displayHunterCheese = false; // Will display which group of mouse the hunter if attempting iff true.
-let assignBaitChange = false; // Avoid the bait change event being registered more than once.
+let assignBaitChange = true; // Avoid the bait change event being registered more than once.
 
-// If the chest name contains any of hte following as a substring, enable the colour coder.
+// If the chest name contains any of the following as a substring, enable the colour coder.
 const chestKeywords = [
     "Nice",
     "Naughty",
@@ -101,7 +101,6 @@ const ppFortressMice = [
     ["Builder", "0%"],
 ];
 const ppGppFortressMice = [
-    ["Christmas Tree", "0%"],
     ["Borean Commander", "0%"],
     ["Glacia Ice Fist", "0%"],
     ["Great Winter Hunt Impostor", "0%"],
@@ -118,20 +117,20 @@ const ppGppFortressMice = [
 
 // group name, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
-    ["Any<br>Std", standardAnyMice, 10, "", 114, "#D7BDE2"], // light purple
-    ["Any<br>PP", ppAnyMice, 24, "", 114, "#F8C471"], // orange
-    ["Any<br>GPP", gppAnyMice, 1, "", 114, "#E6B0AA"], // red
-    ["Any<br>Boss", bossMice, 1, "", 114, "#03FC88"], // red
-    ["Hill<br>Std", standardHillMice, 33, "", 114, "#A9CCE3"], // blue
-    ["Hill<br>PP", ppHillMice, 12, "", 114, "#AED581"], // green
-    ["Hill<br>PP/GPP", ppGppHillMice, 38, "", 114, "#C97C49"], // green
-    ["Workshop<br>Std", standardWorkshopMice, 35, "", 114, "#8F75E2"], // blue
-    ["Workshop<br>SB", sbWorkshopMice, 33, "", 114, "#F9A645"], // blue
-    ["Workshop<br>PP", ppWorkshopMice, 8, "", 114, "#FFF935"], // green
-    ["Workshop<br>PP/GPP", ppGppWorkshopMice, 44, "", 114, "#42B9F5"], // green
-    ["Fortress<br>Std", standardFortressMice, 38, "", 114, "#F542C2"], // blue
-    ["Fortress<br>PP", ppFortressMice, 17, "", 114, "#F542C2"], // green
-    ["Fortress<br>PP/GPP", ppGppFortressMice, 53, "", 114, "#F542C2"], // green
+    ["Any<br>Std", standardAnyMice, 10, "", 114, "#B6D7A8"],
+    ["Any<br>PP", ppAnyMice, 24, "", 2522, "#93C47D"],
+    ["Any<br>GPP", gppAnyMice, 1, "", 2733 , "#6AA84F "],
+    ["Any<br>Boss", bossMice, 30, "", 114, "#1C4587"],
+    ["Hill<br>Std", standardHillMice, 33, "", 114, "#FCE5CD"],
+    ["Hill<br>PP", ppHillMice, 12, "", 2522, "#F6B26B"],
+    ["Hill<br>PP/GPP", ppGppHillMice, 38, "", 2522, "#F9CB9C"],
+    ["Workshop<br>Std", standardWorkshopMice, 35, "", 114, "#F4CCCC"],
+    ["Workshop<br>SB", sbWorkshopMice, 33, "", 114, "#"],
+    ["Workshop<br>PP", ppWorkshopMice, 8, "", 2522, "#E06666"],
+    ["Workshop<br>PP/GPP", ppGppWorkshopMice, 44, "", 2522, "#EA9999"],
+    ["Fortress<br>Std", standardFortressMice, 38, "", 114, "#C9DAF8"],
+    ["Fortress<br>PP", ppFortressMice, 17, "", 2522, "#3C78D8"],
+    ["Fortress<br>PP/GPP", ppGppFortressMice, 53, "", 2522, "#6FA8DC"],
 ];
 
 class Mouse {
@@ -144,6 +143,7 @@ class Mouse {
 class MiceGroup {
     constructor(name, minluck, cheese, baitId, color) {
         this.name = name;
+        this.id = name.replace(/[^a-zA-Z0-9]/g,'')
         this.mice = [];
         this.minluck = minluck;
         this.cheese = cheese;
@@ -285,10 +285,9 @@ function colorize() {
         }
     });
 
-    
-    for (let i = 0; i < allMiceGroups.length; i++) {
+    /*for (let i = 0; i < allMiceGroups.length; i++) {
         console.log(allMiceGroups[i].name + " " + allMiceGroups[i].cheese + " " + allMiceGroups[i].count);
-    }
+    }*/
 
     // Remove existing tsitu-map-div related elements before proceeding
     document.querySelectorAll(".tsitu-map-div").forEach(el => el.remove());
@@ -304,7 +303,7 @@ function colorize() {
 
     for (let i = 0; i < allMiceGroups.length; i++) {
         const newSpan = document.createElement("span");
-        newSpan.classList.add(allMiceGroups[i].name.replace(/\s/g, "") + "Span");
+        newSpan.classList.add(allMiceGroups[i].id + "Span");
         if (allMiceGroups[i].count > 0) {
             newSpan.style = "background-color: " + allMiceGroups[i].color + spanStyle;
         }
@@ -313,9 +312,9 @@ function colorize() {
         }
         newSpan.innerHTML = allMiceGroups[i].name;
         if (displayMinLuck) {
-            newSpan.innerHTML = newSpan.innerHTML + " (" + allMiceGroups[i].minluck + ")";
+            newSpan.innerHTML = newSpan.innerHTML + "<br>" + "Minluck " + allMiceGroups[i].minluck;
         }
-        newSpan.innerHTML = newSpan.innerHTML + "<br>" + allMiceGroups[i].count;
+        newSpan.innerHTML = newSpan.innerHTML + "<br>" + "Mice: " + allMiceGroups[i].count;
         if (allMiceGroups[i].count > 0) {
             spans.push(newSpan);
         }
@@ -389,10 +388,13 @@ function colorize() {
         // Avoid assigning the event more than once.
         assignBaitChange = false;
         for (let i = 0; i < allMiceGroups.length; i++) {
-            //Warden added this (waves)
-            $(document).on('click', '.' + allMiceGroups[i].name + 'Span', function() {
-                hg.utils.TrapControl.setBait(allMiceGroups[i].baitId).go();
-            });
+            if (allMiceGroups[i].count > 0) {
+                //console.log(allMiceGroups[i].id + " " + allMiceGroups[i].cheese + " " + allMiceGroups[i].count);
+                //Warden added this (waves)
+                $(document).on('click', '.' + allMiceGroups[i].id + 'Span', function() {
+                    hg.utils.TrapControl.setBait(allMiceGroups[i].baitId).go();
+                });
+            }
         }
     }
 }
