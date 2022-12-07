@@ -2,8 +2,8 @@
 // @name         MouseHunt - GWH 2022 Nice/Naughty map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.0
-// @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually. ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as "[Gouda] | [SB]". ARs given for (G)PP are given as "[PP] | [GPP]".
+// @version      1.1.1
+// @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually. ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]). ARs given for (G)PP are given as ([PP] | [GPP]).
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
@@ -298,7 +298,7 @@ function colorize() {
     const masterDiv = document.createElement("div");
     masterDiv.className = "tsitu-map-div";
     masterDiv.style =
-        "display: inline-flex; margin-bottom: 10px; width: 100%; text-align: center; line-height: 1.5; overflow: hidden";
+        "display: inline-flex; margin-bottom: 5px; width: 100%; text-align: center; line-height: 1.25; overflow: hidden";
     const spanStyle =
           "; width: auto; padding: 5px; font-weight: bold; font-size: 12.75px; text-shadow: 0px 0px 11px white";
 
@@ -315,13 +315,25 @@ function colorize() {
         }
         newSpan.innerHTML = allMiceGroups[i].name;
         if (displayMinLuck) {
-            newSpan.innerHTML = newSpan.innerHTML + "<br> Minluck " + allMiceGroups[i].minluck;
+            newSpan.innerHTML = newSpan.innerHTML + "<br> ML: " + allMiceGroups[i].minluck;
         }
         newSpan.innerHTML = newSpan.innerHTML + "<br> Mice: " + allMiceGroups[i].count;
         if (allMiceGroups[i].count > 0) {
             spans.push(newSpan);
         }
     }
+
+    const ARDiv = document.createElement("div");
+    ARDiv.className = "tsitu-map-div";
+    ARDiv.style =
+        "display: inline-flex; margin-bottom: 10px; width: 100%; text-align: left; line-height: 1.25; overflow: hidden";
+    const ARStyle =
+          "background-color: white; width: auto; padding: 0px; font-weight: bold; font-size: 11px";
+
+    const ARwarning = document.createElement("span");
+    ARwarning.innerHTML = "ARs assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]).<br>ARs given for (G)PP are given as ([PP] | [GPP]).";
+    ARwarning.style = ARStyle;
+    if (displayAR) {ARDiv.appendChild(ARwarning);}
 
     // Highlight uncaught only feature
     const highlightLabel = document.createElement("label");
@@ -367,6 +379,7 @@ function colorize() {
         )
     ) {
         insertEl.insertAdjacentElement("afterbegin", highlightDiv);
+        insertEl.insertAdjacentElement("afterbegin", ARDiv);
         insertEl.insertAdjacentElement("afterbegin", masterDiv);
     }
 
