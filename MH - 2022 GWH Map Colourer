@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         MouseHunt - GWH 2022 Nice/Naughty map colour coder
-// @author       tsitu & Leppy & in59te & Warden Slayer
+// @author       tsitu & Leppy & Neb & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.1
+// @version      1.1.2
 // @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually. ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]). ARs given for (G)PP are given as ([PP] | [GPP]).
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -11,10 +11,11 @@
 
 // Credit to the minluck and mice population prepared by Seli and Neb.
 
-const displayMinLuck = true; // Will display minluck for the group of mouse iff true.
-const displayAR = true; // Will display the AR for each uncaught mouse iff true.
+const displayMinLuck = true; // Will display minluck for the group of mouse in advanced view iff true.
+const displayAR = true; // Will display the AR for each uncaught mouse in advanced view iff true.
 const displayHunterCheese = false; // Will display which group of mouse the hunter if attempting iff true.
 let assignBaitChange = true; // Avoid the bait change event being registered more than once.
+const ARwarningText = "ARs assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]).<br>ARs given for (G)PP are given as ([PP] | [GPP]).";
 
 // If the chest name contains any of the following as a substring, enable the colour coder.
 const chestKeywords = [
@@ -123,7 +124,6 @@ const miceGroups = [
     ["Any<br>Standard", standardAnyMice, 10, "", 114, "#B6D7A8"],
     ["Any<br>PP", ppAnyMice, 24, "", 2522, "#93C47D"],
     ["Any<br>GPP", gppAnyMice, 1, "", 2733 , "#6AA84F "],
-    ["Any<br>Boss", bossMice, 30, "", 114, "#1C4587"],
     ["Hill<br>Standard", standardHillMice, 33, "", 114, "#FCE5CD"],
     ["Hill<br>PP", ppHillMice, 12, "", 2522, "#F6B26B"],
     ["Hill<br>PP/GPP", ppGppHillMice, 38, "", 2522, "#F9CB9C"],
@@ -134,6 +134,7 @@ const miceGroups = [
     ["Fortress<br>Standard", standardFortressMice, 38, "", 114, "#C9DAF8"],
     ["Fortress<br>PP", ppFortressMice, 17, "", 2522, "#3C78D8"],
     ["Fortress<br>PP/GPP", ppGppFortressMice, 53, "", 2522, "#6FA8DC"],
+    ["Fortress<br>Boss", bossMice, 30, "", 114, "#7095E4"],
 ];
 
 class Mouse {
@@ -181,6 +182,9 @@ class MiceGroup {
 let allMiceGroups = []; // This contains all info about the various group of mice.
 let miceNameDict = {}; // If displayAR == true, we are forced to modify the <span> element's text to mouse name + AR, so we need to be able to go back to the original mouse name.
 
+let simpleView = true; // Toggle between simple and advanced view
+
+
 function initialise() {
     // Avoid initialising more than once as the script can be called multiple times by other plug-in.
     if (allMiceGroups.length > 0) {
@@ -210,6 +214,10 @@ function addAr(mouseSpan, mouseName, miceGroup) {
         miceNameDict[mouseNameWithAr] = mouseName;
     }
     mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").firstChild .textContent = mouseNameWithAr;
+}
+
+function removeAr(mouseSpan, mouseName) {
+    mouseSpan.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").firstChild .textContent = mouseName;
 }
 
 const defaultColor = miceGroups[0][5];
@@ -245,9 +253,9 @@ function hunterColorize() {
 function colorize() {
     const greyColor = "#949494";
 
-    const isChecked =
-          localStorage.getItem("highlightPref") === "uncaught-only" ? true : false;
+    const isChecked = !simpleView;
     const isCheckedStr = isChecked ? "checked" : "";
+    console.log(isCheckedStr);
 
     if (
         document.querySelectorAll(".treasureMapView-goals-group-goal").length === 0
@@ -278,8 +286,10 @@ function colorize() {
                 el.style.backgroundColor = allMiceGroups[i].color;
                 if (el.className.indexOf(" complete ") < 0) {
                     allMiceGroups[i].count++;
-                    if (displayAR) {
+                    if (displayAR && !simpleView) {
                         addAr(el, mouseName, allMiceGroups[i]);
+                    } else {
+                        removeAr(el, mouseName)
                     }
                 } else {
                     if (isChecked) el.style.backgroundColor = "white";
@@ -314,10 +324,12 @@ function colorize() {
             newSpan.style = "background-color: " + greyColor + spanStyle;
         }
         newSpan.innerHTML = allMiceGroups[i].name;
-        if (displayMinLuck) {
+        if (displayMinLuck && !simpleView) {
             newSpan.innerHTML = newSpan.innerHTML + "<br> ML: " + allMiceGroups[i].minluck;
+            newSpan.innerHTML = newSpan.innerHTML + "<br> Mice: " + allMiceGroups[i].count;
+        } else {
+            newSpan.innerHTML = newSpan.innerHTML + "<br>" + allMiceGroups[i].count;
         }
-        newSpan.innerHTML = newSpan.innerHTML + "<br> Mice: " + allMiceGroups[i].count;
         if (allMiceGroups[i].count > 0) {
             spans.push(newSpan);
         }
@@ -331,14 +343,14 @@ function colorize() {
           "background-color: white; width: auto; padding: 0px; font-weight: bold; font-size: 11px";
 
     const ARwarning = document.createElement("span");
-    ARwarning.innerHTML = "ARs assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]).<br>ARs given for (G)PP are given as ([PP] | [GPP]).";
+    ARwarning.innerHTML = ARwarningText;
     ARwarning.style = ARStyle;
-    if (displayAR) {ARDiv.appendChild(ARwarning);}
+    if (displayAR && !simpleView) {ARDiv.appendChild(ARwarning);}
 
-    // Highlight uncaught only feature
+    // Simple vs Advanced View
     const highlightLabel = document.createElement("label");
     highlightLabel.htmlFor = "tsitu-highlight-box";
-    highlightLabel.innerText = "Highlight uncaught mice only";
+    highlightLabel.innerText = "Advanced view";
 
     const highlightBox = document.createElement("input");
     highlightBox.type = "checkbox";
@@ -347,9 +359,9 @@ function colorize() {
     highlightBox.checked = isChecked;
     highlightBox.addEventListener("click", function () {
         if (highlightBox.checked) {
-            localStorage.setItem("highlightPref", "uncaught-only");
+            simpleView = false;
         } else {
-            localStorage.setItem("highlightPref", "all");
+            simpleView = true;
         }
         if (displayHunterCheese) {
             hunterColorize();
