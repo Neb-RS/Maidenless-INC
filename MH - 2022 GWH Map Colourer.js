@@ -2,7 +2,7 @@
 // @name         MouseHunt - GWH 2022 Nice/Naughty map colour coder
 // @author       tsitu & Leppy & Neb & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.4
+// @version      1.1.5
 // @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually. ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]). ARs given for (G)PP are given as ([PP] | [GPP]).
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -21,6 +21,7 @@ const ARwarningText = "ARs assume SB, if Gouda is relevant the ARs are given as 
 const chestKeywords = [
     "Nice",
     "Naughty",
+    "New Year's",
 ];
 
 // name, AR - per UNIX 1670418873
@@ -65,6 +66,7 @@ const ppGppHillMice = [
     ["Snowball Hoarder", "7.99% | 13.69%"],
     ["Sporty Ski Instructor", "12.75% | 10%"],
     ["Wreath Thief", "10.3% | 8.41%"],
+    ["Frightened Flying Fireworks", "???% | ???%"],
 ];
 const standardWorkshopMice = [
     ["Gingerbread", "18.77%"],
@@ -92,6 +94,7 @@ const ppGppWorkshopMice = [
     ["Stocking", "3.21% | 3.53%"],
     ["Toy", "10.62% | 11.52%"],
     ["Toy Tinkerer", "7.41% | 5.76%"],
+    ["Party Head", "???% | ???%"],
 ];
 const standardFortressMice = [
     ["Confused Courier", "13.75%"],
@@ -117,6 +120,7 @@ const ppGppFortressMice = [
     ["Snow Sorceress", "3.68% | 6.37%"],
     ["Squeaker Claws", "4.91% | 3.18%"],
     ["Tundra Huntress", "4.91% | 2.55%"],
+    ["New Year's", "???% | ???%"],
 ];
 
 // group name, mice, minimum luck, bait, bait ID, color
