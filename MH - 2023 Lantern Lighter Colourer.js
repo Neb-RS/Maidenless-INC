@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name         MouseHunt - GWH 2022 Nice/Naughty map colour coder
-// @author       tsitu & Leppy & Neb & in59te & Warden Slayer
+// @name         MouseHunt - LNY 2023 Lantern Lighter Colourer
+// @author       tsitu & Leppy & Neb & in59te & Warden Slayer & kuh
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.6
-// @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually. ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]). ARs given for (G)PP are given as ([PP] | [GPP]).
+// @version      0.25
+// @description  Color codes mice on Lantern Lighter maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
@@ -12,133 +12,48 @@
 // Credit to the minluck and mice population prepared by Seli and Neb.
 
 const displayMinLuck = true; // Will display minluck for the group of mouse in advanced view iff true.
-const displayAR = true; // Will display the AR for each uncaught mouse in advanced view iff true.
-const displayHunterCheese = false; // Will display which group of mouse the hunter if attempting iff true.
+const displayAR = false; // Will display the AR for each uncaught mouse in advanced view iff true.
+const displayHunterCheese = true; // Will display which group of mouse the hunter if attempting iff true.
 let assignBaitChange = true; // Avoid the bait change event being registered more than once.
-const ARwarningText = "ARs assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]).<br>ARs given for (G)PP are given as ([PP] | [GPP]).";
+const ARwarningText = "Dumpling Chef has special LNY effectivenesses. Its minluck is 23 for Tactical and 32 for all other types.";
 
 // If the chest name contains any of the following as a substring, enable the colour coder.
 const chestKeywords = [
-    "Nice",
-    "Naughty",
-    "New Year's",
+    "Lantern Lighter ",
 ];
 
 // name, AR - per UNIX 1670418873
-// ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as "[Gouda] | [SB]"
-// ARs given for (G)PP are given as "[PP] | [GPP]"
 
 const standardAnyMice = [
-    ["Hoarder", "22.74%"], //lowest currently known sb AR%, some areas may be better
+    ["Costumed Dog", "22.74%"], 
+    ["Costumed Dragon", "22.74%"], 
+    ["Costumed Horse", "22.74%"], 
+    ["Costumed Monkey", "22.74%"], 
+    ["Costumed Ox", "22.74%"], 
+    ["Costumed Pig", "22.74%"], 
+    ["Costumed Rabbit", "22.74%"], 
+    ["Costumed Rat", "22.74%"], 
+    ["Costumed Rooster", "22.74%"], 
+    ["Costumed Sheep", "22.74%"], 
+    ["Costumed Snake", "22.74%"], 
+    ["Costumed Tiger", "22.74%"], 
 ];
-const ppAnyMice = [
-    ["Snowflake", "2.6% | 4.48%"], //lowest currently known, some areas may be better
-    ["Stuck Snowball", "3.86% | 4.48%"], //lowest currently known, some areas may be better
+const NGD = [
+    ["Lunar Red Candle Maker", "2.6% | 4.48%"], 
 ];
-const gppAnyMice = [
-    ["Glazy", "4.35%"], //lowest currently known, some areas may be better
-    ["Joy", "5.86%"], //lowest currently known, some areas may be better
-];
-const bossMice = [
-    ["Frost King", "special"],
-];
-const standardHillMice = [
-    ["Candy Cane", "24.18%"],
-    ["Nice Knitting", "12.94% | 8.06%"],
-    ["Shorts-All-Year", "10.94%"],
-    ["Snow Scavenger", "6.72%"],
-    ["Toboggan Technician", "11.13%"],
-    ["Young Prodigy Racer", "19.72% | 15.55%"],
-];
-const ppHillMice = [
-    ["Triple Lutz", "5.04%"],
-];
-const ppGppHillMice = [
-    ["Black Diamond Racer", "19.22% | 8.73%"],
-    ["Double Black Diamond Racer", "4.02% | 3.63%"],
-    ["Free Skiing", "4.09% | 3.76%"],
-    ["Great Giftnapper", "3.06% | 2.61%"],
-    ["Nitro Racer", "4.24% | 3.89%"],
-    ["Ol' King Coal", "2.11% | 2.23%"],
-    ["Rainbow Racer", "2.36% | 2.17%"],
-    ["Snow Boulder", "7.83% | 11.91%"],
-    ["Snow Golem Jockey", "9.8% | 8.22%"],
-    ["Snowball Hoarder", "7.99% | 13.69%"],
-    ["Sporty Ski Instructor", "12.75% | 10%"],
-    ["Wreath Thief", "10.3% | 8.41%"],
-    ["Frightened Flying Fireworks", "???% | ???%"],
-];
-const standardWorkshopMice = [
-    ["Gingerbread", "18.77%"],
-    ["Greedy Al", "11.08%"],
-    ["Mouse of Winter Future", "14.5% | 9.23%"],
-    ["Mouse of Winter Past", "11.08%"],
-    ["Mouse of Winter Present", "22.75% | 16.31%"],
-];
-const sbWorkshopMice = [
-    ["Scrooge", "9.23%"],
-];
-const ppWorkshopMice = [
-    ["Ribbon", "5.97%"],
-];
-const ppGppWorkshopMice = [
-    ["Christmas Tree", "9.7% | 7.99%"],
-    ["Destructoy", "7.61% | 10.69%"],
-    ["Elf", "17.44% | 8.7%"],
-    ["Mad Elf", "1.51% | 1.76%"],
-    ["Nutcracker", "4.33% | 3.88%"],
-    ["Ornament", "3.8% | 3.41%"],
-    ["Present", "10.03% | 7.52%"],
-    ["Ridiculous Sweater", "8.52% | 9.75%"],
-    ["Snow Golem Architect", "2.82% | 4.11%"],
-    ["Stocking", "3.21% | 3.53%"],
-    ["Toy", "10.62% | 11.52%"],
-    ["Toy Tinkerer", "7.41% | 5.76%"],
-    ["Party Head", "???% | ???%"],
-];
-const standardFortressMice = [
-    ["Confused Courier", "13.75%"],
-    ["Frigid Foreman", "11.67% | 8.13%"],
-    ["Miser", "15.63%"],
-    ["Missile Toe", "15.63%"],
-    ["Snowblower", "12.78% | 7.5%"],
-    ["Snowglobe", "21.67% | 9.38%"],
-];
-const ppFortressMice = [
-    ["Builder", "4.29%"],
-];
-const ppGppFortressMice = [
-    ["Borean Commander", "4.91% | 6.37%"],
-    ["Glacia Ice Fist", "11.66% | 4.46%"],
-    ["Great Winter Hunt Impostor", "6.75% | 11.78%"],
-    ["Iceberg Sculptor", "3.07% | 2.55%"],
-    ["Naughty Nougat", "4.29% | 6.05%"],
-    ["Reinbo", "19.02% | 4.14%"],
-    ["S.N.O.W. Golem", "6.75% | 4.78%"],
-    ["Slay Ride", "9.2% | 11.46%"],
-    ["Snow Fort", "11.04% | 8.6%"],
-    ["Snow Sorceress", "3.68% | 6.37%"],
-    ["Squeaker Claws", "4.91% | 3.18%"],
-    ["Tundra Huntress", "4.91% | 2.55%"],
-    ["New Year's", "???% | ???%"],
+const dumpling = [
+    ["Calligraphy", "4.35%"], 
+    ["Red Envelope", "5.86%"], 
+    ["Dumpling Chef", "5.86%"], 
 ];
 
 // group name, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
-    ["Any<br>Standard", standardAnyMice, 10, "", 114, "#B6D7A8"],
-    ["Any<br>PP", ppAnyMice, 24, "", 2522, "#93C47D"],
-    ["Any<br>GPP", gppAnyMice, 1, "", 2733 , "#6AA84F "],
-    ["Hill<br>Standard", standardHillMice, 33, "", 114, "#FCE5CD"],
-    ["Hill<br>PP", ppHillMice, 12, "", 2522, "#F6B26B"],
-    ["Hill<br>PP/GPP", ppGppHillMice, 38, "", 2522, "#F9CB9C"],
-    ["Workshop<br>Standard", standardWorkshopMice, 35, "", 114, "#F4CCCC"],
-    ["Workshop<br>SB", sbWorkshopMice, 33, "", 114, "#"],
-    ["Workshop<br>PP", ppWorkshopMice, 8, "", 2522, "#E06666"],
-    ["Workshop<br>PP/GPP", ppGppWorkshopMice, 44, "", 2522, "#EA9999"],
-    ["Fortress<br>Standard", standardFortressMice, 38, "", 114, "#C9DAF8"],
-    ["Fortress<br>PP", ppFortressMice, 17, "", 2522, "#3C78D8"],
-    ["Fortress<br>PP/GPP", ppGppFortressMice, 53, "", 2522, "#6FA8DC"],
-    ["Fortress<br>Boss", bossMice, 30, "", 114, "#7095E4"],
+
+    ["Any", standardAnyMice, 18, "", 2271, "#B6D7A8"],
+    ["Nian Gao'da<br>Only", NGD, 5, "", 2548, "#EA9999"],
+    ["Dumpling<br>Only", dumpling, 23, "", 2271 , "#6FA8DC "],
+
 ];
 
 class Mouse {
