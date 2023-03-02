@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         MH - Minluck & CRE tool v2.0 (new) (newer)
+// @name         MH - Minluck & CRE tool v2.0 (new)
 // @description  Shows hunt statistics on the camp page
 // @author       Chromatical
 // @match        https://www.mousehuntgame.com/*
