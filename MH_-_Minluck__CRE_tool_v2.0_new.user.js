@@ -4671,7 +4671,12 @@ function getData() {
 		baitName = user.bait_name;
 		trapPowerType = user.trap_power_type_name;
 		// locationName = user.environment_name // For some reason this is not updated upon travelling.
-		locationName = document.getElementsByClassName("mousehuntHud-environmentName")[0].innerText;
+		let locationElem = document.getElementsByClassName("mousehuntHud-environmentName")[0];
+        if (!locationElem) { // This does not exist on old hud
+            locationName = document.getElementsByClassName("hud_location")[0].innerText;
+        } else {
+            locationName = locationElem.innerText;
+        }
 		logUserInfo();
 		hgPromise(hg.utils.UserInventory.getItem, 'rift_luck_codex_stat_item').then(response => riftLuckCodex = (response.quantity == 1));
 
