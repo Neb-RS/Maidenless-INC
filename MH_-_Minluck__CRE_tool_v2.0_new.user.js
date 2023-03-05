@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.0.0
+// @version      3.0.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4671,7 +4671,12 @@ function getData() {
 		baitName = user.bait_name;
 		trapPowerType = user.trap_power_type_name;
 		// locationName = user.environment_name // For some reason this is not updated upon travelling.
-		locationName = document.getElementsByClassName("mousehuntHud-environmentName")[0].innerText;
+		let locationElem = document.getElementsByClassName("mousehuntHud-environmentName")[0];
+        if (!locationElem) { // This does not exist on old hud
+            locationName = document.getElementsByClassName("hud_location")[0].innerText;
+        } else {
+            locationName = locationElem.innerText;
+        }
 		logUserInfo();
 		hgPromise(hg.utils.UserInventory.getItem, 'rift_luck_codex_stat_item').then(response => riftLuckCodex = (response.quantity == 1));
 
