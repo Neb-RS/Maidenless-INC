@@ -4796,7 +4796,7 @@ function renderBox(list) {
 		infoButton.style.marginLeft = "10px"
 		infoButton.onclick = function() {
 			let position = JSON.parse(localStorage.getItem("Chro-minluck-vwvh")).split(",");
-			let mes = prompt("More information can be found at:\nhttps://tsitu.github.io/MH-Tools/cre.html\nLast Updated 5 Aug 2022\nSSBD - Someone\n\n Change tool's position / Set % for red text?\n\n" +
+			let mes = prompt("More information can be found at:\nhttps://tsitu.github.io/MH-Tools/cre.html\nLast Updated 23 March 2023\nSSBD - Someone\n\n Change tool's position / Set % for red text?\n\n" +
 				"Left: " + position[0] + "\nTop: " + position[1] + "\nRed text at: " + position[2] + "%", "35,28,60");
 			if (mes == null || mes == "") {
 				return
@@ -5171,7 +5171,7 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
 			} else if (mouseName == "Mystic Pawn") {
 				logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
 				adjustedTrapPower -= 60;
-				adjustedTrapPowerBonus -= 5; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+				adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
 			}
 		} else if (weaponName == "Mystic Pawn Pincher") {
 			// Pawn Pinchers give +10920 Power on corresponding Pawn, -60 Power and -5 Luck on opposite Pawn
@@ -5181,7 +5181,7 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
 			} else if (mouseName == "Technic Pawn") {
 				logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
 				adjustedTrapPower -= 60;
-				adjustedTrapPowerBonus -= 5; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+				adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
 			}
 		}
 		if (charmName == "Rook Crumble Charm" && ["Mystic Rook", "Technic Rook"].includes(mouseName)) {
@@ -5266,7 +5266,8 @@ function specialMPEff(mouseName, mouse_power, eff) {
 		// With this charm equipped, you will catch the very next mouse you encounter - guaranteed!
 		// These Ultimate Anchor Charms only work while diving at the Sunken City.
 		logCRAdjustmentInfo(mouseName, "Ultimate Anchor Charm");
-		mouse_power = 0;
+		mouse_power = 0
+		eff = 1;
 	}
 	if (charmName == "Sheriff's Badge Charm" && mouseName == "Bounty Hunter") {
 		// With a Sheriff's Badge Charm equipped, hunters who encounter a Bounty Hunter Mouse are guaranteed to catch him and bring him to justice
