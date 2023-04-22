@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         MouseHunt - SP / FI Map Color Coder 2021
 // @author       Tran Situ (tsitu) & Leppy
-// @version      1.3.1
+// @version      1.3.2
 // @description  Color codes mice on SP / FI maps according to decorations // & cheese. Based off tsitu's work.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -17,7 +17,6 @@
 // - HAI means HAI friend
 // - * at LP means the SB+ mouse, i.e. CM
 // ==/UserScript==
-
 const launchPadMice = [
     "Skydiver",
     "Sky Greaser",
@@ -580,7 +579,7 @@ function colorize(copyFlag) {
     masterDiv.style =
         "display: inline-flex; margin-bottom: 10px; width: 100%; text-align: center; line-height: 1.5; overflow: hidden";
     const spanStyle =
-        "; width: auto; padding: 5px; font-weight: bold; font-size: 12.75px; text-shadow: 0px 0px 11px white";
+        "; width: auto; padding: 5px; color: black; font-weight: bold; font-size: 12.75px; text-shadow: 0px 0px 11px white";
 
     const guardSpan = document.createElement("span");
     guardSpan.style = "background-color: " + guardColor + spanStyle;

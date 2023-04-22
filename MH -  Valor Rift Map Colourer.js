@@ -2,8 +2,8 @@
 // @name         MouseHunt - Valour Rift Map Colourer
 // @author       tsitu & Leppy & Neb & in59te & Warden Slayer & kuh
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      0.25
-// @description  Color codes mice on Valour Rift maps according to type.
+// @version      0.26
+// @description  Color codes mice on Lantern Lighter maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
@@ -229,6 +229,7 @@ function colorize() {
     const mapMiceSet = new Set()
 
     document.querySelectorAll(".treasureMapView-goals-group-goal").forEach(el => {
+        el.querySelector("span").style = "color: black;";
         let mouseName = el.querySelector(".treasureMapView-goals-group-goal-name").querySelector("span").firstChild .textContent;
         // Fix up the mouse name if we added AR info in.
         if (mouseName in miceNameDict) {
