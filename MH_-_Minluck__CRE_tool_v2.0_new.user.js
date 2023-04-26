@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.0.1
+// @version      3.1.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5168,20 +5168,22 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
 			if (mouseName == "Technic Pawn") {
 				logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap +10920 trap power");
 				adjustedTrapPower += 10920;
-			} else if (mouseName == "Mystic Pawn") {
-				logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
-				adjustedTrapPower -= 60;
-				adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+				adjustedTrapLuck += 51;
+			// } else if (mouseName == "Mystic Pawn") { //Commenting it out entirely because we do not know what it does properly.
+			// 	logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
+			// 	adjustedTrapPower -= 60;
+			// 	adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
 			}
 		} else if (weaponName == "Mystic Pawn Pincher") {
 			// Pawn Pinchers give +10920 Power on corresponding Pawn, -60 Power and -5 Luck on opposite Pawn
 			if (mouseName == "Mystic Pawn") {
 				logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap +10920 trap power");
 				adjustedTrapPower += 10920;
-			} else if (mouseName == "Technic Pawn") {
-				logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
-				adjustedTrapPower -= 60;
-				adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+				adjustedTrapLuck += 51;
+			// } else if (mouseName == "Technic Pawn") { //Commenting it out entirely because we do not know what it does properly.
+			// 	logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
+			// 	adjustedTrapPower -= 60;
+			// 	adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
 			}
 		}
 		if (charmName == "Rook Crumble Charm" && ["Mystic Rook", "Technic Rook"].includes(mouseName)) {
@@ -5254,6 +5256,20 @@ function specialMPEff(mouseName, mouse_power, eff) {
 			}
 		}
 	}
+
+	// Special cases: Zokor
+    // Credit to tsitu and Neb for calculating
+    if (locationName == "Zokor") {
+        var bossCheck = user.quests.QuestAncientCity.boss;
+        if (bossCheck == "defeated") {
+            if (mouseName == "Reanimated Carver") {
+                mouse_power *= 5/9;
+            }
+            else {
+                mouse_power *= 3/4;
+            }
+        }
+    }
 
     // Special cases: Instacatch
 	if (charmName == "Ultimate Charm") {
