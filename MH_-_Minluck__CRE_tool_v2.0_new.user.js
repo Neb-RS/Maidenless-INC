@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.1.0
+// @version      3.2.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
