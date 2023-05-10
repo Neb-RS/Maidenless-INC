@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.2.0
+// @version      3.2.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -1608,7 +1608,7 @@ var allMiceInfo = {
         "power": 7600,
         "effs": [200, 0, 100, 0, 0, 0, 100, 0, 0, 0],
     },
-    "Gate Keeper ": {
+    "Gate Keeper": {
         "power": 25185,
         "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0, 0],
     },
@@ -4928,7 +4928,7 @@ function renderBox(list) {
         infoButton.style.marginLeft = "10px"
         infoButton.onclick = function() {
             let position = JSON.parse(localStorage.getItem("Chro-minluck-vwvh")).split(",");
-            let mes = prompt("More information can be found at:\nhttps://tsitu.github.io/MH-Tools/cre.html\nLast Updated 23 March 2023\nSSBD - Someone\n\n Change tool's position / Set % for red text?\n\n" +
+            let mes = prompt("More information can be found at:\nhttps://tsitu.github.io/MH-Tools/cre.html\nLast Updated 10 May 2023\n\n Change tool's position / Set % for red text?\n\n" +
                 "Left: " + position[0] + "\nTop: " + position[1] + "\nRed text at: " + position[2] + "%", "35,28,60");
             if (mes == null || mes == "") {
                 return
@@ -5017,10 +5017,17 @@ function renderBox(list) {
             var mouseNameConverted = list[i];
             var power_index = allType.indexOf(powerType);
 
-            var mice_power = allMiceInfo[mouseNameConverted].power;
-            var mice_eff = allMiceInfo[mouseNameConverted].effs[power_index];
-            var cr_string = convertToCR(mouseNameConverted, mice_power, mice_eff);
-            var minluck_string = mouseMinluck(mouseNameConverted, mice_power, mice_eff);
+            var cr_string, minluck_string;
+            var mouse_info = allMiceInfo[mouseNameConverted];
+            if (mouse_info) {
+                var mice_power = mouse_info.power;
+                var mice_eff = mouse_info.effs[power_index];
+                cr_string = convertToCR(mouseNameConverted, mice_power, mice_eff);
+                minluck_string = mouseMinluck(mouseNameConverted, mice_power, mice_eff);
+            } else {
+                // Mouse not found in info list
+                cr_string = minluck_string = 'Unknown';
+            }
 
             //minluck----
             var minLuck = document.createElement("td");
