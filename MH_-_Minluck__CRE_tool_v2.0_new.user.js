@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.2.2
+// @version      3.2.3
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -17,6 +17,7 @@
 // Kuhmann and Neb - Maintenance and QA
 // Pew Pew - Script and rewrite to ease importing from spreadsheet
 // Leppy - Addition of special modifiers
+// Xellis - Addition of fallback that prevents MiniCRE from opening.
 // and anyone else we may have missed :peepolove:
 
 //User Settings-----------------------------
@@ -4985,6 +4986,14 @@ function renderBox(list) {
         luckInfo.textContent = "Luck: ".concat(luck);
         luckInfo.style.fontWeight = "normal"
 
+        const locInfo = document.createElement("div")
+        locInfo.className = "loc-info"
+        if (locationName == "Bountiful Beanstalk"){
+        locInfo.textContent = "Catch Rates might be a little off as this is a new location.";}
+        else {locInfo.textContent = "Location: ".concat(locationName);}
+        locInfo.style.fontWeight = "normal"
+
+        setupInfo.appendChild(locInfo);
         setupInfo.appendChild(powerInfo);
         setupInfo.appendChild(luckInfo);
 
