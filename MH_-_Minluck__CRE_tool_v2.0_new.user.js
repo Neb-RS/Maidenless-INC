@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.2.1
+// @version      3.2.2
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5025,7 +5025,7 @@ function renderBox(list) {
                 cr_string = convertToCR(mouseNameConverted, mice_power, mice_eff);
                 minluck_string = mouseMinluck(mouseNameConverted, mice_power, mice_eff);
             } else {
-                // Mouse not found in info list
+                // Mouse not found in info list, credit to Xellis
                 cr_string = minluck_string = 'Unknown';
             }
 
