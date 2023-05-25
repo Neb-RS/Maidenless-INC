@@ -4185,7 +4185,7 @@ var allMiceInfo = {
         "power": 16500,
         "effs": [0, 300, 0, 0, 0, 0, 0, 0, 0, 0],
     },
-    "Thunderlord": {
+    "⚡Thunderlord⚡": {
         "power": 13500,
         "effs": [0, 300, 0, 0, 0, 0, 0, 0, 0, 0],
     },
@@ -4454,8 +4454,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 200, 0, 125, 0, 0],
     },
     "Vinneus Stalkhome": {
-        "power": 65731,
-        "effs": [0, 0, 0, 0, 0, 325, 0, 0, 0, 0],
+        "power": 70788,
+        "effs": [0, 0, 0, 0, 0, 350, 0, 0, 0, 0],
     },
     "Violent Violinist": {
         "power": 33090,
