@@ -46,8 +46,8 @@ var allMiceInfo = {
         "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0],
     },
     "Absolute Acolyte": {
-        "power": 54000,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 2500],
+        "power": 59400,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 2750],
     },
     "Acolyte": {
         "power": 18000,
@@ -398,8 +398,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 200, 0, 0, 0, 100, 0, 0],
     },
     "Bruticus, the Blazing": {
-        "power": 58920,
-        "effs": [0, 600, 0, 0, 0, 0, 0, 0, 0, 0],
+        "power": 49100,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Buccaneer": {
         "power": 4544,
@@ -514,8 +514,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0],
     },
     "Carrion Medium": {
-        "power": 8400,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 315],
+        "power": 8000,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 300],
     },
     "Cavalier": {
         "power": 1270,
@@ -578,8 +578,8 @@ var allMiceInfo = {
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100],
     },
     "Chess Master": {
-        "power": 88000,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 4000, 0, 0],
+        "power": 55000,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 2500, 0, 0],
     },
     "Chip Chiseler": {
         "power": 1260,
@@ -742,8 +742,8 @@ var allMiceInfo = {
         "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Corkataur": {
-        "power": 18630,
-        "effs": [0, 600, 0, 0, 0, 0, 0, 0, 0, 0],
+        "power": 15525,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Corky, the Collector": {
         "power": 2595,
@@ -1030,8 +1030,8 @@ var allMiceInfo = {
         "effs": [50, 50, 50, 50, 25, 50, 50, 200, 0, 0],
     },
     "Dancing Assassin": {
-        "power": 51150,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 275],
+        "power": 93000,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 500],
     },
     "Dangerous Duo": {
         "power": 4999,
@@ -1186,8 +1186,8 @@ var allMiceInfo = {
         "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Dragoon": {
-        "power": 38400,
-        "effs": [0, 400, 0, 0, 0, 0, 0, 0, 0, 0],
+        "power": 48000,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Dread Knight": {
         "power": 2450,
@@ -1298,8 +1298,8 @@ var allMiceInfo = {
         "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0],
     },
     "Emberstone Scaled": {
-        "power": 18690,
-        "effs": [0, 600, 0, 0, 0, 0, 0, 0, 0, 0],
+        "power": 15575,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Empyrean Appraiser": {
         "power": 20550,
@@ -2058,7 +2058,7 @@ var allMiceInfo = {
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0],
     },
     "Knight": {
-        "power": 700,
+        "power": 800,
         "effs": [50, 50, 50, 50, 25, 50, 50, 200, 0, 0],
     },
     "Koimaid": {
@@ -2206,8 +2206,8 @@ var allMiceInfo = {
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100],
     },
     "M400": {
-        "power": 24599,
-        "effs": [0, 0, 0, 0, 0, 75, 0, 75, 0, 0],
+        "power": 16400,
+        "effs": [0, 0, 0, 0, 0, 50, 0, 50, 0, 0],
     },
     "Mad Elf": {
         "power": 3780,
@@ -2618,8 +2618,8 @@ var allMiceInfo = {
         "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0, 0],
     },
     "Mystic King": {
-        "power": 38398,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 4000, 0, 0],
+        "power": 24000,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 2500, 0, 0],
     },
     "Mystic Knight": {
         "power": 8596,
@@ -2926,7 +2926,7 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 200, 0, 0, 0, 0],
     },
     "Phalanx": {
-        "power": 800,
+        "power": 900,
         "effs": [50, 50, 50, 50, 25, 50, 50, 200, 0, 0],
     },
     "Phase Zombie": {
@@ -2978,7 +2978,7 @@ var allMiceInfo = {
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100],
     },
     "Pocketwatch": {
-        "power": 5001,
+        "power": 5000,
         "effs": [0, 0, 0, 0, 0, 175, 0, 150, 0, 0],
     },
     "Polar Bear": {
@@ -3946,8 +3946,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 0, 200, 0, 0, 0],
     },
     "Stormsurge, the Vile Tempest": {
-        "power": 63300,
-        "effs": [0, 600, 0, 0, 0, 0, 0, 0, 0, 0],
+        "power": 52750,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0],
     },
     "Stoutgear": {
         "power": 4000,
@@ -4106,8 +4106,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 0, 0, 100, 0, 0],
     },
     "Technic King": {
-        "power": 38398,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 4000, 0, 0],
+        "power": 24000,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 2500, 0, 0],
     },
     "Technic Knight": {
         "power": 8596,
