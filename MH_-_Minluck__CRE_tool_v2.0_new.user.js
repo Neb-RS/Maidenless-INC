@@ -5387,11 +5387,20 @@ function specialMPEff(mouseName, mouse_power, eff) {
 
     // Special case: Warmonger and Artillery Commander
     if (locationName == "Fiery Warpath") {
-        if (mouseName == "Warmonger" || mouseName == "Artillery Commander") {
-            var guardContainer = document.getElementsByClassName("warpathHUD-wave-mouse mousehuntTooltipParent desert_elite_gaurd")[0];
-            if (guardContainer && guardContainer.classList[3] == "active") {
-                // Warmonger and Artillery Commander are invincible while guarded.
+        if (mouseName == "Warmonger") {
+            var wave4Container = document.getElementsByClassName("warpathHUD-wave wave_4")[0];
+            var wave4GuardContainer = wave4Container.getElementsByClassName("warpathHUD-wave-mouse mousehuntTooltipParent desert_elite_gaurd")[0];
+            if (wave4GuardContainer && wave4GuardContainer.classList[3] == "active") {
+                // Warmonger is invincible while guarded.
                 logCRAdjustmentInfo(mouseName, "Warmonger");
+                eff = 0;
+            }
+        } else if (mouseName == "Artillery Commander") {
+            var wavePortalContainer = document.getElementsByClassName("warpathHUD-wave wave_portal")[0];
+            var wavePortalGuardContainer = wavePortalContainer.getElementsByClassName("warpathHUD-wave-mouse mousehuntTooltipParent desert_elite_gaurd")[0];
+            if (wavePortalGuardContainer && wavePortalGuardContainer.classList[3] == "active") {
+                // Artillery Commander is invincible while guarded.
+                logCRAdjustmentInfo(mouseName, "Artillery Commander");
                 eff = 0;
             }
         }
