@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.3.0
+// @version      3.3.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5370,6 +5370,39 @@ function specialMPEff(mouseName, mouse_power, eff) {
             // Zurreal's Folly is the only effective weapon against Zurreal the Eternal.
             logCRAdjustmentInfo(mouseName, "Zurreal the Eternal");
             eff = 0;
+        }
+    }
+
+    // Special case: Absolute Acolyte
+    if (locationName == "Bristle Woods Rift") {
+        if (mouseName == "Absolute Acolyte") {
+            var acolyteSandContainer = document.getElementsByClassName("riftBristleWoodsHUD-acolyteStats-acolyteSand")[0];
+            if (acolyteSandContainer && acolyteSandContainer.textContent != "0") {
+                // Absoulte Acolyte is invincible while sand not fully drained.
+                logCRAdjustmentInfo(mouseName, "Absolute Acolyte");
+                eff = 0;
+            }
+        }
+    }
+
+    // Special case: Warmonger and Artillery Commander
+    if (locationName == "Fiery Warpath") {
+        if (mouseName == "Warmonger") {
+            var wave4Container = document.getElementsByClassName("warpathHUD-wave wave_4")[0];
+            var wave4GuardContainer = wave4Container.getElementsByClassName("warpathHUD-wave-mouse mousehuntTooltipParent desert_elite_gaurd")[0];
+            if (wave4GuardContainer && wave4GuardContainer.classList[3] == "active") {
+                // Warmonger is invincible while guarded.
+                logCRAdjustmentInfo(mouseName, "Warmonger");
+                eff = 0;
+            }
+        } else if (mouseName == "Artillery Commander") {
+            var wavePortalContainer = document.getElementsByClassName("warpathHUD-wave wave_portal")[0];
+            var wavePortalGuardContainer = wavePortalContainer.getElementsByClassName("warpathHUD-wave-mouse mousehuntTooltipParent desert_elite_gaurd")[0];
+            if (wavePortalGuardContainer && wavePortalGuardContainer.classList[3] == "active") {
+                // Artillery Commander is invincible while guarded.
+                logCRAdjustmentInfo(mouseName, "Artillery Commander");
+                eff = 0;
+            }
         }
     }
 
