@@ -5373,13 +5373,13 @@ function specialMPEff(mouseName, mouse_power, eff) {
         }
     }
 
-    // Special case: Absoulte Acolyte
+    // Special case: Absolute Acolyte
     if (locationName == "Bristle Woods Rift") {
-        if (mouseName == "Absoulte Acolyte") {
+        if (mouseName == "Absolute Acolyte") {
             var acolyteSandContainer = document.getElementsByClassName("riftBristleWoodsHUD-acolyteStats-acolyteSand")[0];
             if (acolyteSandContainer && acolyteSandContainer.textContent != "0") {
                 // Absoulte Acolyte is invincible while sand not fully drained.
-                logCRAdjustmentInfo(mouseName, "Absoulte Acolyte");
+                logCRAdjustmentInfo(mouseName, "Absolute Acolyte");
                 eff = 0;
             }
         }
