@@ -5201,8 +5201,11 @@ function convertToCR(mouseName, mPower, mEff) {
     var adjustedEff = specialMPEff(mouseName, mPower, mEff)[1];
     var result = CRSpecialBonusAndEffects(mouseName, adjustedMP, adjustedEff)
     result = FinalCRModifier(result, mouseName);
-    result = (result * 100).toFixed(2) + '%';
-    return result;
+    var finalResult = (result * 100).toFixed(2) + '%';
+    if (finalResult == '100.00%' && result != 1) {
+        finalResult = '99.99%';
+    }
+    return finalResult;
 }
 
 // mEff already divided by 100;
