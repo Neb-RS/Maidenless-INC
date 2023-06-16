@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.3.1
+// @version      3.3.2
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -1860,6 +1860,10 @@ var allMiceInfo = {
     "Heavy Blaster": {
         "power": 5000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0],
+    },
+    "Herbaceous Bravestalk": {
+        "power": 4000,
+        "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0, 0],
     },
     "Herc": {
         "power": 21625,
