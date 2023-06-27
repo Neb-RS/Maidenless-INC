@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.3.2
+// @version      3.3.3
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4458,8 +4458,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 200, 0, 125, 0, 0],
     },
     "Vinneus Stalkhome": {
-        "power": 70788,
-        "effs": [0, 0, 0, 0, 0, 350, 0, 0, 0, 0],
+        "power": 80900,
+        "effs": [0, 0, 0, 0, 0, 400, 0, 0, 0, 0],
     },
     "Violent Violinist": {
         "power": 33090,
