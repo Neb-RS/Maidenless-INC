@@ -2,8 +2,8 @@
 // @name         MouseHunt - Bountiful Beanstalk Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.3
-// @description  Color codes mice on Valor Rift maps according to type. Max ML shown per group and AR shown individually.
+// @version      1.0.4
+// @description  Color codes mice on Bountiful Beanstalk maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
@@ -11,10 +11,10 @@
 
 
 const displayMinLuck = false; // Will display minluck for the group of mouse in advanced view iff true.
-const displayAR = false; // Will display the AR for each uncaught mouse in advanced view iff true.
+const displayAR = true; // Will display the AR for each uncaught mouse in advanced view iff true.
 const displayHunterCheese = false; // Will display which group of mouse the hunter if attempting iff true.
 let assignBaitChange = false; // Avoid the bait change event being registered more than once.
-const ARwarningText = "Dumpling Chef has special LNY effectivenesses. Its minluck is 23 for Tactical and 32 for all other types.";
+const ARwarningText = "AR for Bountiful Beanstalk mice might be inaccurate.";
 
 // If the chest name contains any of the following as a substring, enable the colour coder.
 const chestKeywords = [
@@ -24,9 +24,9 @@ const chestKeywords = [
 // name, AR - per UNIX 1670418873
 
 const BeanstalkSB = [
-    ["Budrich Thornborn",""],
-    ["Leafton Beanwell", ""],
-    ["Herbaceous Bravestalk", ""]
+    ["Budrich Thornborn","48.27%"],
+    ["Leafton Beanwell", "46.76%"],
+    ["Herbaceous Bravestalk", "4.97%"]
 ];
 const BeanstalkBeanster = [
 ];
@@ -35,93 +35,93 @@ const BeanstalkLavish = [
 const BeanstalkRoyal = [
 ];
 const BeanstalkBoss = [
-    ["Vinneus Stalkhome",""]
+    ["Vinneus Stalkhome","100%"]
 ];
 const DungeonSB = [
-    ["Peaceful Prisoner", ""],
-    ["Diminutive Detainee", ""],
-    ["Smug Smuggler",""]
+    ["Peaceful Prisoner", "25.74%"],
+    ["Diminutive Detainee", "34.43%"],
+    ["Smug Smuggler","39.83%"]
 ];
 const DungeonBeanster = [
-    ["Cell Sweeper",""],
-    ["Jovial Jailor",""],
-    ["Lethargic Guard",""]
+    ["Cell Sweeper","30.83%"],
+    ["Jovial Jailor","44.56%"],
+    ["Lethargic Guard","24.62%"]
 ];
 const DungeonLavish = [
-    ["Gate Keeper",""],
-    ["Key Master",""]
+    ["Gate Keeper","50.41%"],
+    ["Key Master","49.59%"]
 ];
 const DungeonRoyal = [
-    ["Wrathful Warden",""]
+    ["Wrathful Warden","100%"]
 ];
 const DungeonBoss = [
-    ["Dungeon Master",""]
+    ["Dungeon Master","100%"]
 ];
 const BallroomSB = [
-    ["Whimsical Waltzer",""],
-    ["Sassy Salsa Dancer",""],
-    ["Baroque Dancer",""]
+    ["Whimsical Waltzer","26.64%"],
+    ["Sassy Salsa Dancer","34.23%"],
+    ["Baroque Dancer","39.13%"]
 ];
 const BallroomBeanster = [
-    ["Obstinate Oboist",""],
-    ["Peevish Piccoloist",""],
-    ["Sultry Saxophonist",""]
+    ["Obstinate Oboist","31.17%"],
+    ["Peevish Piccoloist","39.40%"],
+    ["Sultry Saxophonist","29.44%"]
 ];
 const BallroomLavish = [
-    ["Violent Violinist",""],
-    ["Chafed Cellist",""]
+    ["Violent Violinist","50.48%"],
+    ["Chafed Cellist","49.52%"]
 ];
 const BallroomRoyal = [
-    ["Treacherous Tubaist",""]
+    ["Treacherous Tubaist","100%"]
 ];
 const BallroomBoss = [
-    ["Malevolent Maestro",""]
+    ["Malevolent Maestro","100%"]
 ];
 const GreathallSB = [
-    ["Clumsy Cupbearer",""],
-    ["Plotting Page",""],
-    ["Scheming Squire",""]
+    ["Clumsy Cupbearer","25.16%"],
+    ["Plotting Page","34.95%"],
+    ["Scheming Squire","39.89%"]
 ];
 const GreathallBeanster = [
-    ["Vindictive Viscount",""],
-    ["Baroness Von Bean",""],
-    ["Cagey Countess",""]
+    ["Vindictive Viscount","26.27%"],
+    ["Baroness Von Bean","39.58%"],
+    ["Cagey Countess","34.15%"]
 ];
 const GreathallLavish = [
-    ["Dastardly Duchess",""],
-    ["Malicious Marquis",""]
+    ["Dastardly Duchess","49.12%"],
+    ["Malicious Marquis","50.88%"]
 ];
 const GreathallRoyal = [
-    ["Pernicious Prince",""]
+    ["Pernicious Prince","100%"]
 ];
 const GreathallBoss = [
-    ["Mythical Giant King",""]
+    ["Mythical Giant King","100%"]
 ]
 
 
 // group location, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
 
-    ["Beanstalk", BeanstalkSB, 0, "SB", 0, "#96b78a"],
+    ["Beanstalk", BeanstalkSB, 81, "SB", 0, "#96b78a"],
     ["Beanstalk", BeanstalkBeanster, 0, "Beanster", 0, "#B6D7A8"],
     ["Beanstalk", BeanstalkLavish, 0, "Lavish", 0, "#B6D7A8"],
     ["Beanstalk", BeanstalkRoyal, 0, "Royal", 0, "#B6D7A8"],
-    ["Beanstalk", BeanstalkBoss, 0, "Boss", 0, "#45890e"],
-    ["Dungeon", DungeonSB, 0, "SB", 0, "#dde1f4"],
-    ["Dungeon", DungeonBeanster, 0, "Beanster", 0, "#b7bddc"],
-    ["Dungeon", DungeonLavish, 0, "Lavish", 0, "#919ac7"],
-    ["Dungeon", DungeonRoyal, 0, "Royal", 0, "#4257a6"],
-    ["Dungeon", DungeonBoss, 0, "Boss", 0, "#24347c"],
-    ["Ballroom", BallroomSB, 0, "SB", 0, "#f7dadb"],
-    ["Ballroom", BallroomBeanster, 0, "Beanster", 0, "#e0b1b2"],
-    ["Ballroom", BallroomLavish, 0, "Lavish", 0, "#cc8788"],
-    ["Ballroom", BallroomRoyal, 0, "Royal", 0, "#ae141b"],
-    ["Ballroom", BallroomBoss, 0, "Boss", 0, "#7e0711"],
-    ["Greathall", GreathallSB, 0, "SB", 0, "#fce6d5"],
-    ["Greathall", GreathallBeanster, 0, "Beanster", 0, "#f2d0b3"],
-    ["Greathall", GreathallLavish, 0, "Lavish", 0, "#e8ba8e"],
-    ["Greathall", GreathallRoyal, 0, "Royal", 0, "#d68d0a"],
-    ["Greathall", GreathallBoss, 0, "Boss", 0, "#a95b04"],
+    ["Beanstalk", BeanstalkBoss, 136, "Boss", 0, "#45890e"],
+    ["Ballroom", BallroomSB, 129, "SB", 0, "#f7dadb"],
+    ["Ballroom", BallroomBeanster, 108, "Beanster", 0, "#e0b1b2"],
+    ["Ballroom", BallroomLavish, 129, "Lavish", 0, "#cc8788"],
+    ["Ballroom", BallroomRoyal, 163, "Royal", 0, "#ae141b"],
+    ["Ballroom", BallroomBoss, 154, "Boss", 0, "#7e0711"],
+    ["Dungeon", DungeonSB, 123, "SB", 0, "#dde1f4"],
+    ["Dungeon", DungeonBeanster, 98, "Beanster", 0, "#b7bddc"],
+    ["Dungeon", DungeonLavish, 113, "Lavish", 0, "#919ac7"],
+    ["Dungeon", DungeonRoyal, 135, "Royal", 0, "#4257a6"],
+    ["Dungeon", DungeonBoss, 150, "Boss", 0, "#24347c"],
+    ["Greathall", GreathallSB, 138, "SB", 0, "#fce6d5"],
+    ["Greathall", GreathallBeanster, 125, "Beanster", 0, "#f2d0b3"],
+    ["Greathall", GreathallLavish, 136, "Lavish", 0, "#e8ba8e"],
+    ["Greathall", GreathallRoyal, 172, "Royal", 0, "#d68d0a"],
+    ["Greathall", GreathallBoss, 195, "Boss", 0, "#a95b04"],
 
 ];
 
@@ -474,9 +474,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("DungeonSpan");
+        newSpan.classList.add("BallroomSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Dungeon";
+        newSpan.innerHTML = "Ballroom";
         masterDivRow1.appendChild(newSpan);
     }
     for (let i = 5; i < 10; i++) {
@@ -484,9 +484,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("BallroomSpan");
+        newSpan.classList.add("DungeonSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Ballroom";
+        newSpan.innerHTML = "Dungeon";
         masterDivRow2.appendChild(newSpan);
     }
     for (let i = 0; i < 5; i++) {
