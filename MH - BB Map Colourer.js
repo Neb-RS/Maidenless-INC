@@ -2,7 +2,7 @@
 // @name         MouseHunt - Bountiful Beanstalk Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.1
+// @version      1.0.3
 // @description  Color codes mice on Valor Rift maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -39,7 +39,7 @@ const BeanstalkBoss = [
 ];
 const DungeonSB = [
     ["Peaceful Prisoner", ""],
-    ["Diminutive DEtainee", ""],
+    ["Diminutive Detainee", ""],
     ["Smug Smuggler",""]
 ];
 const DungeonBeanster = [
