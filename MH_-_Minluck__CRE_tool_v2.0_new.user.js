@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.3.3
+// @version      3.3.4
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5224,7 +5224,7 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
     var adjustedTrapPower = basicTrapPower;
     var adjustedTrapPowerBonus = basicTrapPowerBonus;
     var adjustedTrapLuck = basicTrapLuck;
-    if (dragonbaneCharmMice.has(mouseName)) {
+    if (charmName.includes("Dragonbane") && dragonbaneCharmMice.has(mouseName)) {
         if (charmName == "Dragonbane Charm") {
             // When activated, the charm bursts out a jarring cold blast of air, providing a 300% Power Bonus, making these mice easier to catch.
             logCRAdjustmentInfo(mouseName, "DBC +300% power bonus");
@@ -5235,7 +5235,7 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
             adjustedTrapPowerBonus += 6;
         } else if (charmName == "Extreme Dragonbane Charm") {
             // When activated, this extreme charm bursts out a jarring triple cold blast of air, providing a 900% Power Bonus, making these mice a breeze to catch.
-            logCRAdjustmentInfo(mouseName, "EDBC +600% power bonus");
+            logCRAdjustmentInfo(mouseName, "EDBC +900% power bonus");
             adjustedTrapPowerBonus += 9;
         } else if (charmName == "Ultimate Dragonbane Charm") {
             // When activated, this powerful charm bursts out a jarring quadruple cold blast of air, providing a 1200% Power Bonus, making these mice a breeze to catch.
