@@ -2,7 +2,7 @@
 // @name         MouseHunt - Bountiful Beanstalk Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.4
+// @version      1.0.5
 // @description  Color codes mice on Bountiful Beanstalk maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -430,7 +430,7 @@ function colorize() {
             const newSpan = document.createElement("span");
             newSpan.classList.add("Header2Span");
             newSpan.style = "background-color: " + greyColor + headerSpanGroupStyle;
-            newSpan.innerHTML = "SB";
+            newSpan.innerHTML = "Std";
             masterDivHeader.appendChild(newSpan);
         }
         {
