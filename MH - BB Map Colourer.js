@@ -2,12 +2,19 @@
 // @name         MouseHunt - Bountiful Beanstalk Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.5
+// @version      1.0.6
 // @description  Color codes mice on Bountiful Beanstalk maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // ==/UserScript==
+// Credits:
+// tsitu - Provided the original code.
+// in59te - Improved the original code.  We use his version as the starting point.
+// Warden Slayer - Implemented bait changes.
+// Kuhmann, Leppy and Neb - Maintenance and QA
+// tmrj2222 - Provided code to sort the mice by groups.
+// and anyone else we may have missed :peepolove:
 
 
 const displayMinLuck = false; // Will display minluck for the group of mouse in advanced view iff true.
@@ -176,6 +183,7 @@ let simpleView = true; // Toggle between simple and advanced view
 function initialise() {
     // Avoid initialising more than once as the script can be called multiple times by other plug-in.
     if (allMiceGroups.length > 0) {
+        sortGoals();
         return;
     }
 
@@ -193,6 +201,7 @@ function initialise() {
         }
         allMiceGroups.push(miceGroup);
     }
+    sortGoals();
 }
 
 function addAr(mouseSpan, mouseName, miceGroup) {
@@ -551,6 +560,42 @@ function colorize() {
         }
     }
 }
+
+
+// Credit to @tmrj2222 for the code
+function sortGoals() {
+
+    const parentGoals = document.querySelector(".treasureMapView-goals-group-goal-padding").parentElement.parentElement;
+    const childrenArray = Array.from(parentGoals.children);
+    childrenArray.sort((a, b) => {
+            let orderA = -1;
+            let orderB = -1;
+
+        const nameA = a.querySelector("span").firstChild.textContent;
+        const nameB = b.querySelector("span").firstChild.textContent;
+
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            if (allMiceGroups[i].hasMouse(nameA)) {
+                orderA = i;
+                //console.log(nameA + " - " + orderA );
+                break;
+            }
+        }
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            if (allMiceGroups[i].hasMouse(nameB)) {
+                orderB = i;
+                break;
+            }
+        }
+            return orderA > orderB;
+        });
+   while (parentGoals.firstChild) {
+            parentGoals.removeChild(parentGoals.firstChild);
+   }
+   childrenArray.forEach(child => parentGoals.appendChild(child));
+
+}
+
 
 // Listen to XHRs, opening a map always at least triggers board.php
 const originalOpen = XMLHttpRequest.prototype.open;
