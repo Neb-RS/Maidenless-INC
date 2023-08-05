@@ -114,16 +114,16 @@ const miceGroups = [
     ["Beanstalk", BeanstalkLavish, 0, "Lavish", 0, "#B6D7A8"],
     ["Beanstalk", BeanstalkRoyal, 0, "Royal", 0, "#B6D7A8"],
     ["Beanstalk", BeanstalkBoss, 136, "Boss", 0, "#45890e"],
-    ["Ballroom", BallroomSB, 129, "SB", 0, "#f7dadb"],
-    ["Ballroom", BallroomBeanster, 108, "Beanster", 0, "#e0b1b2"],
-    ["Ballroom", BallroomLavish, 129, "Lavish", 0, "#cc8788"],
-    ["Ballroom", BallroomRoyal, 163, "Royal", 0, "#ae141b"],
-    ["Ballroom", BallroomBoss, 154, "Boss", 0, "#7e0711"],
     ["Dungeon", DungeonSB, 123, "SB", 0, "#dde1f4"],
     ["Dungeon", DungeonBeanster, 98, "Beanster", 0, "#b7bddc"],
     ["Dungeon", DungeonLavish, 113, "Lavish", 0, "#919ac7"],
     ["Dungeon", DungeonRoyal, 135, "Royal", 0, "#4257a6"],
     ["Dungeon", DungeonBoss, 150, "Boss", 0, "#24347c"],
+    ["Ballroom", BallroomSB, 129, "SB", 0, "#f7dadb"],
+    ["Ballroom", BallroomBeanster, 108, "Beanster", 0, "#e0b1b2"],
+    ["Ballroom", BallroomLavish, 129, "Lavish", 0, "#cc8788"],
+    ["Ballroom", BallroomRoyal, 163, "Royal", 0, "#ae141b"],
+    ["Ballroom", BallroomBoss, 154, "Boss", 0, "#7e0711"],
     ["Greathall", GreathallSB, 138, "SB", 0, "#fce6d5"],
     ["Greathall", GreathallBeanster, 125, "Beanster", 0, "#f2d0b3"],
     ["Greathall", GreathallLavish, 136, "Lavish", 0, "#e8ba8e"],
@@ -335,7 +335,7 @@ function colorize() {
     const spans1 = [];
     const spans2 = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const newSpan = document.createElement("span");
         newSpan.classList.add(allMiceGroups[i].id + "Span");
         if (allMiceGroups[i].count > -1) {
@@ -351,30 +351,13 @@ function colorize() {
         } else {
             newSpan.innerHTML = newSpan.innerHTML + allMiceGroups[i].count;
         }
-        //if (allMiceGroups[i].count > 0) {
-            spans1.push(newSpan);
-        //}
-    }
 
-    for (let i = 10; i < 20; i++) {
-        const newSpan = document.createElement("span");
-        newSpan.classList.add(allMiceGroups[i].id + "Span");
-        if (allMiceGroups[i].count > -1) {
-            newSpan.style = "background-color: " + allMiceGroups[i].color + spanStyle;
-        }
-        else {
-            newSpan.style = "background-color: " + greyColor + spanStyle;
-        }
-        newSpan.innerHTML = "";
-        if (displayMinLuck && !simpleView) {
-            newSpan.innerHTML = newSpan.innerHTML + "<br> ML: " + allMiceGroups[i].minluck;
-            newSpan.innerHTML = newSpan.innerHTML + "<br> Mice: " + allMiceGroups[i].count;
-        } else {
-            newSpan.innerHTML = newSpan.innerHTML + allMiceGroups[i].count;
-        }
-        //if (allMiceGroups[i].count > 0) {
+       const iMod5 = Math.floor(i / 5);
+       if (iMod5 == 0 || iMod5 == 2) {
+            spans1.push(newSpan);
+       } else {
             spans2.push(newSpan);
-        //}
+       }
     }
 
     const ARDiv = document.createElement("div");
