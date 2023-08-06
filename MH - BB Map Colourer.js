@@ -2,12 +2,19 @@
 // @name         MouseHunt - Bountiful Beanstalk Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.5
+// @version      1.0.6
 // @description  Color codes mice on Bountiful Beanstalk maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // ==/UserScript==
+// Credits:
+// tsitu - Provided the original code.
+// in59te - Improved the original code.  We use his version as the starting point.
+// Warden Slayer - Implemented bait changes.
+// Kuhmann, Leppy and Neb - Maintenance and QA
+// tmrj2222 - Provided code to sort the mice by groups.
+// and anyone else we may have missed :peepolove:
 
 
 const displayMinLuck = false; // Will display minluck for the group of mouse in advanced view iff true.
@@ -107,16 +114,16 @@ const miceGroups = [
     ["Beanstalk", BeanstalkLavish, 0, "Lavish", 0, "#B6D7A8"],
     ["Beanstalk", BeanstalkRoyal, 0, "Royal", 0, "#B6D7A8"],
     ["Beanstalk", BeanstalkBoss, 136, "Boss", 0, "#45890e"],
-    ["Ballroom", BallroomSB, 129, "SB", 0, "#f7dadb"],
-    ["Ballroom", BallroomBeanster, 108, "Beanster", 0, "#e0b1b2"],
-    ["Ballroom", BallroomLavish, 129, "Lavish", 0, "#cc8788"],
-    ["Ballroom", BallroomRoyal, 163, "Royal", 0, "#ae141b"],
-    ["Ballroom", BallroomBoss, 154, "Boss", 0, "#7e0711"],
     ["Dungeon", DungeonSB, 123, "SB", 0, "#dde1f4"],
     ["Dungeon", DungeonBeanster, 98, "Beanster", 0, "#b7bddc"],
     ["Dungeon", DungeonLavish, 113, "Lavish", 0, "#919ac7"],
     ["Dungeon", DungeonRoyal, 135, "Royal", 0, "#4257a6"],
     ["Dungeon", DungeonBoss, 150, "Boss", 0, "#24347c"],
+    ["Ballroom", BallroomSB, 129, "SB", 0, "#f7dadb"],
+    ["Ballroom", BallroomBeanster, 108, "Beanster", 0, "#e0b1b2"],
+    ["Ballroom", BallroomLavish, 129, "Lavish", 0, "#cc8788"],
+    ["Ballroom", BallroomRoyal, 163, "Royal", 0, "#ae141b"],
+    ["Ballroom", BallroomBoss, 154, "Boss", 0, "#7e0711"],
     ["Greathall", GreathallSB, 138, "SB", 0, "#fce6d5"],
     ["Greathall", GreathallBeanster, 125, "Beanster", 0, "#f2d0b3"],
     ["Greathall", GreathallLavish, 136, "Lavish", 0, "#e8ba8e"],
@@ -176,6 +183,7 @@ let simpleView = true; // Toggle between simple and advanced view
 function initialise() {
     // Avoid initialising more than once as the script can be called multiple times by other plug-in.
     if (allMiceGroups.length > 0) {
+        sortGoals();
         return;
     }
 
@@ -193,6 +201,7 @@ function initialise() {
         }
         allMiceGroups.push(miceGroup);
     }
+    sortGoals();
 }
 
 function addAr(mouseSpan, mouseName, miceGroup) {
@@ -326,7 +335,7 @@ function colorize() {
     const spans1 = [];
     const spans2 = [];
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 20; i++) {
         const newSpan = document.createElement("span");
         newSpan.classList.add(allMiceGroups[i].id + "Span");
         if (allMiceGroups[i].count > -1) {
@@ -342,30 +351,13 @@ function colorize() {
         } else {
             newSpan.innerHTML = newSpan.innerHTML + allMiceGroups[i].count;
         }
-        //if (allMiceGroups[i].count > 0) {
-            spans1.push(newSpan);
-        //}
-    }
 
-    for (let i = 10; i < 20; i++) {
-        const newSpan = document.createElement("span");
-        newSpan.classList.add(allMiceGroups[i].id + "Span");
-        if (allMiceGroups[i].count > -1) {
-            newSpan.style = "background-color: " + allMiceGroups[i].color + spanStyle;
-        }
-        else {
-            newSpan.style = "background-color: " + greyColor + spanStyle;
-        }
-        newSpan.innerHTML = "";
-        if (displayMinLuck && !simpleView) {
-            newSpan.innerHTML = newSpan.innerHTML + "<br> ML: " + allMiceGroups[i].minluck;
-            newSpan.innerHTML = newSpan.innerHTML + "<br> Mice: " + allMiceGroups[i].count;
-        } else {
-            newSpan.innerHTML = newSpan.innerHTML + allMiceGroups[i].count;
-        }
-        //if (allMiceGroups[i].count > 0) {
+       const iMod5 = Math.floor(i / 5);
+       if (iMod5 == 0 || iMod5 == 2) {
+            spans1.push(newSpan);
+       } else {
             spans2.push(newSpan);
-        //}
+       }
     }
 
     const ARDiv = document.createElement("div");
@@ -551,6 +543,42 @@ function colorize() {
         }
     }
 }
+
+
+// Credit to @tmrj2222 for the code
+function sortGoals() {
+
+    const parentGoals = document.querySelector(".treasureMapView-goals-group-goal-padding").parentElement.parentElement;
+    const childrenArray = Array.from(parentGoals.children);
+    childrenArray.sort((a, b) => {
+            let orderA = -1;
+            let orderB = -1;
+
+        const nameA = a.querySelector("span").firstChild.textContent;
+        const nameB = b.querySelector("span").firstChild.textContent;
+
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            if (allMiceGroups[i].hasMouse(nameA)) {
+                orderA = i;
+                //console.log(nameA + " - " + orderA );
+                break;
+            }
+        }
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            if (allMiceGroups[i].hasMouse(nameB)) {
+                orderB = i;
+                break;
+            }
+        }
+            return orderA > orderB;
+        });
+   while (parentGoals.firstChild) {
+            parentGoals.removeChild(parentGoals.firstChild);
+   }
+   childrenArray.forEach(child => parentGoals.appendChild(child));
+
+}
+
 
 // Listen to XHRs, opening a map always at least triggers board.php
 const originalOpen = XMLHttpRequest.prototype.open;
