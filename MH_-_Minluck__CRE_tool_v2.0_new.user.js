@@ -24,14 +24,14 @@
 //var turn_red_when = 60; //Turns red when your CR falls below it, in % Deprecated, set it with the tool nox now (click on "i");
 //User Settings End-------------------------
 
-(function() {
+(function () {
     if (document.getElementsByClassName("trapImageView-trapAuraContainer")[0] && document.getElementById("mousehuntContainer").className.includes("PageCamp")) {
         render();
         trapChangeListener()
     }
 })();
 
-$(document).ajaxStop(function() {
+$(document).ajaxStop(function () {
     var trapContainer = document.getElementsByClassName("trapImageView-trapAuraContainer")[0]
     if (document.getElementsByClassName("min-luck-container")[0]) {
         return;
@@ -4790,7 +4790,7 @@ function render() {
     luck_btn.className = "min-luck-button"
     luck_btn.style.width = "20px"
     luck_btn.style.height = "20px"
-    luck_btn.onclick = function() {
+    luck_btn.onclick = function () {
         getData()
     }
 
@@ -4931,7 +4931,7 @@ function renderBox(list) {
         });
         infoButton.textContent = "i"
         infoButton.style.marginLeft = "10px"
-        infoButton.onclick = function() {
+        infoButton.onclick = function () {
             let position = JSON.parse(localStorage.getItem("Chro-minluck-vwvh")).split(",");
             let mes = prompt("More information can be found at:\nhttps://tsitu.github.io/MH-Tools/cre.html\nLast Updated 10 May 2023\n\n Change tool's position / Set % for red text?\n\n" +
                 "Left: " + position[0] + "\nTop: " + position[1] + "\nRed text at: " + position[2] + "%", "35,28,60");
@@ -4949,7 +4949,7 @@ function renderBox(list) {
         minButton.textContent = "-"
         minButton.style.cursor = "pointer"
         minButton.style.marginLeft = "5px"
-        minButton.onclick = function() {
+        minButton.onclick = function () {
             if (minButton.textContent == "-") {
                 document.getElementById("chro-minluck-table").style.display = "none"
                 document.getElementById("button-Div").style.float = "right"
@@ -4968,7 +4968,7 @@ function renderBox(list) {
         });
         closeButton.textContent = "x";
         closeButton.style.marginLeft = "5px"
-        closeButton.onclick = function() {
+        closeButton.onclick = function () {
             document.body.removeChild(div);
         };
 
@@ -4992,9 +4992,10 @@ function renderBox(list) {
 
         const locInfo = document.createElement("div")
         locInfo.className = "loc-info"
-        if (locationName == "Bountiful Beanstalk"){
-        locInfo.textContent = "Catch Rates might be a little off as this is a new location.";}
-        else {locInfo.textContent = "Location: ".concat(locationName);}
+        if (locationName == "Bountiful Beanstalk") {
+            locInfo.textContent = "Catch Rates might be a little off as this is a new location.";
+        }
+        else { locInfo.textContent = "Location: ".concat(locationName); }
         locInfo.style.fontWeight = "normal"
 
         setupInfo.appendChild(locInfo);
@@ -5103,12 +5104,12 @@ function postReq(url, form) {
         const xhr = new XMLHttpRequest();
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.onreadystatechange = function() {
+        xhr.onreadystatechange = function () {
             if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                 resolve(this);
             }
         };
-        xhr.onerror = function() {
+        xhr.onerror = function () {
             reject(this);
         };
         xhr.send(form);
@@ -5324,10 +5325,10 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap +10920 trap power");
                 adjustedTrapPower += 10920;
                 adjustedTrapLuck += 51;
-            // } else if (mouseName == "Mystic Pawn") { //Commenting it out entirely because we do not know what it does properly.
-            //     logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
-            //     adjustedTrapPower -= 60;
-            //     adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+                // } else if (mouseName == "Mystic Pawn") { //Commenting it out entirely because we do not know what it does properly.
+                //     logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
+                //     adjustedTrapPower -= 60;
+                //     adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
             }
         } else if (weaponName == "Mystic Pawn Pincher") {
             // Pawn Pinchers give +10920 Power on corresponding Pawn, -60 Power and -5 Luck on opposite Pawn
@@ -5335,10 +5336,10 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap +10920 trap power");
                 adjustedTrapPower += 10920;
                 adjustedTrapLuck += 51;
-            // } else if (mouseName == "Technic Pawn") { //Commenting it out entirely because we do not know what it does properly.
-            //     logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
-            //     adjustedTrapPower -= 60;
-            //     adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+                // } else if (mouseName == "Technic Pawn") { //Commenting it out entirely because we do not know what it does properly.
+                //     logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
+                //     adjustedTrapPower -= 60;
+                //     adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
             }
         }
         if (charmName == "Rook Crumble Charm" && ["Mystic Rook", "Technic Rook"].includes(mouseName)) {
@@ -5451,10 +5452,10 @@ function specialMPEff(mouseName, mouse_power, eff) {
         var bossCheck = user.quests.QuestAncientCity.boss;
         if (bossCheck == "defeated") {
             if (mouseName == "Reanimated Carver") {
-                mouse_power *= 5/9;
+                mouse_power *= 5 / 9;
             }
             else {
-                mouse_power *= 3/4;
+                mouse_power *= 3 / 4;
             }
         }
     }
@@ -5595,8 +5596,8 @@ function logger(message) {
 
 function trapChangeListener() {
     const originalOpen = XMLHttpRequest.prototype.open;
-    XMLHttpRequest.prototype.open = function() {
-        this.addEventListener("load", function() {
+    XMLHttpRequest.prototype.open = function () {
+        this.addEventListener("load", function () {
             if (this.responseURL === "https://www.mousehuntgame.com/managers/ajax/users/changetrap.php") {
                 success: {
                     colourClover()
