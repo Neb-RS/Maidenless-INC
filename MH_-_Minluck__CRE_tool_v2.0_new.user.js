@@ -4805,6 +4805,9 @@ function getData() {
         weaponName = user.weapon_name;
         baseName = user.base_name;
         charmName = user.trinket_name;
+        // Protection against error when no charm is armed.
+        if (charmName == null)
+            charmName = "";
         baitName = user.bait_name;
         trapPowerType = user.trap_power_type_name;
         // locationName = user.environment_name // For some reason this is not updated upon travelling.
