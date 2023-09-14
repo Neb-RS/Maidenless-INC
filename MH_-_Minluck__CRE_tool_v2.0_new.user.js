@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      3.3.5
+// @version      4.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4667,6 +4667,14 @@ var allMiceInfo = {
     },
 };
 
+// All ar info guidelines
+// The first entry, FTC can be
+// 1) 0.00 to indicate this setup will never FTC
+// 2) take a value like 0.05. to indicate the 'basic' setup has a 5% chance to FTC, and the sum of AR of the individual mouse should be 95%.
+// 3) a value less than zero, e.g. -1.00, to indicate the AR depends on the actual cheese (e.g. gouda/brie),
+//     and the AR of the individual mouse are adjusted in the dictionary so the sum is 100%.
+//     This allows us to display the correct AR easily by using the known AR of the individual cheese.
+
 var allType = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Parental', 'Physical', 'Shadow', 'Tactical', 'Law', 'Rift'];
 
 var dragonbaneCharmMice = new Set([
@@ -4769,6 +4777,7 @@ var basicTrapPower;
 var basicTrapPowerBonus;
 var basicTrapPowerTotal;
 var basicTrapLuck;
+var basicTrapArBonus;
 var trapPowerBoost;
 var riftLuckCodex;
 
@@ -4805,9 +4814,6 @@ function getData() {
         weaponName = user.weapon_name;
         baseName = user.base_name;
         charmName = user.trinket_name;
-        // Protection against error when no charm is armed.
-        if (charmName == null)
-            charmName = "";
         baitName = user.bait_name;
         trapPowerType = user.trap_power_type_name;
         // locationName = user.environment_name // For some reason this is not updated upon travelling.
@@ -4825,6 +4831,7 @@ function getData() {
         basicTrapPowerBonus = user.trap_power_bonus; // 0.77 for 77%
         basicTrapPowerTotal = user.trap_power;
         basicTrapLuck = user.trap_luck;
+        basicTrapArBonus = user.trap_attraction_bonus;
 
         if (calcTrapTotalPower(basicTrapPower, basicTrapPowerBonus) != basicTrapPowerTotal) {
             logger("WARNING: Displayed trap power is " + basicTrapPowerTotal + " while the calculated trap power is " + calcTrapTotalPower(basicTrapPower, basicTrapPowerBonus));
@@ -4853,7 +4860,7 @@ function getData() {
                     const p = await renderBox(tem_list)
                         .then(res => {
                             var table = document.getElementById("chro-minluck-table")
-                            sortTable(table, 1, 2);
+                            sortTable(table, 2, 3);
                         });
                     resolve()
                 }
@@ -5022,10 +5029,23 @@ function renderBox(list) {
         crheader.innerText = "CRE"
         crheader.style.textAlign = "center"
         crheader.style.fontWeight = "bold"
+        const arheader = document.createElement("th");
+        arheader.innerText = "AR"
+        arheader.style.textAlign = "center"
+        arheader.style.fontWeight = "bold"
 
         table.appendChild(miceheader);
+        table.appendChild(arheader);
         table.appendChild(minluckheader);
         table.appendChild(crheader);
+
+        var relevantArInfo = getArInfo();
+        var ftc = relevantArInfo.FTC;
+        var ar_overAll = 0.0;
+        var minLuck_overAll = 0.0;
+        var cr_overAll = 0.0;
+        var undefinedAr = false;
+
         for (var i = 0; i < list.length; i++) {
             var row = document.createElement("tr");
             row.className = "chro-minluck-row"
@@ -5034,17 +5054,39 @@ function renderBox(list) {
             var mouseNameConverted = list[i];
             var power_index = allType.indexOf(powerType);
 
-            var cr_string, minluck_string;
+            var cr, cr_string, minluck_string, ar_string;
             var mouse_info = allMiceInfo[mouseNameConverted];
             if (mouse_info) {
                 var mice_power = mouse_info.power;
                 var mice_eff = mouse_info.effs[power_index];
-                cr_string = convertToCR(mouseNameConverted, mice_power, mice_eff);
+
+                cr = calculateCR(mouseNameConverted, mice_power, mice_eff);
+                cr_string = convertCRToPercentage(cr);
+
+                ar_string = relevantArInfo[mouseNameConverted];
+                if (ar_string == undefined) {
+                    ar_string = "";
+                    undefinedAr = true;
+                } else {
+                    ar_string = adjustAr(ar_string, ftc);
+                    ar_overAll = ar_overAll + ar_string;
+                    cr_overAll = cr_overAll + ar_string * cr;
+                    ar_string = convertDoubleToPercentage(ar_string);
+                }
+
                 minluck_string = mouseMinluck(mouseNameConverted, mice_power, mice_eff);
+                if (minluck_string > minLuck_overAll) {
+                    minLuck_overAll = minluck_string;
+                }
             } else {
                 // Mouse not found in info list, credit to Xellis
-                cr_string = minluck_string = 'Unknown';
+                ar_string = cr_string = minluck_string = 'Unknown';
             }
+
+            //attraction rate-------
+            var aR = document.createElement("td");
+            aR.style.textAlign = "right"
+            aR.innerText = ar_string;
 
             //minluck----
             var minLuck = document.createElement("td");
@@ -5057,7 +5099,7 @@ function renderBox(list) {
 
             //catch rate-------
             var cR = document.createElement("td");
-            cR.style.textAlign = "center"
+            cR.style.textAlign = "right"
             cR.innerText = cr_string;
             var cr_number = (parseInt(cr_string))
             if (cr_string == "100.00%") {
@@ -5067,10 +5109,49 @@ function renderBox(list) {
             }
 
             row.appendChild(mouseName);
+            row.appendChild(aR);
             row.appendChild(minLuck);
             row.appendChild(cR);
             table.appendChild(row);
         }
+
+        var overAllStatRow = document.createElement("tr");
+        overAllStatRow.className = "chro-minluck-row"
+        var overAllStatTitle = document.createElement("td");
+        overAllStatTitle.innerText = "Overall Stat";
+        overAllStatTitle.style.fontWeight = "bold"
+
+        var overAllStatAR = document.createElement("td");
+        overAllStatAR.style.textAlign = "right"
+        if (!undefinedAr) {
+            overAllStatAR.innerText = convertDoubleToPercentage(ar_overAll);
+        }
+
+        var overAllStatMinLuck = document.createElement("td");
+        overAllStatMinLuck.style.textAlign = "center"
+        overAllStatMinLuck.innerText = minLuck_overAll;
+         if (luck >= minLuck_overAll) {
+                overAllStatMinLuck.style.color = "#228B22"
+            }
+
+        var overAllStatCR = document.createElement("td");
+        overAllStatCR.style.textAlign = "right"
+        if (!undefinedAr) {
+            overAllStatCR.innerText = convertDoubleToPercentage(cr_overAll);
+
+            var cr_overAll_number = (parseInt(cr_overAll))
+            if (overAllStatCR.innerText == "100.00%") {
+                overAllStatCR.style.color = "#228B22"
+            } else if (cr_overAll_number <= turnRed) {
+                overAllStatCR.style.color = "#990000"
+            }
+        }
+
+        overAllStatRow.appendChild(overAllStatTitle);
+        overAllStatRow.appendChild(overAllStatAR);
+        overAllStatRow.appendChild(overAllStatMinLuck);
+        overAllStatRow.appendChild(overAllStatCR);
+        table.appendChild(overAllStatRow);
 
         buttonDiv.appendChild(infoButton);
         buttonDiv.appendChild(minButton);
@@ -5088,7 +5169,8 @@ function renderBox(list) {
 // Sorting on minluck (desc) and CR (asc)
 function sortTable(table_id, sortColumn1, sortColumn2) {
     var rowData = table_id.getElementsByTagName('tr');
-    for (var i = 0; i < rowData.length - 1; i++) {
+    // Do not sort the last row as it's the overall stat.
+    for (var i = 1; i < rowData.length - 1; i++) {
         for (var j = 0; j < rowData.length - (i + 1); j++) {
             var sortValue1 = Number(rowData.item(j).getElementsByTagName('td').item(sortColumn1).innerHTML.replace(/[^0-9\.]+/g, ""));
             var sortValue2 = Number(rowData.item(j + 1).getElementsByTagName('td').item(sortColumn1).innerHTML.replace(/[^0-9\.]+/g, ""));
@@ -5163,6 +5245,10 @@ function dragElement(elmnt) {
     }
 }
 
+function convertDoubleToPercentage(value) {
+    return (value * 100).toFixed(2) + '%'
+}
+
 function mouseMinluck(mouseName, mouse_power, eff) {
     eff = eff / 100;
     var adjustedMP = specialMPEff(mouseName, mouse_power, eff)[0];
@@ -5203,14 +5289,17 @@ function calcTrapTotalPower(rawPower, powerBonus) {
     return Math.ceil(result);
 }
 
-function convertToCR(mouseName, mPower, mEff) {
+function calculateCR(mouseName, mPower, mEff) {
     mEff = mEff / 100;
     var adjustedMP = specialMPEff(mouseName, mPower, mEff)[0];
     var adjustedEff = specialMPEff(mouseName, mPower, mEff)[1];
     var result = CRSpecialBonusAndEffects(mouseName, adjustedMP, adjustedEff)
-    result = FinalCRModifier(result, mouseName);
-    var finalResult = (result * 100).toFixed(2) + '%';
-    if (finalResult == '100.00%' && result != 1) {
+    return FinalCRModifier(result, mouseName);
+}
+
+function convertCRToPercentage(CR) {
+    var finalResult = convertDoubleToPercentage(CR);
+    if (finalResult == '100.00%' && CR != 1) {
         finalResult = '99.99%';
     }
     return finalResult;
@@ -5570,6 +5659,1308 @@ function getZtAmp() {
         }
     }
     return 0;
+}
+
+function getArInfo() {
+    var stageInfo;
+    var arInfo;
+    switch(locationName) {
+        case "Bountiful Beanstalk":
+            stageInfo = getStageForBountifulBeanstalk();
+            arInfo = getArInfoForBountifulBeanstalk(stageInfo);
+            break;
+        /*case "Bristle Woods Rift":
+            stageInfo = getStageForBristleWoodsRift();
+            break;*/
+        case "Foreword Farm":
+            stageInfo = getStageForForewordFarm();
+            arInfo = getArInfoForForewordFarm(stageInfo);
+            break;
+        case "Prologue Pond":
+            stageInfo = getStageForProloguePond();
+            arInfo = getArInfoForProloguePond(stageInfo);
+            break;
+        case "Table of Contents":
+            stageInfo = getStageForTableOfContents();
+            arInfo = getArInfoForTableOfContents(stageInfo);
+            break;
+        case "Zokor":
+            stageInfo = getStageForZokor();
+            arInfo = getArInfoForZokor(stageInfo);
+            break;
+        default:
+            stageInfo = ["", "", ""];
+            arInfo = getInvalidArInfo();
+    }
+
+    logger(stageInfo);
+    return arInfo;
+}
+
+function getStageForBountifulBeanstalk() {
+    var location = "Bountiful Beanstalk";
+
+    // Bountiful Beanstalk/Dungeon Floor/Ballroom Floor/Great Hall Floor
+    var stage = "";
+    // <div class="headsUpDisplayBountifulBeanstalkView__gameplay headsUpDisplayBountifulBeanstalkView__gameplay--climb">
+    var gameplayContainer = document.getElementsByClassName("headsUpDisplayBountifulBeanstalkView__gameplay")[0];
+    if (gameplayContainer) {
+        // outside
+        if (gameplayContainer.classList[1] == "headsUpDisplayBountifulBeanstalkView__gameplay--climb") {
+            // <div class="bountifulBeanstalkClimbView__title">Bountiful Beanstalk</div>
+            var climbTitleContainer = document.getElementsByClassName("bountifulBeanstalkClimbView__title")[0];
+            if (climbTitleContainer) {
+                stage = climbTitleContainer.innerText;
+            }
+        } else { // if (gameplayContainer.classList[1] == "headsUpDisplayBountifulBeanstalkView__gameplay--castle"")
+            // inside the castle
+            // <div class="headsUpDisplayBountifulBeanstalkView__gameplay headsUpDisplayBountifulBeanstalkView__gameplay--castle">
+            // <div class="bountifulBeanstalkCastleView__title">Great Hall Floor</div>
+            var castleTitleContainer = document.getElementsByClassName("bountifulBeanstalkCastleView__title")[0];
+            if (castleTitleContainer) {
+                stage = castleTitleContainer.innerText;
+            }
+        }
+    }
+
+    var subStage = baitName;
+    // Leaping Lavish attracts the same mice as Lavish.
+    if (subStage == "Leaping Lavish Beanster Cheese") {
+        subStage = "Lavish Beanster Cheese";
+    } else if (isSbCheese(baitName)) {
+        // There is a SB mouse "outside", but not "inside".
+        if (stage == "Bountiful Beanstalk") {
+            subStage = "SUPER|brie+";
+        } else {
+            subStage = "Standard Cheese";
+        }
+    } else if (isStandardCheese(baitName)) {
+        subStage = "Standard Cheese";
+    }
+
+    // Check for boss encountering.
+    switch(stage) {
+        case "Bountiful Beanstalk":
+            // <div class="headsUpDisplayBountifulBeanstalkView__climbNextRoomText">Next Zone in 1 catch</div>
+            var climbNextRoomContainer = document.getElementsByClassName("headsUpDisplayBountifulBeanstalkView__climbNextRoomText")[0];
+            if (climbNextRoomContainer && climbNextRoomContainer.innerText == "Next Zone in 1 catch") {
+                subStage = "Boss"
+            }
+            break;
+        case "Dungeon Floor":
+        case "Ballroom Floor":
+        case "Great Hall Floor":
+            // <div class="headsUpDisplayBountifulBeanstalkView__castleNextRoomText headsUpDisplayBountifulBeanstalkView__castleNextRoomText--nextArrow">Next Room in 3 hunts</div>
+            var castleNextRoomContainer = document.getElementsByClassName("headsUpDisplayBountifulBeanstalkView__castleNextRoomText")[0];
+            if (castleNextRoomContainer && castleNextRoomContainer.innerText == "Defeat the Giant!") {
+                subStage = "Giant"
+            }
+            break;
+    }
+    return [location, stage, subStage];
+}
+
+function getArInfoForBountifulBeanstalk(stageInfo) {
+    var stage = stageInfo[1];
+    var subStage = stageInfo[2];
+
+    switch (stage) {
+        case "Bountiful Beanstalk":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Budrich Thornborn": 0.5000,
+                        "Leafton Beanwell": 0.5000,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Budrich Thornborn": 0.4750,
+                        "Leafton Beanwell": 0.4750,
+                        "Herbaceous Bravestalk": 0.0500,
+                    };
+            }
+            break;
+        case "Dungeon Floor":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Smug Smuggler": 0.3916,
+                        "Diminutive Detainee": 0.3396,
+                        "Peaceful Prisoner": 0.2688,
+                    };
+                case "Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Jovial Jailor": 0.4485,
+                        "Cell Sweeper": 0.3050,
+                        "Lethargic Guard": 0.2465,
+                    };
+                case "Lavish Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Gate Keeper": 0.5105,
+                        "Key Master": 0.4895,
+                    };
+                case "Royal Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Wrathful Warden": 1.0000,
+                    };
+                case "Giant":
+                    return {
+                        "FTC": -1.00,
+                        "Dungeon Master": 1.0000,
+                    };
+            }
+            break;
+        case "Ballroom Floor":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Baroque Dancer": 0.3815,
+                        "Sassy Salsa Dancer": 0.3570,
+                        "Whimsical Waltzer": 0.2615,
+                    };
+                case "Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Peevish Piccoloist": 0.3950,
+                        "Obstinate Oboist": 0.3076,
+                        "Sultry Saxophonist": 0.2974,
+                    };
+                case "Lavish Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Violent Violinist": 0.5011,
+                        "Chafed Cellist": 0.4989,
+                    };
+                case "Royal Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Treacherous Tubaist": 1.0000,
+                    };
+                case "Giant":
+                    return {
+                        "FTC": -1.00,
+                        "Malevolent Maestro": 1.0000,
+                    };
+            }
+            break;
+        case "Great Hall Floor":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Plotting Page": 0.4163,
+                        "Scheming Squire": 0.3205,
+                        "Clumsy Cupbearer": 0.2632,
+                    };
+                case "Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Baroness Von Bean": 0.4129,
+                        "Vindictive Viscount": 0.2968,
+                        "Cagey Countess": 0.29030,
+                    };
+                case "Lavish Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Dastardly Duchess": 0.5040,
+                        "Malicious Marquis": 0.4960,
+                    };
+                case "Royal Beanster Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Pernicious Prince": 1.0000,
+                    };
+                case "Giant":
+                    return {
+                        "FTC": -1.00,
+                        "Mythical Giant King": 1.0000,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function getStageForBristleWoodsRift() {
+    return document.getElementsByClassName("riftBristleWoodsHUD");
+}
+
+function getStageForForewordFarm() {
+    var location = "Foreword Farm";
+
+    // No Plants/One Plant/Two Plants/Three Plants/Three Papyrus/Boss
+    var stage = "";
+    var ffViewContainer = document.getElementsByClassName("folkloreForestRegionView")[0];
+    if (ffViewContainer) {
+        // <div class="folkloreForestRegionView foreword_farm fuelActive three_papyrus">
+        var plants = ffViewContainer.classList[3];
+        switch(plants) {
+        case "no_plants":
+            stage = "No Plants"
+            break;
+        case "one_plant":
+            stage = "One Plant"
+            break;
+        case "two_plants":
+            stage = "Two Plants"
+            break;
+        case "three_plants":
+            stage = "Three Plants"
+            break;
+        case "three_papyrus":
+            stage = "Three Papyrus"
+            break;
+        case "boss":
+            stage = "Boss"
+            break;
+        }
+    }
+
+    var subStage = baitName;
+    if (isStandardCheese(baitName)) {
+        // There is a SB mouse.
+        if (isSbCheese(baitName)) {
+            subStage = "SUPER|brie+";
+        } else {
+            subStage = "Standard Cheese";
+        }
+    }
+
+    return [location, stage, subStage];
+}
+
+function getArInfoForForewordFarm(stageInfo) {
+    var stage = stageInfo[1];
+    var subStage = stageInfo[2];
+
+    switch (stage) {
+        case "No Plants":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Root Rummager": 0.3931,
+                        "Land Loafer": 0.3535,
+                        "Grit Grifter": 0.2534,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Root Rummager": 0.3005,
+                        "Land Loafer": 0.2519,
+                        "Grit Grifter": 0.2505,
+                        "Crazed Cultivator": 0.1971,
+                    };
+            }
+            break;
+        case "One Plant":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Root Rummager": 0.3980,
+                        "Grit Grifter": 0.3527,
+                        "Angry Aphid": 0.2493,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Root Rummager": 0.3667,
+                        "Grit Grifter": 0.2488,
+                        "Angry Aphid": 0.1957,
+                        "Crazed Cultivator": 0.1888,
+                    };
+            }
+            break;
+        case "Two Plants":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Grit Grifter": 0.3507,
+                        "Angry Aphid": 0.3471,
+                        "Wily Weevil": 0.3022,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Angry Aphid": 0.3038,
+                        "Grit Grifter": 0.2999,
+                        "Wily Weevil": 0.1996,
+                        "Crazed Cultivator": 0.1967,
+                    };
+            }
+            break;
+        case "Three Plants":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Angry Aphid": 0.3567,
+                        "Wily Weevil": 0.3443,
+                        "Mighty Mite": 0.2990,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Wily Weevil": 0.2953,
+                        "Angry Aphid": 0.2571,
+                        "Mighty Mite": 0.2498,
+                        "Crazed Cultivator": 0.1978,
+                    };
+            }
+            break;
+        case "Three Papyrus":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Loathsome Locust": 0.3942,
+                        "Angry Aphid": 0.2099,
+                        "Mighty Mite": 0.1985,
+                        "Wily Weevil": 0.1974,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Loathsome Locust": 0.3939,
+                        "Crazed Cultivator": 0.1991,
+                        "Mighty Mite": 0.1485,
+                        "Wily Weevil": 0.1460,
+                        "Angry Aphid": 0.1125,
+                    };
+            }
+            break;
+        case "Boss":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Monstrous Midge": 1.0000,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Monstrous Midge": 1.0000,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function getStageForProloguePond() {
+    var location = "Prologue Pond";
+
+    // Stage simply dependeng on the cheese.
+    var stage = baitName;
+    if (isStandardCheese(baitName)) {
+        // There is a SB mouse.
+        if (isSbCheese(baitName)) {
+            stage = "SUPER|brie+";
+        } else {
+            stage = "Standard Cheese";
+        }
+    }
+
+    return [location, stage];
+}
+
+function getArInfoForProloguePond(stageInfo) {
+    var stage = stageInfo[1];
+
+    switch (stage) {
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Sand Sifter": 0.3968,
+                "Beachcomber": 0.3555,
+                "Tackle Tracker": 0.2477,
+            };
+        case "SUPER|brie+":
+            return {
+                "FTC": 0.00,
+                "Sand Sifter": 0.3002,
+                "Beachcomber": 0.2565,
+                "Tackle Tracker": 0.2488,
+                "Covetous Coastguard": 0.1945,
+            };
+        case "Grubbeen Cheese":
+            return {
+                "FTC": 0.00,
+                "Careless Catfish": 0.3964,
+                "Pompous Perch": 0.3565,
+                "Melodramatic Minnow": 0.2471,
+            };
+        case "Clamembert Cheese":
+            return {
+                "FTC": 0.00,
+                "Nefarious Nautilus": 0.3960,
+                "Sinister Squid": 0.3565,
+                "Vicious Vampire Squid": 0.2475,
+            };
+        case "Stormy Clamembert Cheese":
+            return {
+                "FTC": 0.00,
+                "Architeuthulhu of the Abyss": 1.0000,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getStageForTableOfContents() {
+    var location = "Table of Contents";
+
+    // Not writing/Pre-Encyclopedia/Encyclopedia
+    var stage = "";
+    var tocViewContainer = document.getElementsByClassName("folkloreForestRegionView-environmentHud")[0];
+    if (tocViewContainer) {
+        var pendingBookContainer = tocViewContainer.getElementsByClassName("tableOfContentsView-pendingBookContainer")[0];
+        // Pending = Not writing.
+        // <div class="tableOfContentsView-pendingBookContainer active">
+        if (pendingBookContainer && pendingBookContainer.classList.length > 1 && pendingBookContainer.classList[1] == "active") {
+            stage = "Not Writing";
+        } else {
+            // Writing
+            var bookContainer = tocViewContainer.getElementsByClassName("tableOfContentsView-bookContainer")[0];
+            if (bookContainer && bookContainer.classList[1] == "active") {
+                //<div class="tableOfContentsView-bookContainer active writing encyclopedia">
+                if (bookContainer.classList[2] == "writing") {
+                    // Get the book type.
+                    if (bookContainer.classList[3] == "encyclopedia") {
+                        stage = "Encyclopedia";
+                    } else {
+                        stage = "Pre-Encyclopedia";
+                    }
+                } else { // There is a reward to claim
+                    // <div class="tableOfContentsView-bookContainer active novel">
+                    stage = "Not Writing";
+                }
+            }
+        }
+    }
+
+    var subStage = baitName;
+    if (isStandardCheese(baitName)) {
+        // There is a SB mouse.
+        if (isSbCheese(baitName)) {
+            subStage = "SUPER|brie+";
+        } else {
+            subStage = "Standard Cheese";
+        }
+    }
+
+    return [location, stage, subStage];
+}
+
+function getArInfoForTableOfContents(stageInfo) {
+    var stage = stageInfo[1];
+    var subStage = stageInfo[2];
+
+    switch (stage) {
+        case "Not Writing":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Brothers Grimmaus": 0.3964,
+                        "Hans Cheesetian Squeakersen": 0.3576,
+                        "Madame d'Ormouse": 0.2460,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Matriarch Gander": 0.3793,
+                        "Brothers Grimmaus": 0.2605,
+                        "Hans Cheesetian Squeakersen": 0.1892,
+                        "Madame d'Ormouse": 0.1710,
+                    };
+            }
+            break;
+        case "Pre-Encyclopedia":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Humphrey Dumphrey": 0.4191,
+                        "Little Miss Fluffet": 0.2925,
+                        "Little Bo Squeak": 0.2884,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Humphrey Dumphrey": 0.4012,
+                        "Little Miss Fluffet": 0.2800,
+                        "Little Bo Squeak": 0.2761,
+                        "Matriarch Gander": 0.0427,
+                    };
+                case "First Draft Derby Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Pinkielina": 0.3862,
+                        "Princess and the Olive": 0.3668,
+                        "Fibbocchio": 0.2470,
+                    };
+                case "Second Draft Derby Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Flamboyant Flautist": 0.3945,
+                        "Greenbeard": 0.3542,
+                        "Ice Regent": 0.2513,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Bitter Grammarian": 1.0000,
+                    };
+            }
+            break;
+        case "Encyclopedia":
+            switch (subStage) {
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Humphrey Dumphrey": 0.4191,
+                        "Little Miss Fluffet": 0.2925,
+                        "Little Bo Squeak": 0.2884,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Humphrey Dumphrey": 0.4012,
+                        "Little Miss Fluffet": 0.2800,
+                        "Little Bo Squeak": 0.2761,
+                        "Matriarch Gander": 0.0427,
+                    };
+                case "First Draft Derby Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Pinkielina": 0.3862,
+                        "Princess and the Olive": 0.3668,
+                        "Fibbocchio": 0.2470,
+                    };
+                case "Second Draft Derby Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Flamboyant Flautist": 0.3945,
+                        "Greenbeard": 0.3542,
+                        "Ice Regent": 0.2513,
+                    };
+                case "SUPER|brie+":
+                    return {
+                        "FTC": 0.00,
+                        "Bitter Grammarian": 0.6015,
+                        "Mythweaver": 0.3985,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function getStageForZokor() {
+    var location = "Zokor";
+
+    // District name
+    var stage = "";
+    var districtNameContainer = document.getElementsByClassName("ancientCityHUD-districtName")[0];
+    if (districtNameContainer) {
+        stage = districtNameContainer.innerText;
+    }
+
+    // Boss/Non-boss
+    var subStage = "Non-Boss";
+    var bossContainer = document.getElementsByClassName("ancientCityHUD-bossContainer")[0];
+    if (bossContainer) {
+        if (bossContainer.classList[3] == "active") {
+            subStage = "Boss";
+        } else if (bossContainer.classList[3] == "hiddenDistrict" && bossContainer.classList[4] != "napping") {
+            // <div class="ancientCityHUD-bossContainer mousehuntTooltipParent ancientCityHUD-boss-n hiddenDistrict napping"
+            subStage = "Boss";
+        }
+    }
+
+    var cheeseType = "";
+    if (baitName == "Glowing Gruyere Cheese") {
+        cheeseType = baitName;
+    } else if (isStandardCheese(baitName)) {
+        cheeseType = "Standard Cheese";
+    }
+
+    return [location, stage, subStage, cheeseType];
+}
+
+function getArInfoForZokor(stageInfo) {
+    var stage = stageInfo[1];
+
+    switch (stage) {
+        case "The Outer Fealty Shrine":
+            return getArInfoForZokorFealtyTier1(stageInfo);
+        case "The Inner Fealty Temple":
+            return getArInfoForZokorFealtyTier2(stageInfo);
+        case "The Templar's Fealty Sanctum":
+            return getArInfoForZokorFealtyTier3(stageInfo);
+        case "The Neophyte Scholar Study":
+            return getArInfoForZokorScholarTier1(stageInfo);
+        case "The Master Scholar Auditorium":
+            return getArInfoForZokorScholarTier2(stageInfo);
+        case "The Dark Scholar Library":
+            return getArInfoForZokorScholarTier3(stageInfo);
+        case "The Tech Foundry Outskirts":
+            return getArInfoForZokorTechTier1(stageInfo);
+        case "The Tech Research Center":
+            return getArInfoForZokorTechTier2(stageInfo);
+        case "The Tech Manaforge":
+            return getArInfoForZokorTechTier3(stageInfo);
+        case "The Treasure Room":
+            return getArInfoForZokorTreasuryTier1(stageInfo);
+        case "The Treasure Vault":
+            return getArInfoForZokorTreasuryTier2(stageInfo);
+        case "The Farming Garden":
+            return getArInfoForZokorFarmingTier1(stageInfo);
+        case "The Overgrown Farmhouse":
+            return getArInfoForZokorFarmingTier2(stageInfo);
+        case "The Lair of the Minotaur":
+            return getArInfoForZokorMino(stageInfo);
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorFealtyTier1(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Masked Pikeman": 0.3652,
+                "Drudge": 0.3408,
+                "Reanimated Carver": 0.2040,
+                "Battle Cleric": 0.0900,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Masked Pikeman": 0.2980,
+                "Drudge": 0.2670,
+                "Shadow Stalker": 0.2064,
+                "Reanimated Carver": 0.1544,
+                "Battle Cleric": 0.0742,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorFealtyTier2(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Battle Cleric": 0.3488,
+                "Sir Fleekio": 0.3146,
+                "Reanimated Carver": 0.1559,
+                "Mind Tearer": 0.0965,
+                "Solemn Soldier": 0.0644,
+                "Drudge": 0.0102,
+                "Masked Pikeman": 0.0096,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Battle Cleric": 0.2786,
+                "Sir Fleekio": 0.2536,
+                "Shadow Stalker": 0.2049,
+                "Reanimated Carver": 0.1243,
+                "Mind Tearer": 0.0752,
+                "Solemn Soldier": 0.0473,
+                "Drudge": 0.0082,
+                "Masked Pikeman": 0.0079,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorFealtyTier3(stageInfo) {
+    var subStage = stageInfo[2];
+    var cheeseType = stageInfo[3];
+
+    switch (subStage) {
+        case "Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Paladin Weapon Master": 0.5000,
+                        "Battle Cleric": 0.1652,
+                        "Sir Fleekio": 0.1499,
+                        "Reanimated Carver": 0.0590,
+                        "Mind Tearer": 0.0451,
+                        "Dark Templar": 0.0405,
+                        "Solemn Soldier": 0.0304,
+                        "Masked Pikeman": 0.0050,
+                        "Drudge": 0.0049,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Paladin Weapon Master": 0.5000,
+                        "Battle Cleric": 0.1340,
+                        "Sir Fleekio": 0.1175,
+                        "Shadow Stalker": 0.0983,
+                        "Reanimated Carver": 0.0481,
+                        "Mind Tearer": 0.0351,
+                        "Dark Templar": 0.0336,
+                        "Solemn Soldier": 0.0246,
+                        "Drudge": 0.0045,
+                        "Masked Pikeman": 0.0043,
+                    };
+            }
+            break;
+        case "Non-Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Battle Cleric": 0.3303,
+                        "Sir Fleekio": 0.2999,
+                        "Reanimated Carver": 0.1180,
+                        "Mind Tearer": 0.0902,
+                        "Dark Templar": 0.0810,
+                        "Solemn Soldier": 0.0607,
+                        "Masked Pikeman": 0.0101,
+                        "Drudge": 0.0098,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Battle Cleric": 0.2679,
+                        "Sir Fleekio": 0.2349,
+                        "Shadow Stalker": 0.1967,
+                        "Reanimated Carver": 0.0962,
+                        "Mind Tearer": 0.0702,
+                        "Dark Templar": 0.0672,
+                        "Solemn Soldier": 0.0491,
+                        "Drudge": 0.0091,
+                        "Masked Pikeman": 0.0087,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorScholarTier1(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Sanguinarian": 0.3619,
+                "Summoning Scholar": 0.3474,
+                "Reanimated Carver": 0.2014,
+                "Ethereal Guardian": 0.0893,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Summoning Scholar": 0.2843,
+                "Sanguinarian": 0.2815,
+                "Shadow Stalker": 0.1994,
+                "Reanimated Carver": 0.1640,
+                "Ethereal Guardian": 0.0708,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorScholarTier2(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Ethereal Guardian": 0.3504,
+                "Ancient Scribe": 0.3178,
+                "Reanimated Carver": 0.1530,
+                "Mystic Herald": 0.0941,
+                "Mystic Guardian": 0.0626,
+                "Summoning Scholar": 0.0117,
+                "Sanguinarian": 0.0104,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Ethereal Guardian": 0.2711,
+                "Ancient Scribe": 0.2538,
+                "Shadow Stalker": 0.2138,
+                "Reanimated Carver": 0.1245,
+                "Mystic Herald": 0.0712,
+                "Mystic Guardian": 0.0491,
+                "Sanguinarian": 0.0085,
+                "Summoning Scholar": 0.0080,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorScholarTier3(stageInfo) {
+    var subStage = stageInfo[2];
+    var cheeseType = stageInfo[3];
+
+    switch (subStage) {
+        case "Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Soul Binder": 0.5000,
+                        "Ethereal Guardian": 0.1652,
+                        "Ancient Scribe": 0.1507,
+                        "Reanimated Carver": 0.0597,
+                        "Mystic Herald": 0.0458,
+                        "Mystic Scholar": 0.0393,
+                        "Mystic Guardian": 0.0295,
+                        "Summoning Scholar": 0.0050,
+                        "Sanguinarian": 0.0048,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Soul Binder": 0.5000,
+                        "Ethereal Guardian": 0.1299,
+                        "Ancient Scribe": 0.1208,
+                        "Shadow Stalker": 0.1009,
+                        "Reanimated Carver": 0.0480,
+                        "Mystic Herald": 0.0372,
+                        "Mystic Scholar": 0.0314,
+                        "Mystic Guardian": 0.0236,
+                        "Summoning Scholar": 0.0043,
+                        "Sanguinarian": 0.0039,
+
+                    };
+            }
+            break;
+        case "Non-Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Ethereal Guardian": 0.3304,
+                        "Ancient Scribe": 0.3013,
+                        "Reanimated Carver": 0.1195,
+                        "Mystic Herald": 0.0915,
+                        "Mystic Scholar": 0.0786,
+                        "Mystic Guardian": 0.0590,
+                        "Summoning Scholar": 0.0101,
+                        "Sanguinarian": 0.0096,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Ethereal Guardian": 0.2599,
+                        "Ancient Scribe": 0.2417,
+                        "Shadow Stalker": 0.2018,
+                        "Reanimated Carver": 0.0959,
+                        "Mystic Herald": 0.0744,
+                        "Mystic Scholar": 0.0628,
+                        "Mystic Guardian": 0.0472,
+                        "Summoning Scholar": 0.0087,
+                        "Sanguinarian": 0.0076,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorTechTier1(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Ash Golem": 0.3718,
+                "RR-8": 0.3323,
+                "Reanimated Carver": 0.2071,
+                "Exo-Tech": 0.0888,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Ash Golem": 0.2994,
+                "RR-8": 0.2766,
+                "Shadow Stalker": 0.1900,
+                "Reanimated Carver": 0.1659,
+                "Exo-Tech": 0.0681,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorTechTier2(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Exo-Tech": 0.3348,
+                "Matron of Machinery": 0.3013,
+                "Reanimated Carver": 0.1474,
+                "Automated Stone Sentry": 0.1237,
+                "Tech Golem": 0.0485,
+                "RR-8": 0.0225,
+                "Ash Golem": 0.0218,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Exo-Tech": 0.2571,
+                "Matron of Machinery": 0.2451,
+                "Shadow Stalker": 0.2066,
+                "Reanimated Carver": 0.1190,
+                "Automated Stone Sentry": 0.1012,
+                "Tech Golem": 0.0382,
+                "RR-8": 0.0178,
+                "Ash Golem": 0.0150,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorTechTier3(stageInfo) {
+    var subStage = stageInfo[2];
+    var cheeseType = stageInfo[3];
+
+    switch (subStage) {
+        case "Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Manaforge Smith": 0.5000,
+                        "Exo-Tech": 0.1655,
+                        "Matron of Machinery": 0.1500,
+                        "Reanimated Carver": 0.0605,
+                        "Automated Stone Sentry": 0.0448,
+                        "Fungal Technomorph": 0.0396,
+                        "Tech Golem": 0.0296,
+                        "Ash Golem": 0.0050,
+                        "RR-8": 0.0050,
+
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Manaforge Smith": 0.5000,
+                        "Exo-Tech": 0.1325,
+                        "Matron of Machinery": 0.1211,
+                        "Shadow Stalker": 0.0986,
+                        "Reanimated Carver": 0.0489,
+                        "Automated Stone Sentry": 0.0368,
+                        "Fungal Technomorph": 0.0304,
+                        "Tech Golem": 0.0241,
+                        "Ash Golem": 0.0039,
+                        "RR-8": 0.0037,
+                    };
+            }
+            break;
+        case "Non-Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Exo-Tech": 0.3310,
+                        "Matron of Machinery": 0.3000,
+                        "Reanimated Carver": 0.1209,
+                        "Automated Stone Sentry": 0.0896,
+                        "Fungal Technomorph": 0.0791,
+                        "Tech Golem": 0.0593,
+                        "Ash Golem": 0.0101,
+                        "RR-8": 0.0100,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Exo-Tech": 0.2650,
+                        "Matron of Machinery": 0.2421,
+                        "Shadow Stalker": 0.1971,
+                        "Reanimated Carver": 0.0978,
+                        "Automated Stone Sentry": 0.0735,
+                        "Fungal Technomorph": 0.0608,
+                        "Tech Golem": 0.0482,
+                        "Ash Golem": 0.0079,
+                        "RR-8": 0.0076,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorTreasuryTier1(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Mimic": 0.3554,
+                "Hired Eidolon": 0.2519,
+                "Matron of Wealth": 0.2005,
+                "Reanimated Carver": 0.1922,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Mimic": 0.2789,
+                "Shadow Stalker": 0.2046,
+                "Hired Eidolon": 0.1989,
+                "Reanimated Carver": 0.1600,
+                "Matron of Wealth": 0.1577,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorTreasuryTier2(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Molten Midas": 0.4998,
+                "Reanimated Carver": 0.1492,
+                "Hired Eidolon": 0.1309,
+                "Treasure Brawler": 0.1019,
+                "Matron of Wealth": 0.0696,
+                "Mimic": 0.0486,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Molten Midas": 0.3994,
+                "Shadow Stalker": 0.2067,
+                "Reanimated Carver": 0.1168,
+                "Hired Eidolon": 0.1003,
+                "Treasure Brawler": 0.0849,
+                "Matron of Wealth": 0.0512,
+                "Mimic": 0.0407,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorFarmingTier1(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Mush Monster": 0.3496,
+                "Nightshade Nanny": 0.3141,
+                "Reanimated Carver": 0.1910,
+                "Mushroom Harvester": 0.1453,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Nightshade Nanny": 0.2416,
+                "Mushroom Harvester": 0.2392,
+                "Shadow Stalker": 0.1752,
+                "Reanimated Carver": 0.1720,
+                "Mush Monster": 0.1720,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorFarmingTier2(stageInfo) {
+    var cheeseType = stageInfo[3];
+
+    switch (cheeseType) {
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Mush Monster": 0.3797,
+                "Nightshade Fungalmancer": 0.3002,
+                "Nightshade Nanny": 0.1600,
+                "Reanimated Carver": 0.1501,
+                "Mushroom Harvester": 0.0100,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Mush Monster": 0.3088,
+                "Shadow Stalker": 0.1980,
+                "Nightshade Nanny": 0.1813,
+                "Nightshade Fungalmancer": 0.1672,
+                "Reanimated Carver": 0.1198,
+                "Mushroom Harvester": 0.0249,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
+function getArInfoForZokorMino(stageInfo) {
+    var subStage = stageInfo[2];
+    var cheeseType = stageInfo[3];
+
+    switch (subStage) {
+        case "Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Decrepit Tentacle Terror": 0.5431,
+                        "Reanimated Carver": 0.2124,
+                        "Retired Minotaur": 0.1889,
+                        "Corridor Bruiser": 0.0556,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Decrepit Tentacle Terror": 0.4228,
+                        "Shadow Stalker": 0.2114,
+                        "Reanimated Carver": 0.1748,
+                        "Retired Minotaur": 0.1559,
+                        "Corridor Bruiser": 0.0351,
+                    };
+            }
+            break;
+        case "Non-Boss":
+            switch (cheeseType) {
+                case "Glowing Gruyere Cheese":
+                    return {
+                        "FTC": 0.00,
+                        "Decrepit Tentacle Terror": 0.6696,
+                        "Reanimated Carver": 0.2619,
+                        "Corridor Bruiser": 0.0685,
+                    };
+                case "Standard Cheese":
+                    return {
+                        "FTC": -1.00,
+                        "Decrepit Tentacle Terror": 0.5008,
+                        "Shadow Stalker": 0.2504,
+                        "Reanimated Carver": 0.2071,
+                        "Corridor Bruiser": 0.0417,
+                    };
+            }
+            break;
+    }
+
+    return getInvalidArInfo();
+}
+
+function isSbCheese(cheese) {
+    var sbCheese = new Set([
+        "SUPER|brie+",
+        "Empowered SUPER|brie+",
+    ]);
+    return sbCheese.has(cheese);
+}
+
+function isStandardCheese(cheese) {
+    var standardCheese = new Set([
+        "White Cheddar Cheese",
+        "Cheddar Cheese",
+        "Marble Cheese",
+        "Mozzarella Cheese",
+        "Swiss Cheese",
+        "Brie Cheese",
+        "Gouda Cheese",
+        "Empowered Brie",
+    ]);
+    return standardCheese.has(cheese) || isSbCheese(cheese) || isStandardRiftCheese(cheese);
+}
+
+function isStandardRiftCheese(cheese) {
+    var standardRiftCheese = new Set([
+        "Marble String Cheese",
+        "Swiss String Cheese",
+        "Brie String Cheese",
+        "Magical String Cheese",
+    ]);
+    return standardRiftCheese.has(cheese);
+}
+
+function getCheeseAr(cheese) {
+    var cheeseAr = {
+        "Brie Cheese": 0.85,
+        "Brie String Cheese": 0.85,
+        "Cheddar Cheese": 0.70,
+        "Empowered Brie": 0.85,
+        "Empowered SUPER|brie+": 1.00,
+        "Gouda Cheese": 0.90,
+        "Magical String Cheese": 1.00,
+        "Marble Cheese": 0.75,
+        "Marble String Cheese": 0.75,
+        "Mozzarella Cheese": 0.70,
+        "Swiss Cheese": 0.80,
+        "Swiss String Cheese": 0.80,
+        "SUPER|brie+": 1.00,
+        "White Cheddar Cheese": 0.70,
+    };
+
+    var result = cheeseAr[cheese];
+    if (result == undefined) {
+        logger(cheese + " not found in the cheese AR table");
+        return 1.0;
+    } else {
+        return result;
+    }
+}
+
+
+function adjustAr(ar, ftc) {;
+    // Will never FTC, can use the AR directly.
+    if (ftc == 0.0) {
+        return ar;
+    } else if (ftc > 0.0) {
+        return ((1.0 - ftc) + ftc * basicTrapArBonus) * ar / (1.0 - ftc);
+    } else {
+        var basicAr = getCheeseAr(baitName);
+        return (basicAr + (1.0 - basicAr) * basicTrapArBonus) * ar;
+    }
+}
+
+function getInvalidArInfo() {
+    return {
+        "FTC": 0.0,
+        "Invalid": 0,
+    }
 }
 
 function logUserInfo() {
