@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.0
+// @version      4.0.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4831,7 +4831,7 @@ function getData() {
         basicTrapPowerBonus = user.trap_power_bonus; // 0.77 for 77%
         basicTrapPowerTotal = user.trap_power;
         basicTrapLuck = user.trap_luck;
-        basicTrapArBonus = user.trap_attraction_bonus;
+        basicTrapArBonus = Math.min(user.trap_attraction_bonus, 1.0);
 
         if (calcTrapTotalPower(basicTrapPower, basicTrapPowerBonus) != basicTrapPowerTotal) {
             logger("WARNING: Displayed trap power is " + basicTrapPowerTotal + " while the calculated trap power is " + calcTrapTotalPower(basicTrapPower, basicTrapPowerBonus));
@@ -5125,6 +5125,8 @@ function renderBox(list) {
         overAllStatAR.style.textAlign = "right"
         if (!undefinedAr) {
             overAllStatAR.innerText = convertDoubleToPercentage(ar_overAll);
+        } else {
+            arheader.innerText = ""
         }
 
         var overAllStatMinLuck = document.createElement("td");
