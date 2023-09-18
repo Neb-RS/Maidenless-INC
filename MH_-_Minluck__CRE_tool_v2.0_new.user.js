@@ -4683,7 +4683,7 @@ var dragonbaneCharmMice = new Set([
     "Ful'Mina, The Mountain Queen",
     "Thunder Strike",
     "Thundering Watcher",
-    "Thunderlord",
+    "⚡Thunderlord⚡",
     "Violet Stormchild",
     "Fuzzy Drake",
     "Cork Defender",
@@ -4814,6 +4814,9 @@ function getData() {
         weaponName = user.weapon_name;
         baseName = user.base_name;
         charmName = user.trinket_name;
+        // Protection against error when no charm is armed.
+        if (charmName == null)
+            charmName = "";
         baitName = user.bait_name;
         trapPowerType = user.trap_power_type_name;
         // locationName = user.environment_name // For some reason this is not updated upon travelling.
@@ -5075,7 +5078,10 @@ function renderBox(list) {
                 }
 
                 minluck_string = mouseMinluck(mouseNameConverted, mice_power, mice_eff);
-                if (minluck_string > minLuck_overAll) {
+                var infinitySym = String.fromCharCode(0x221E)
+                if (minluck_string == infinitySym) {
+                    minLuck_overAll = infinitySym;
+                } else if (minLuck_overAll != infinitySym && minluck_string > minLuck_overAll) {
                     minLuck_overAll = minluck_string;
                 }
             } else {
@@ -5678,6 +5684,10 @@ function getArInfo() {
             stageInfo = getStageForForewordFarm();
             arInfo = getArInfoForForewordFarm(stageInfo);
             break;
+        case "Moussu Picchu":
+            stageInfo = getStageForMoussuPicchu();
+            arInfo = getArInfoForMoussuPicchu(stageInfo);
+            break;
         case "Prologue Pond":
             stageInfo = getStageForProloguePond();
             arInfo = getArInfoForProloguePond(stageInfo);
@@ -6060,6 +6070,188 @@ function getArInfoForForewordFarm(stageInfo) {
     return getInvalidArInfo();
 }
 
+function getStageForMoussuPicchu() {
+    var location = "Moussu Picchu";
+
+    // Dragonvine Cheese/Windy Cheese/Rainy Cheese/Glowing Gruyere Cheese/SUPER|brie+/Standard Cheese
+    var stage = baitName;
+    if (isStandardCheese(baitName)) {
+        // There is a SB mouse.
+        if (isSbCheese(baitName)) {
+            stage = "SUPER|brie+";
+        } else {
+            stage = "Standard Cheese";
+        }
+    }
+
+    // low/medium/high/max
+    var subStage = "";
+    switch (stage) {
+        case "Dragonvine Cheese":
+            // <div class="moussuPicchuHUD-background storm high">
+            // The storm level seems to be one off - 100% wind/rain is showing as high,
+            // while medium is showing as medium
+            /*var stormViewContainer = document.getElementsByClassName("moussuPicchuHUD-background storm")[0];
+            if (stormViewContainer) {
+                subStage = stormViewContainer.classList[2];
+             }*/
+            var windViewContainer1 = document.getElementsByClassName("moussuPicchuHUD-background wind")[0];
+            var rainViewContainer1 = document.getElementsByClassName("moussuPicchuHUD-background rain")[0];
+            if (windViewContainer1 && rainViewContainer1) {
+                var windLevel = windViewContainer1.classList[2];
+                var rainLevel = rainViewContainer1.classList[2];
+                if (windLevel == "low" || rainLevel == "low") {
+                    subStage = "low";
+                } else if (windLevel == "medium" || rainLevel == "medium") {
+                    subStage = "medium";
+                } else if (windLevel == "high" || rainLevel == "high") {
+                    subStage = "high";
+                } else {
+                    subStage = "max";
+                }
+            }
+            break;
+        case "Windy Cheese":
+            // <div class="moussuPicchuHUD-background wind max">
+            var windViewContainer = document.getElementsByClassName("moussuPicchuHUD-background wind")[0];
+            if (windViewContainer) {
+                subStage = windViewContainer.classList[2];
+            }
+            break;
+        case "Rainy Cheese":
+            // <div class="moussuPicchuHUD-background rain high">
+            var rainViewContainer = document.getElementsByClassName("moussuPicchuHUD-background rain")[0];
+            if (rainViewContainer) {
+                subStage = rainViewContainer.classList[2];
+            }
+            break;
+    }
+
+    return [location, stage, subStage];
+}
+
+function getArInfoForMoussuPicchu(stageInfo) {
+    var stage = stageInfo[1];
+    var subStage = stageInfo[2];
+
+    switch (stage) {
+        case "Dragonvine Cheese":
+            switch (subStage) {
+                case "max":
+                    return {
+                        "FTC": 0.00,
+                        "Ful'Mina, The Mountain Queen": 1.0000,
+                    };
+                case "high":
+                    return {
+                        "FTC": 0.00,
+                        "Thundering Watcher": 0.5831,
+                        "Ful'Mina, The Mountain Queen": 0.3699,
+                        "Dragoon": 0.0470,
+                    };
+                case "medium":
+                    return {
+                        "FTC": 0.00,
+                        "⚡Thunderlord⚡": 0.5738,
+                        "Thundering Watcher": 0.4262,
+                    };
+                case "low":
+                    return {
+                        "FTC": 0.00,
+                        "Thunder Strike": 0.6107,
+                        "Violet Stormchild": 0.3893,
+                    };
+            }
+            break;
+        case "Windy Cheese":
+            switch (subStage) {
+                case "max":
+                    return {
+                        "FTC": 0.00,
+                        "Wind Warrior": 1.0000,
+                    };
+                case "high":
+                    return {
+                        "FTC": 0.00,
+                        "Cycloness": 0.5862,
+                        "Wind Warrior": 0.4138,
+                    };
+                case "medium":
+                    return {
+                        "FTC": 0.00,
+                        "Fluttering Flutist": 0.5755,
+                        "Cycloness": 0.4245,
+                    };
+                case "low":
+                    return {
+                        "FTC": 0.00,
+                        "Wind Watcher": 0.6019,
+                        "Charming Chimer": 0.3981,
+                    };
+            }
+            break;
+        case "Rainy Cheese":
+            switch (subStage) {
+                case "max":
+                    return {
+                        "FTC": 0.00,
+                        "Rainmancer": 1.0000,
+                    };
+                case "high":
+                    return {
+                        "FTC": 0.00,
+                        "Monsoon Maker": 0.5850,
+                        "Rainmancer": 0.4150,
+                    };
+                case "medium":
+                    return {
+                        "FTC": 0.00,
+                        "Rain Summoner": 0.5819,
+                        "Monsoon Maker": 0.4181,
+                    };
+                case "low":
+                    return {
+                        "FTC": 0.00,
+                        "Rain Wallower": 0.5959,
+                        "Rain Collector": 0.4041,
+                    };
+            }
+            break;
+        case "Glowing Gruyere Cheese":
+            return {
+                "FTC": 0.00,
+                "Rainwater Purifier": 0.2956,
+                "Breeze Borrower": 0.2810,
+                "Cloud Collector": 0.1638,
+                "Windy Farmer": 0.1634,
+                "Homeopathic Apothecary": 0.0962,
+            };
+        case "SUPER|brie+":
+            return {
+                "FTC": 0.00,
+                "Windy Farmer": 0.2417,
+                "Cloud Collector": 0.2401,
+                "Breeze Borrower": 0.1732,
+                "Rainwater Purifier": 0.1721,
+                "Nightshade Maiden": 0.0800,
+                "Nightshade Flower Girl": 0.0661,
+                "Spore Salesman": 0.0268,
+            };
+        case "Standard Cheese":
+            return {
+                "FTC": -1.00,
+                "Breeze Borrower": 0.1273,
+                "Cloud Collector": 0.2195,
+                "Nightshade Flower Girl": 0.1480,
+                "Rainwater Purifier": 0.1260,
+                "Spore Salesman": 0.1580,
+                "Windy Farmer": 0.2212,
+            };
+    }
+
+    return getInvalidArInfo();
+}
+
 function getStageForProloguePond() {
     var location = "Prologue Pond";
 
@@ -6285,6 +6477,7 @@ function getStageForZokor() {
     var subStage = "Non-Boss";
     var bossContainer = document.getElementsByClassName("ancientCityHUD-bossContainer")[0];
     if (bossContainer) {
+        // <div class="ancientCityHUD-bossContainer mousehuntTooltipParent ancientCityHUD-boss-y incoming">
         if (bossContainer.classList[3] == "active") {
             subStage = "Boss";
         } else if (bossContainer.classList[3] == "hiddenDistrict" && bossContainer.classList[4] != "napping") {
