@@ -5550,13 +5550,8 @@ function specialMPEff(mouseName, mouse_power, eff) {
     // Credit to tsitu and Neb for calculating
     if (locationName == "Zokor") {
         var bossCheck = user.quests.QuestAncientCity.boss;
-        if (bossCheck == "defeated") {
-            if (mouseName == "Reanimated Carver") {
-                mouse_power *= 5 / 9;
-            }
-            else {
-                mouse_power *= 3 / 4;
-            }
+        if (bossCheck == "defeated" && powerType == "Forgotten") {
+                eff += 1;
         }
     }
 
