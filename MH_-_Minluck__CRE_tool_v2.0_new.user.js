@@ -5544,6 +5544,10 @@ function specialMPEff(mouseName, mouse_power, eff) {
                 eff = 1;
             }
         }
+        var hotmStrength = user.quests.QuestFortRox.lair_width / 100;
+        if (user.quests.QuestFortRox.is_lair == true) {
+            mouse_power *= hotmStrength;
+        }
     }
 
     // Special cases: Zokor
@@ -5552,6 +5556,10 @@ function specialMPEff(mouseName, mouse_power, eff) {
         var bossCheck = user.quests.QuestAncientCity.boss;
         if (bossCheck == "defeated" && powerType == "Forgotten") {
                 eff += 1;
+        }
+        var minoStrength = user.quests.QuestAncientCity.width / 100;
+        if (bossCheck.includes("hiddenDistrict") && mouseName == "Retired Minotaur") {
+            mouse_power *= minoStrength;
         }
     }
 
