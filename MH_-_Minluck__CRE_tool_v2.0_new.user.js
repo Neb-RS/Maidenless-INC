@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.0.1
+// @version      4.0.2
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5544,19 +5544,22 @@ function specialMPEff(mouseName, mouse_power, eff) {
                 eff = 1;
             }
         }
+        var hotmStrength = user.quests.QuestFortRox.lair_width / 100;
+        if (user.quests.QuestFortRox.is_lair == true) {
+            mouse_power *= hotmStrength;
+        }
     }
 
     // Special cases: Zokor
     // Credit to tsitu and Neb for calculating
     if (locationName == "Zokor") {
         var bossCheck = user.quests.QuestAncientCity.boss;
-        if (bossCheck == "defeated") {
-            if (mouseName == "Reanimated Carver") {
-                mouse_power *= 5 / 9;
-            }
-            else {
-                mouse_power *= 3 / 4;
-            }
+        if (bossCheck == "defeated" && powerType == "Forgotten") {
+                eff += 1;
+        }
+        var minoStrength = user.quests.QuestAncientCity.width / 100;
+        if (bossCheck.includes("hiddenDistrict") && mouseName == "Retired Minotaur") {
+            mouse_power *= minoStrength;
         }
     }
 
