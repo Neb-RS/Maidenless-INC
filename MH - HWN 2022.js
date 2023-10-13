@@ -2,17 +2,30 @@
 // @name         MouseHunt - Hween 2022 Trick/Treat map colour coder
 // @author       tsitu & Leppy & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.5
+// @version      1.1.6
 // @description  Color codes mice on trick/treat maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
 // ==/UserScript==
+// Credits:
+// tsitu - Provided the original code.
+// in59te - Improved the original code.  We use his version as the starting point.
+// Warden Slayer - Implemented bait changes.
+// Kuhmann, Leppy and Neb - Maintenance and QA
+// tmrj2222 - Provided code to sort the mice by groups.
+// and anyone else we may have missed :peepolove:
 
 const displayMinLuck = true; // Will display minluck for the group of mouse iff true.
 const displayAR = true; // Will display the AR for each uncaught mouse iff true.
 const displayHunterCheese = true; // Will display which group of mouse the hunter if attempting iff true.
 let assignBaitChange = true; // Avoid the bait change event being registered more than once.
+
+// If the chest name contains any of hte following as a substring, enable the colour coder.
+const chestKeywords = [
+    "Halloween",
+    "Undead",
+];
 
 // name, AR
 const standardMice = [
@@ -118,6 +131,7 @@ let miceNameDict = {}; // If displayAR == true, we are forced to modify the <spa
 function initialise() {
     // Avoid initialising more than once as the script can be called multiple times by other plug-in.
     if (allMiceGroups.length > 0) {
+        //sortGoals();
         return;
     }
 
@@ -276,6 +290,7 @@ function colorize() {
             hunterColorize();
         }
         colorize();
+
     });
 
     const highlightDiv = document.createElement("div");
@@ -330,7 +345,51 @@ function colorize() {
             });
         }
     }
+
+    sortGoals();
 }
+
+// Credit to @tmrj2222 for the code
+function sortGoals() {
+    //const regex = / \(\d+\.\d+%?\)$/;
+    const parentGoals = document.querySelector(".treasureMapView-goals-group-goal-padding").parentElement.parentElement;
+    console.log(parentGoals.textContent);
+
+    const childrenArray = Array.from(parentGoals.children);
+    //console.log("before sorting");
+    //console.log(childrenArray);
+    childrenArray.sort((a, b) => {
+        let orderA = -1;
+        let orderB = -1;
+
+        //const nameA = a.querySelector("span").firstChild.textContent.replace(regex, '');
+        //const nameB = b.querySelector("span").firstChild.textContent.replace(regex, '');
+        const nameA = displayAR ? miceNameDict[a.querySelector("span").firstChild.textContent] : a.querySelector("span").firstChild.textContent;
+        const nameB = displayAR ? miceNameDict[b.querySelector("span").firstChild.textContent] : b.querySelector("span").firstChild.textContent;
+
+        //console.log('nameA == ' + nameA);
+        //console.log('nameB == ' + nameB);
+
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            if (allMiceGroups[i].hasMouse(nameA)) {
+                orderA = i;
+                break;
+            }
+        }
+        for (let i = 0; i < allMiceGroups.length; i++) {
+            if (allMiceGroups[i].hasMouse(nameB)) {
+                orderB = i;
+                break;
+            }
+        }
+            return orderA - orderB;
+        });
+   while (parentGoals.firstChild) {
+       parentGoals.removeChild(parentGoals.firstChild);
+   }
+   childrenArray.forEach(child => parentGoals.appendChild(child));
+}
+
 
 // Listen to XHRs, opening a map always at least triggers board.php
 const originalOpen = XMLHttpRequest.prototype.open;
@@ -343,9 +402,7 @@ XMLHttpRequest.prototype.open = function () {
         if (chestEl) {
             const chestName = chestEl.textContent;
             if (
-                chestName &&
-                ((chestName.indexOf("Halloween") >= 0) ||
-                 (chestName.indexOf("Undead") >= 0))
+                chestName && chestKeywords.some(v => chestName.includes(v))
             ) {
                 initialise();
                 if (displayHunterCheese) {
