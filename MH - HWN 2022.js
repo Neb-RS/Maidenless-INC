@@ -174,7 +174,7 @@ function getCheeseColor(cheese) {
 }
 
 function hunterColorize() {
-    document.querySelectorAll(".treasureMapRootView-subTab:not(.active)")[0].click(); //swap between Goals and Hunters
+    document.querySelectorAll(".treasureMapRootView-subTab[data-type='manage_allies']")[0].click(); //Click on Hunters tab
     let hunters = document.querySelectorAll(".treasureMapView-componentContainer");
     const list_of_cheese = [];
     for (let i = 0; i < hunters.length; i++) {
@@ -182,7 +182,8 @@ function hunterColorize() {
     }
     //console.log(list_of_cheese);
     numHunters = hunters.length;
-    document.querySelectorAll(".treasureMapRootView-subTab:not(.active)")[0].click();
+    document.querySelectorAll(".treasureMapRootView-subTab[data-type='show_goals']")[0].click(); //Click on Goals tab
+
 
     for (let i = 0; i < numHunters; i++) {
         hunterColor[i] = getCheeseColor(list_of_cheese[i]);
@@ -319,7 +320,7 @@ function colorize() {
     }
 
     var canvas = [];
-    var div = document.getElementsByClassName("treasureMapView-hunter-wrapper mousehuntTooltipParent");
+    var div = document.getElementsByClassName("treasureMapView-hunter-wrapper"); //MH improved removes mousehuntTooltipParent class??
 
     if (displayHunterCheese) {
         for (var i=0; i<div.length; i++){
@@ -353,7 +354,7 @@ function colorize() {
 function sortGoals() {
     //const regex = / \(\d+\.\d+%?\)$/;
     const parentGoals = document.querySelector(".treasureMapView-goals-group-goal-padding").parentElement.parentElement;
-    console.log(parentGoals.textContent);
+    //console.log(parentGoals.textContent);
 
     const childrenArray = Array.from(parentGoals.children);
     //console.log("before sorting");
