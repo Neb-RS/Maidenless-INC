@@ -6511,7 +6511,7 @@ function getArInfoForTableOfContents(stageInfo) {
                         "Greenbeard": 0.3542,
                         "Ice Regent": 0.2513,
                     };
-                case "SUPER|brie+":
+                case "Final Draft Derby Cheese":
                     return {
                         "FTC": 0.00,
                         "Bitter Grammarian": 1.0000,
@@ -6549,7 +6549,7 @@ function getArInfoForTableOfContents(stageInfo) {
                         "Greenbeard": 0.3542,
                         "Ice Regent": 0.2513,
                     };
-                case "SUPER|brie+":
+                case "Final Draft Derby Cheese":
                     return {
                         "FTC": 0.00,
                         "Bitter Grammarian": 0.6015,
