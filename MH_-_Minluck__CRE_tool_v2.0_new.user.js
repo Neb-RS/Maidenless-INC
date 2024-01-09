@@ -5128,6 +5128,7 @@ function renderBox(list) {
         const arheader = document.createElement("th");
         arheader.className = "chro-minluck-header-ar"
         arheader.innerText = "AR"
+        table.appendChild(arheader);
 
         const minluckheader = document.createElement("th");
         minluckheader.className = "chro-minluck-header-minluck"

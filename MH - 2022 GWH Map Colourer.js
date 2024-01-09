@@ -2,7 +2,7 @@
 // @name         MouseHunt - GWH 2022 Nice/Naughty map colour coder
 // @author       tsitu & Leppy & Neb & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.1.6
+// @version      1.1.7
 // @description  Color codes mice on Nice/Naughty maps according to type. Max ML shown per group and AR shown individually. ARs given for standard cheese assume SB, if Gouda is relevant the ARs are given as ([Gouda] | [SB]). ARs given for (G)PP are given as ([PP] | [GPP]).
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
