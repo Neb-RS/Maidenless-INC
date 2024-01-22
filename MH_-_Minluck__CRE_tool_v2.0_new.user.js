@@ -7323,7 +7323,7 @@ async function colourClover(){
         var data = $(".chro-minluck-data");
         var count = 0;
         for (var i=0; i<data.length; i++){
-            data[i].style.color == "rgb(34, 139, 34)" ? count++ : null
+            data[i].classList.contains("good-minluck") ? count++ : null
         }
         if (count/data.length == 1) {
             button.classList.add("blue");
