@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.0.7
+// @version      4.0.8
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -1344,7 +1344,7 @@ var allMiceInfo = {
     },
     "Dumpling Chef": {
         "power": 2000,
-        "effs": [0, 0, 0, 0, 0, 100, 0, 175, 0, 0]
+        "effs": [100, 100, 100, 100, 100, 100, 100, 175, 100, 100]
     },
     "Dumpling Delivery": {
         "power": 2305,
