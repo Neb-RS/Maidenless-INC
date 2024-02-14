@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.0.8
+// @version      4.1.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -117,17 +117,17 @@ const addStyles = (styles) => {
         font-weight: 900;
     }
 
-    .chro-minluck-header-cr,
+    .chro-minluck-data-ar,
+    .chro-minluck-data-cr,
     .chro-minluck-overall-ar,
     .chro-minluck-overall-cr {
         text-align: right;
     }
 
-
-    .chro-minluck-header-minluck,
     .chro-minluck-header-ar,
-    .chro-minluck-data,
-    .chro-minluck-data-cr,
+    .chro-minluck-header-minluck,
+    .chro-minluck-header-cr,
+    .chro-minluck-data-minluck,
     .chro-minluck-overall-minluck {
         text-align: center;
     }
@@ -238,13 +238,13 @@ var allMiceInfo = {
         "power": 750,
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
-    "Ancient of the Deep": {
-        "power": 37999,
-        "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
-    },
     "Ancient Scribe": {
         "power": 16700,
         "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Ancient of the Deep": {
+        "power": 37999,
+        "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
     },
     "Angelfish": {
         "power": 4960,
@@ -1355,8 +1355,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Dungeon Master": {
-        "power": 86875,
-        "effs": [0, 0, 0, 0, 0, 250, 0, 0, 0, 0]
+        "power": 104250,
+        "effs": [0, 0, 0, 0, 0, 300, 0, 0, 0, 0]
     },
     "Dwarf": {
         "power": 40,
@@ -2003,7 +2003,7 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0, 0]
     },
     "High Roller": {
-        "power": 16320,
+        "power": 12500,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
     },
     "Hired Eidolon": {
@@ -2134,13 +2134,13 @@ var allMiceInfo = {
         "power": 12500,
         "effs": [0, 0, 0, 0, 0, 125, 0, 250, 0, 0]
     },
-    "Itty Bitty Rifty Burroughs": {
-        "power": 1250,
-        "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
-    },
     "Itty-Bitty Burroughs": {
         "power": 8250,
         "effs": [100, 0, 0, 0, 0, 100, 100, 100, 0, 0]
+    },
+    "Itty Bitty Rifty Burroughs": {
+        "power": 1250,
+        "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
     "Jellyfish": {
         "power": 4300,
@@ -2391,8 +2391,8 @@ var allMiceInfo = {
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 101, 300]
     },
     "Malevolent Maestro": {
-        "power": 92300,
-        "effs": [0, 0, 0, 0, 0, 200, 0, 0, 0, 0]
+        "power": 138450,
+        "effs": [0, 0, 0, 0, 0, 300, 0, 0, 0, 0]
     },
     "Malicious Marquis": {
         "power": 36660,
@@ -2614,13 +2614,13 @@ var allMiceInfo = {
         "power": 8240,
         "effs": [100, 0, 100, 100, 0, 500, 500, 100, 100, 0]
     },
-    "Monster of the Meteor": {
-        "power": 88000,
-        "effs": [1000, 0, 0, 0, 0, 0, 100, 0, 0, 0]
-    },
     "Monster Tail": {
         "power": 3750,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+    },
+    "Monster of the Meteor": {
+        "power": 88000,
+        "effs": [1000, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Monstrous Abomination": {
         "power": 24998,
@@ -2654,6 +2654,10 @@ var allMiceInfo = {
         "power": 1800,
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 101, 300]
     },
+    "Mouse With No Name": {
+        "power": 4999,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
+    },
     "Mouse of Elements": {
         "power": 16000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 500]
@@ -2669,10 +2673,6 @@ var allMiceInfo = {
     "Mouse of Winter Present": {
         "power": 882,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
-    },
-    "Mouse With No Name": {
-        "power": 4999,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
     "Mousevina von Vermin": {
         "power": 18300,
@@ -2779,8 +2779,8 @@ var allMiceInfo = {
         "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0, 0]
     },
     "Mythical Giant King": {
-        "power": 148100,
-        "effs": [0, 0, 0, 0, 0, 200, 0, 0, 0, 0]
+        "power": 222150,
+        "effs": [0, 0, 0, 0, 0, 300, 0, 0, 0, 0]
     },
     "Mythweaver": {
         "power": 200000,
@@ -3006,13 +3006,13 @@ var allMiceInfo = {
         "power": 246965,
         "effs": [0, 0, 0, 0, 0, 0, 0, 500, 0, 0]
     },
-    "Paragon of the Lawless": {
-        "power": 124100,
-        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 500, 0]
-    },
     "Paragon of Water": {
         "power": 322000,
         "effs": [0, 0, 0, 500, 0, 0, 0, 0, 0, 0]
+    },
+    "Paragon of the Lawless": {
+        "power": 124100,
+        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 500, 0]
     },
     "Parlour Player": {
         "power": 2250,
@@ -3059,8 +3059,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 200, 0, 0, 0, 100, 0, 0]
     },
     "Pernicious Prince": {
-        "power": 115150,
-        "effs": [0, 0, 0, 0, 0, 200, 0, 0, 0, 0]
+        "power": 86363,
+        "effs": [0, 0, 0, 0, 0, 150, 0, 0, 0, 0]
     },
     "Phalanx": {
         "power": 900,
@@ -3162,13 +3162,13 @@ var allMiceInfo = {
         "power": 12345,
         "effs": [0, 0, 0, 0, 0, 0, 200, 0, 0, 0]
     },
-    "Princess and the Olive": {
-        "power": 9800,
-        "effs": [0, 0, 100, 0, 0, 0, 0, 0, 0, 0]
-    },
     "Princess Fist": {
         "power": 15500,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+    },
+    "Princess and the Olive": {
+        "power": 9800,
+        "effs": [0, 0, 100, 0, 0, 0, 0, 0, 0, 0]
     },
     "Prospector": {
         "power": 1750,
@@ -3245,6 +3245,10 @@ var allMiceInfo = {
     "Quillback": {
         "power": 8000,
         "effs": [0, 0, 100, 100, 0, 0, 0, 0, 0, 0]
+    },
+    "RR-8": {
+        "power": 7900,
+        "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0, 0]
     },
     "Radioactive Ooze": {
         "power": 1601,
@@ -3421,10 +3425,6 @@ var allMiceInfo = {
     "Root Rummager": {
         "power": 9000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 100, 0, 0]
-    },
-    "RR-8": {
-        "power": 7900,
-        "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0, 0]
     },
     "Rubble Rouser": {
         "power": 4225,
@@ -3783,7 +3783,7 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 300, 0, 300, 300, 0]
     },
     "Snooty": {
-        "power": 12240,
+        "power": 4000,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
     },
     "Snow Boulder": {
@@ -4447,8 +4447,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
     "Treacherous Tubaist": {
-        "power": 103900,
-        "effs": [0, 0, 0, 0, 0, 200, 0, 0, 0, 0]
+        "power": 77925,
+        "effs": [0, 0, 0, 0, 0, 150, 0, 0, 0, 0]
     },
     "Treant": {
         "power": 760,
@@ -4471,7 +4471,7 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
     },
     "Treasurer": {
-        "power": 4080,
+        "power": 2000,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
     },
     "Treat": {
@@ -4482,10 +4482,6 @@ var allMiceInfo = {
         "power": 2000,
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
-    "Tri-dra": {
-        "power": 7500,
-        "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
-    },
     "Trick": {
         "power": 2000,
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 101, 300]
@@ -4493,6 +4489,10 @@ var allMiceInfo = {
     "Tricky Witch": {
         "power": 1250,
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 101, 300]
+    },
+    "Tri-dra": {
+        "power": 7500,
+        "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
     "Triple Lutz": {
         "power": 266,
@@ -5194,7 +5194,7 @@ function renderBox(list) {
 
             //minluck----
             var minLuck = document.createElement("td");
-            minLuck.className = "chro-minluck-data";
+            minLuck.className = "chro-minluck-data-minluck";
             minLuck.innerText = minluck_string;
             if (luck >= minluck_string) {
                 minLuck.classList.add('good-minluck');
@@ -7320,7 +7320,7 @@ async function colourClover(){
     var button = $(".min-luck-button")[0];
 
     await getData().then(() => {
-        var data = $(".chro-minluck-data");
+        var data = $(".chro-minluck-data-minluck");
         var count = 0;
         for (var i=0; i<data.length; i++){
             data[i].classList.contains("good-minluck") ? count++ : null
