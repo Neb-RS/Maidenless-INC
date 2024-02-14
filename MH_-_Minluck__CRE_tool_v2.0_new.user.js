@@ -1344,7 +1344,7 @@ var allMiceInfo = {
     },
     "Dumpling Chef": {
         "power": 2000,
-        "effs": [0, 0, 0, 0, 0, 100, 0, 175, 0, 0]
+        "effs": [100, 100, 100, 100, 100, 100, 100, 175, 100, 100]
     },
     "Dumpling Delivery": {
         "power": 2305,
@@ -4322,7 +4322,7 @@ var allMiceInfo = {
         "power": 16500,
         "effs": [0, 300, 0, 0, 0, 0, 0, 0, 0, 0]
     },
-    "\u26a1Thunderlord\u26a1": {
+    "⚡Thunderlord⚡": {
         "power": 13500,
         "effs": [0, 300, 0, 0, 0, 0, 0, 0, 0, 0]
     },
