@@ -117,17 +117,17 @@ const addStyles = (styles) => {
         font-weight: 900;
     }
 
-    .chro-minluck-header-cr,
+    .chro-minluck-data-ar,
+    .chro-minluck-data-cr,
     .chro-minluck-overall-ar,
     .chro-minluck-overall-cr {
         text-align: right;
     }
 
-
-    .chro-minluck-header-minluck,
     .chro-minluck-header-ar,
-    .chro-minluck-data,
-    .chro-minluck-data-cr,
+    .chro-minluck-header-minluck,
+    .chro-minluck-header-cr,
+    .chro-minluck-data-minluck,
     .chro-minluck-overall-minluck {
         text-align: center;
     }
@@ -5194,7 +5194,7 @@ function renderBox(list) {
 
             //minluck----
             var minLuck = document.createElement("td");
-            minLuck.className = "chro-minluck-data";
+            minLuck.className = "chro-minluck-data-minluck";
             minLuck.innerText = minluck_string;
             if (luck >= minluck_string) {
                 minLuck.classList.add('good-minluck');
@@ -7320,7 +7320,7 @@ async function colourClover(){
     var button = $(".min-luck-button")[0];
 
     await getData().then(() => {
-        var data = $(".chro-minluck-data");
+        var data = $(".chro-minluck-data-minluck");
         var count = 0;
         for (var i=0; i<data.length; i++){
             data[i].classList.contains("good-minluck") ? count++ : null
