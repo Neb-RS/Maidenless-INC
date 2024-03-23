@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.2.0
+// @version      4.2.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4813,7 +4813,7 @@ var allType = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Parental', 'Physical
 var dragonbaneCharmMice = new Set([
     "Dragon",
     "Dragoon",
-    "Ful'Mina, The Mountain Queen",
+    "Ful'Mina the Mountain Queen",
     "Thunder Strike",
     "Thundering Watcher",
     "⚡Thunderlord⚡",
@@ -4821,7 +4821,7 @@ var dragonbaneCharmMice = new Set([
     "Fuzzy Drake",
     "Cork Defender",
     "Burly Bruiser",
-    "Corky, the Collector",
+    "Corky the Collector",
     "Horned Cork Hoarder",
     "Rambunctious Rain Rumbler",
     "Corkataur",
@@ -4836,8 +4836,8 @@ var dragonbaneCharmMice = new Set([
     "Bearded Elder",
     "Ignatia",
     "Cinderstorm",
-    "Bruticus, the Blazing",
-    "Stormsurge, the Vile Tempest",
+    "Bruticus the Blazing",
+    "Stormsurge the Vile Tempest",
     "Kalor'ignis of the Geyser",
     "Tiny Dragonfly",
     "Lancer Guard",
@@ -6259,13 +6259,13 @@ function getArInfoForMoussuPicchu(stageInfo) {
                 case "max":
                     return {
                         "FTC": 0.00,
-                        "Ful'Mina, The Mountain Queen": 1.0000,
+                        "Ful'Mina the Mountain Queen": 1.0000,
                     };
                 case "high":
                     return {
                         "FTC": 0.00,
                         "Thundering Watcher": 0.5831,
-                        "Ful'Mina, The Mountain Queen": 0.3699,
+                        "Ful'Mina the Mountain Queen": 0.3699,
                         "Dragoon": 0.0470,
                     };
                 case "medium":
