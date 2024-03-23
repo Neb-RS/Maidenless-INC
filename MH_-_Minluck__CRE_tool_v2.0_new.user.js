@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.1.0
+// @version      4.2.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -530,7 +530,7 @@ var allMiceInfo = {
         "power": 16800,
         "effs": [0, 0, 0, 200, 0, 0, 0, 100, 0, 0]
     },
-    "Bruticus, the Blazing": {
+    "Bruticus the Blazing": {
         "power": 49100,
         "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0]
     },
@@ -878,7 +878,7 @@ var allMiceInfo = {
         "power": 15525,
         "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0]
     },
-    "Corky, the Collector": {
+    "Corky the Collector": {
         "power": 2595,
         "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0, 0]
     },
@@ -1015,8 +1015,8 @@ var allMiceInfo = {
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
     },
     "Crystal Behemoth": {
-        "power": 94170,
-        "effs": [0, 0, 2150, 0, 0, 0, 0, 0, 0, 0]
+        "power": 109500,
+        "effs": [0, 0, 2500, 0, 0, 0, 0, 0, 0, 0]
     },
     "Crystal Cave Worm": {
         "power": 12526,
@@ -1072,7 +1072,7 @@ var allMiceInfo = {
     },
     "Cupid": {
         "power": 680,
-        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
+        "effs": [0, 0, 0, 0, 0, 100, 0, 175, 0, 0]
     },
     "Curious Chemist": {
         "power": 800,
@@ -1344,7 +1344,7 @@ var allMiceInfo = {
     },
     "Dumpling Chef": {
         "power": 2000,
-        "effs": [100, 100, 100, 100, 100, 100, 100, 175, 100, 100]
+        "effs": [0, 0, 0, 0, 0, 100, 0, 175, 0, 0]
     },
     "Dumpling Delivery": {
         "power": 2305,
@@ -1646,10 +1646,6 @@ var allMiceInfo = {
         "power": 1250,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
     },
-    "Forever Alone": {
-        "power": 900,
-        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
-    },
     "Forgotten Elder": {
         "power": 29000,
         "effs": [0, 0, 600, 0, 0, 0, 0, 0, 0, 0]
@@ -1706,7 +1702,7 @@ var allMiceInfo = {
         "power": 3253,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
-    "Ful'Mina, The Mountain Queen": {
+    "Ful'Mina the Mountain Queen": {
         "power": 78003,
         "effs": [0, 900, 0, 0, 0, 0, 0, 0, 0, 0]
     },
@@ -1764,7 +1760,7 @@ var allMiceInfo = {
     },
     "Gentleman Caller": {
         "power": 2000,
-        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
+        "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
     "Ghost": {
         "power": 2200,
@@ -2036,7 +2032,7 @@ var allMiceInfo = {
     },
     "Hope": {
         "power": 10,
-        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
+        "effs": [0, 0, 0, 0, 0, 100, 0, 175, 0, 0]
     },
     "Horned Cork Hoarder": {
         "power": 8565,
@@ -2122,7 +2118,7 @@ var allMiceInfo = {
         "power": 1150,
         "effs": [100, 0, 0, 0, 0, 100, 100, 100, 0, 0]
     },
-    "Inferna, The Engulfed": {
+    "Inferna the Engulfed": {
         "power": 35325,
         "effs": [500, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     },
@@ -2482,6 +2478,10 @@ var allMiceInfo = {
         "power": 1250,
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
+    "Melancholy Merchant": {
+        "power": 900,
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
+    },
     "Melodramatic Minnow": {
         "power": 11000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
@@ -2790,7 +2790,7 @@ var allMiceInfo = {
         "power": 2235,
         "effs": [0, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
-    "Nachous, The Molten": {
+    "Nachous the Molten": {
         "power": 26675,
         "effs": [0, 0, 0, 0, 0, 0, 500, 0, 0, 0]
     },
@@ -4082,7 +4082,7 @@ var allMiceInfo = {
         "power": 13450,
         "effs": [0, 0, 0, 0, 0, 0, 200, 0, 0, 0]
     },
-    "Stormsurge, the Vile Tempest": {
+    "Stormsurge the Vile Tempest": {
         "power": 52750,
         "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0, 0]
     },
@@ -4398,7 +4398,7 @@ var allMiceInfo = {
         "power": 2250,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
-    "Totally Not Bitter": {
+    "Totally Not Tax Fraud": {
         "power": 650,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
     },
@@ -4578,7 +4578,7 @@ var allMiceInfo = {
         "power": 5000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 200]
     },
-    "Vincent, The Magnificent": {
+    "Vincent the Magnificent": {
         "power": 4000,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100, 100]
     },
