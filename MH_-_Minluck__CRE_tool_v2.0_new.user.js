@@ -4322,7 +4322,7 @@ var allMiceInfo = {
         "power": 16500,
         "effs": [0, 300, 0, 0, 0, 0, 0, 0, 0, 0]
     },
-    "\u26a1Thunderlord\u26a1": {
+    "⚡Thunderlord⚡": {
         "power": 13500,
         "effs": [0, 300, 0, 0, 0, 0, 0, 0, 0, 0]
     },
