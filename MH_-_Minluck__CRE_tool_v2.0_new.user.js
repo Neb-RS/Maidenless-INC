@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.2.1
+// @version      4.3.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4912,6 +4912,7 @@ var basicTrapPowerTotal;
 var basicTrapLuck;
 var basicTrapArBonus;
 var trapPowerBoost;
+var adjustedTrapLuck;
 var riftLuckCodex;
 
 function render() {
@@ -5108,10 +5109,20 @@ function renderBox(list) {
 
         const locInfo = document.createElement("div")
         locInfo.className = "loc-info"
+        locInfo.innerHTML = "Location: ".concat(locationName);
         if (locationName == "Bountiful Beanstalk") {
-            locInfo.textContent = "Catch Rates might be a little off as this is a new location.";
+            locInfo.innerHTML = locInfo.innerHTML.concat("<p>Catch Rates might be off for the boss mice.");
+        } else if (locationName == "Zugzwang's Tower") {
+            if (weaponName == "Technic Pawn Pincher") {
+                locInfo.innerHTML = locInfo.innerHTML.concat("<p>This trap has hidden stat changes<br>On Technic Pawn: + 10920 Power, + 51 Luck<br>On Mystic Pawn: - 60 Power, - 0.05 Luck");
+            } else if (weaponName == "Mystic Pawn Pincher") {
+                locInfo.innerHTML = locInfo.innerHTML.concat("<p>This trap has hidden stat changes<br>On Mystic Pawn: + 10920 Power, + 51 Luck<br>On Technic Pawn: - 60 Power, - 0.05 Luck");
+            } else if (weaponName == "Obvious Ambush Trap") {
+                locInfo.innerHTML = locInfo.innerHTML.concat("<p>This trap has hidden stat changes<br>On Technic mice: + 1800 Power, + 6 Luck<br>On Mystic mice: -2400 Power, - 9 Luck");
+            } else if (weaponName == "Blackstone Pass Trap") {
+                locInfo.innerHTML = locInfo.innerHTML.concat("<p>This trap has hidden stat changes<br>On Mystic mice: + 1800 Power, + 6 Luck<br>On Technic mice: -2400 Power, - 9 Luck");
+            }
         }
-        else { locInfo.textContent = "Location: ".concat(locationName); }
 
         setupInfo.appendChild(locInfo);
         setupInfo.appendChild(powerInfo);
@@ -5196,7 +5207,7 @@ function renderBox(list) {
             var minLuck = document.createElement("td");
             minLuck.className = "chro-minluck-data-minluck";
             minLuck.innerText = minluck_string;
-            if (luck >= minluck_string) {
+            if (adjustedTrapLuck >= minluck_string) {
                 minLuck.classList.add('good-minluck');
             }
 
@@ -5236,7 +5247,7 @@ function renderBox(list) {
         var overAllStatMinLuck = document.createElement("td");
         overAllStatMinLuck.className = "chro-minluck-overall-minluck"
         overAllStatMinLuck.innerText = minLuck_overAll;
-         if (luck >= minLuck_overAll) {
+         if (adjustedTrapLuck >= minLuck_overAll) {
             overAllStatMinLuck.classList.add('good-minluck');
         }
 
@@ -5421,7 +5432,7 @@ function CRFormula(power, luck, mPower, mEff) {
 function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
     var adjustedTrapPower = basicTrapPower;
     var adjustedTrapPowerBonus = basicTrapPowerBonus;
-    var adjustedTrapLuck = basicTrapLuck;
+    adjustedTrapLuck = basicTrapLuck;
     if (charmName.includes("Dragonbane") && dragonbaneCharmMice.has(mouseName)) {
         if (charmName == "Dragonbane Charm") {
             // When activated, the charm bursts out a jarring cold blast of air, providing a 300% Power Bonus, making these mice easier to catch.
@@ -5503,40 +5514,44 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
             if (mouseName.startsWith("Technic")) {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower side specific trap +1800 trap power");
                 adjustedTrapPower += 1800;
+                adjustedTrapLuck += 6;
             } else if (mouseName.startsWith("Mystic")) {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower side specific trap -2400 trap power");
                 adjustedTrapPower -= 2400;
+                adjustedTrapLuck -= 9;
             }
         } else if (weaponName == "Blackstone Pass Trap") {
             // Obvious Ambush and Blackstone Pass give +1800 Power on corresponding side, -2400 Power on opposite side
             if (mouseName.startsWith("Mystic")) {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower side specific trap +1800 trap power");
                 adjustedTrapPower += 1800;
+                adjustedTrapLuck += 6;
             } else if (mouseName.startsWith("Technic")) {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower side specific trap -2400 trap power");
                 adjustedTrapPower -= 2400;
+                adjustedTrapLuck -= 9;
             }
         } else if (weaponName == "Technic Pawn Pincher") {
-            //  Pawn Pinchers give +10920 Power on corresponding Pawn, -60 Power and -5 Luck on opposite Pawn
+            //  Pawn Pinchers give +10920 Power and +51 luck on corresponding Pawn, -60 Power and -0.05 Luck on opposite Pawn
             if (mouseName == "Technic Pawn") {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap +10920 trap power");
                 adjustedTrapPower += 10920;
                 adjustedTrapLuck += 51;
-                // } else if (mouseName == "Mystic Pawn") { //Commenting it out entirely because we do not know what it does properly.
-                //     logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
-                //     adjustedTrapPower -= 60;
-                //     adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+                } else if (mouseName == "Mystic Pawn") {
+                    logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
+                    adjustedTrapPower -= 60;
+                    adjustedTrapLuck -= 0.05;
             }
         } else if (weaponName == "Mystic Pawn Pincher") {
-            // Pawn Pinchers give +10920 Power on corresponding Pawn, -60 Power and -5 Luck on opposite Pawn
+            // Pawn Pinchers give +10920 Power +51 luck on corresponding Pawn, -60 Power and -0.05 Luck on opposite Pawn
             if (mouseName == "Mystic Pawn") {
                 logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap +10920 trap power");
                 adjustedTrapPower += 10920;
                 adjustedTrapLuck += 51;
-                // } else if (mouseName == "Technic Pawn") { //Commenting it out entirely because we do not know what it does properly.
-                //     logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
-                //     adjustedTrapPower -= 60;
-                //     adjustedTrapPowerBonus -= 0.05; //Main CRE currently uses -5% power bonus, unsure which is true so following that.
+                } else if (mouseName == "Technic Pawn") {
+                    logCRAdjustmentInfo(mouseName, "Zugzwang's Tower pawn pincher trap -60 trap power, -5 luck");
+                    adjustedTrapPower -= 60;
+                    adjustedTrapLuck -= 0.05;
             }
         }
         if (charmName == "Rook Crumble Charm" && ["Mystic Rook", "Technic Rook"].includes(mouseName)) {
