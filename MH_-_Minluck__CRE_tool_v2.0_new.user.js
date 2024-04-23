@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.4.0
+// @version      4.5.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -266,6 +266,14 @@ var allMiceInfo = {
         "power": 4600,
         "effs": [100, 100, 100, 100, 25, 75, 400, 75, 0, 0]
     },
+    "Arcana Overachiever": {
+        "power": 43000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
+    "Arcane Master Sorcerer": {
+        "power": 78000,
+        "effs": [400, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
     "Arcane Summoner": {
         "power": 7150,
         "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
@@ -313,6 +321,10 @@ var allMiceInfo = {
     "Astrological Astronomer": {
         "power": 11825,
         "effs": [0, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
+    "Audacious Alchemist": {
+        "power": 48000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Automated Sentry": {
         "power": 950,
@@ -478,6 +490,10 @@ var allMiceInfo = {
         "power": 6100,
         "effs": [0, 0, 0, 0, 0, 125, 0, 200, 0, 0]
     },
+    "Bookworm": {
+        "power": 35500,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
+    },
     "Borean Commander": {
         "power": 2400,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
@@ -517,6 +533,10 @@ var allMiceInfo = {
     "Brimstone": {
         "power": 3200,
         "effs": [150, 0, 125, 0, 0, 0, 200, 0, 0, 0]
+    },
+    "Broomstick Bungler": {
+        "power": 31500,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Brothers Grimmaus": {
         "power": 9000,
@@ -658,6 +678,10 @@ var allMiceInfo = {
         "power": 3630,
         "effs": [0, 0, 100, 50, 0, 0, 0, 0, 0, 0]
     },
+    "Celestial Summoner": {
+        "power": 67000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
+    },
     "Cell Sweeper": {
         "power": 16200,
         "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0, 0]
@@ -697,6 +721,10 @@ var allMiceInfo = {
     "Charming Chimer": {
         "power": 5100,
         "effs": [150, 50, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
+    "Cheat Sheet Conjurer": {
+        "power": 44000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Cheesy Party": {
         "power": 1010,
@@ -761,6 +789,18 @@ var allMiceInfo = {
     "City Worker": {
         "power": 4240,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+    },
+    "Class Clown": {
+        "power": 67000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
+    "Classroom Disrupter": {
+        "power": 58000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
+    },
+    "Classroom Keener": {
+        "power": 43000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Clockwork Samurai": {
         "power": 50,
@@ -829,6 +869,10 @@ var allMiceInfo = {
     "Conqueror": {
         "power": 6600,
         "effs": [0, 0, 0, 0, 0, 0, 0, 175, 0, 0]
+    },
+    "Constructive Critical Artist": {
+        "power": 71500,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Consumed Charm Tinkerer": {
         "power": 18435,
@@ -1186,6 +1230,10 @@ var allMiceInfo = {
         "power": 34550,
         "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0, 0]
     },
+    "Data Devourer": {
+        "power": 100000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
+    },
     "Davy Jones": {
         "power": 2000,
         "effs": [150, 0, 125, 0, 0, 0, 200, 0, 0, 0]
@@ -1450,6 +1498,10 @@ var allMiceInfo = {
         "power": 25350,
         "effs": [0, 600, 0, 0, 0, 0, 0, 0, 0, 0]
     },
+    "Enchanted Chess Club Champion": {
+        "power": 53500,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
     "Enginseer": {
         "power": 3930,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
@@ -1545,6 +1597,10 @@ var allMiceInfo = {
     "Farrier": {
         "power": 2250,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200, 0]
+    },
+    "Featherlight": {
+        "power": 65000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Fencer": {
         "power": 225,
@@ -1934,6 +1990,10 @@ var allMiceInfo = {
         "power": 18050,
         "effs": [0, 0, 0, 0, 0, 0, 0, 100, 0, 0]
     },
+    "Hall Monitor": {
+        "power": 15500,
+        "effs": [100, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
     "Hans Cheesetian Squeakersen": {
         "power": 8000,
         "effs": [0, 0, 100, 0, 0, 0, 0, 0, 0, 0]
@@ -2106,6 +2166,10 @@ var allMiceInfo = {
         "power": 2300,
         "effs": [100, 100, 100, 100, 25, 75, 400, 75, 0, 0]
     },
+    "Illustrious Illusionist": {
+        "power": 58000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
     "Impersonator": {
         "power": 5,
         "effs": [25, 25, 25, 25, 25, 200, 25, 100, 100, 0]
@@ -2129,6 +2193,10 @@ var allMiceInfo = {
     "Infiltrator": {
         "power": 12500,
         "effs": [0, 0, 0, 0, 0, 125, 0, 250, 0, 0]
+    },
+    "Invisible Fashionista": {
+        "power": 48000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Itty-Bitty Burroughs": {
         "power": 8250,
@@ -2340,7 +2408,7 @@ var allMiceInfo = {
     },
     "M1000": {
         "power": 118000,
-        "effs": [200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
+        "effs": [200, 200, 200, 200, 0, 200, 200, 200, 200, 200]
     },
     "M400": {
         "power": 16400,
@@ -2365,6 +2433,10 @@ var allMiceInfo = {
     "Magic Champion": {
         "power": 72000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 900]
+    },
+    "Magical Multitasker": {
+        "power": 71500,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Magma Carrier": {
         "power": 14300,
@@ -2578,6 +2650,10 @@ var allMiceInfo = {
         "power": 2790,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
     },
+    "Misfortune Teller": {
+        "power": 35500,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
     "Missile Toe": {
         "power": 2400,
         "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 100]
@@ -2585,6 +2661,10 @@ var allMiceInfo = {
     "Mist Maker": {
         "power": 91674,
         "effs": [0, 0, 0, 300, 0, 0, 0, 0, 0, 0]
+    },
+    "Mixing Mishap": {
+        "power": 28500,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Mlounder Flounder": {
         "power": 3710,
@@ -2785,6 +2865,10 @@ var allMiceInfo = {
     "Mythical Giant King": {
         "power": 222150,
         "effs": [0, 0, 0, 0, 0, 300, 0, 0, 0, 0]
+    },
+    "Mythical Master Sorcerer": {
+        "power": 130000,
+        "effs": [500, 0, 0, 0, 0, 0, 500, 0, 0, 0]
     },
     "Mythweaver": {
         "power": 200000,
@@ -3066,6 +3150,10 @@ var allMiceInfo = {
         "power": 86363,
         "effs": [0, 0, 0, 0, 0, 150, 0, 0, 0, 0]
     },
+    "Perpetual Detention": {
+        "power": 28500,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
     "Phalanx": {
         "power": 900,
         "effs": [50, 50, 50, 50, 25, 50, 50, 200, 0, 0]
@@ -3161,6 +3249,10 @@ var allMiceInfo = {
     "Prestigious Adventurer": {
         "power": 150000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 2500]
+    },
+    "Prestigious Prestidigitator": {
+        "power": 53500,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Primal": {
         "power": 12345,
@@ -3598,6 +3690,10 @@ var allMiceInfo = {
         "power": 7000000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 0, 100000]
     },
+    "Shadow Master Sorcerer": {
+        "power": 78000,
+        "effs": [100, 0, 0, 0, 0, 0, 400, 0, 0, 0]
+    },
     "Shadow Sage": {
         "power": 73500,
         "effs": [0, 0, 0, 0, 0, 0, 300, 0, 0, 0]
@@ -3741,6 +3837,10 @@ var allMiceInfo = {
     "Slayer": {
         "power": 9800,
         "effs": [0, 0, 0, 0, 0, 0, 0, 175, 0, 0]
+    },
+    "Sleep Starved Scholar": {
+        "power": 44000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
     "Sleepwalker": {
         "power": 800,
@@ -4274,6 +4374,10 @@ var allMiceInfo = {
         "power": 14498,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
     },
+    "Teleporting Truant": {
+        "power": 65000,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
+    },
     "Tentacle": {
         "power": 12000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
@@ -4541,6 +4645,14 @@ var allMiceInfo = {
     "Twisted Treant": {
         "power": 1500,
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
+    },
+    "Tyrannical Thaumaturge": {
+        "power": 100000,
+        "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
+    "Uncoordinated Cauldron Carrier": {
+        "power": 31500,
+        "effs": [100, 0, 0, 0, 0, 0, 150, 0, 0, 0]
     },
     "Undertaker": {
         "power": 4500,
