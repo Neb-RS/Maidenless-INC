@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.6.0
+// @version      4.7.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5946,6 +5946,10 @@ function getArInfo() {
             stageInfo = getStageForTableOfContents();
             arInfo = getArInfoForTableOfContents(stageInfo);
             break;
+        /*case "School of Sorcery":
+            stageInfo = getStageForSchoolOfSorcery();
+            arInfo = getArInfoForSchoolOfSorcery(stageInfo);
+            break;*/
         case "Zokor":
             stageInfo = getStageForZokor();
             arInfo = getArInfoForZokor(stageInfo);
@@ -5959,31 +5963,145 @@ function getArInfo() {
     return arInfo;
 }
 
-function getStageForBountifulBeanstalk() {
-    var location = "Bountiful Beanstalk";
+function getStageForSchoolOfSorcery() {
+    const location = "School of Sorcery";
+    const quest = user.quests.QuestSchoolOfSorcery;
 
-    // Bountiful Beanstalk/Dungeon Floor/Ballroom Floor/Great Hall Floor
-    var stage = "";
-    // <div class="headsUpDisplayBountifulBeanstalkView__gameplay headsUpDisplayBountifulBeanstalkView__gameplay--climb">
-    var gameplayContainer = document.getElementsByClassName("headsUpDisplayBountifulBeanstalkView__gameplay")[0];
-    if (gameplayContainer) {
-        // outside
-        if (gameplayContainer.classList[1] == "headsUpDisplayBountifulBeanstalkView__gameplay--climb") {
-            // <div class="bountifulBeanstalkClimbView__title">Bountiful Beanstalk</div>
-            var climbTitleContainer = document.getElementsByClassName("bountifulBeanstalkClimbView__title")[0];
-            if (climbTitleContainer) {
-                stage = climbTitleContainer.innerText;
+    var subStage = baitName;
+    if (isStandardCheese(baitName)) {
+        subStage = "Standard Cheese";
+    }
+
+    let stage = "";
+    if (!quest.in_course) {
+        stage = "Hallway";
+    } else {
+        const currentCourse = quest.current_course;
+        stage = quest.course_selections.find(c => c.type == currentCourse.course_type).name;
+
+        // Add power type if exam
+        if (quest.in_exam) {
+            stage += ` ${currentCourse.power_type.charAt(0).toUpperCase()}${currentCourse.power_type.slice(1)}` ;
+        }
+
+        if (currentCourse.is_boss_encounter) {
+            subStage = "Boss";
+        }
+    }
+
+    return [location, stage, subStage];
+}
+
+function getArInfoForSchoolOfSorcery(stageInfo) {
+    const stage = stageInfo[1];
+    const subStage = stageInfo[2];
+
+    const arInfo = {
+        "Hallway": {
+            "Standard Cheese": {
+                "FTC": -1.00,
+                "Hall Monitor": 1.000
+            },
+        },
+        "Arcane Arts": {
+            "Standard Cheese": {
+                "FTC": -1.00,
+                "Perpetual Detention": 0.333,
+                "Broomstick Bungler": 0.333,
+                "Misfortune Teller": 0.333,
+            },
+            "Apprentice Ambert Cheese": {
+                "FTC": 0.00,
+                "Arcana Overachiever": 0.333,
+                "Invisible Fashionista": 0.333,
+                "Enchanted Chess Club Champion": 0.333,
+            },
+            "Master Mimolette Cheese": {
+                "FTC": 0.00,
+                "Illustrious Illusionist": 0.333,
+                "Featherlight": 0.333,
+                "Constructively Critical Artist": 0.333,
+            },
+            "Boss": {
+                "FTC": -1.00,
+                "Arcane Master Sorcerer": 1.000
             }
-        } else { // if (gameplayContainer.classList[1] == "headsUpDisplayBountifulBeanstalkView__gameplay--castle"")
-            // inside the castle
-            // <div class="headsUpDisplayBountifulBeanstalkView__gameplay headsUpDisplayBountifulBeanstalkView__gameplay--castle">
-            // <div class="bountifulBeanstalkCastleView__title">Great Hall Floor</div>
-            var castleTitleContainer = document.getElementsByClassName("bountifulBeanstalkCastleView__title")[0];
-            if (castleTitleContainer) {
-                stage = castleTitleContainer.innerText;
+        },
+        "Shadow Sciences": {
+            "Standard Cheese": {
+                "FTC": -1.00,
+                "Mixing Mishap": 0.333,
+                "Uncoordinated Cauldron Carrier": 0.333,
+                "Bookworm": 0.333,
+            },
+            "Apprentice Ambert Cheese": {
+                "FTC": 0.00,
+                "Classroom Keener": 0.333,
+                "Audacious Alchemist": 0.333,
+                "Prestigious Prestidigitator": 0.333,
+            },
+            "Master Mimolette Cheese": {
+                "FTC": 0.00,
+                "Classroom Disrupter": 0.333,
+                "Teleporting Truant": 0.333,
+                "Magical Multitasker": 0.333,
+            },
+            "Boss": {
+                "FTC": -1.00,
+                "Shadow Master Sorcerer": 1.000
+            }
+        },
+        "Final Exam Arcane": {
+            "Standard Cheese": {
+                "FTC": -1.00,
+                "Sleep Starved Scholar": 1.000,
+            },
+            "Apprentice Ambert Cheese": {
+                "FTC": 0.00,
+                "Class Clown": 1.000,
+            },
+            "Master Mimolette Cheese": {
+                "FTC": 0.00,
+                "Tyrannical Thaumaturge": 1.000,
+            },
+            "Boss": {
+                "FTC": -1.00,
+                "Mythical Master Sorcerer": 1.000
+            }
+        },
+        "Final Exam Shadow": {
+            "Standard Cheese": {
+                "FTC": -1.00,
+                "Cheat Sheet Conjurer": 1.000,
+            },
+            "Apprentice Ambert Cheese": {
+                "FTC": 0.00,
+                "Celestial Summoner": 1.000,
+            },
+            "Master Mimolette Cheese": {
+                "FTC": 0.00,
+                "Data Devourer": 1.000,
+            },
+            "Boss": {
+                "FTC": -1.00,
+                "Mythical Master Sorcerer": 1.000
             }
         }
     }
+
+    if (arInfo[stage] && arInfo[stage][subStage]) {
+        return arInfo[stage][subStage];
+    } else {
+        return getInvalidArInfo();
+    }
+}
+
+function getStageForBountifulBeanstalk() {
+    const location = "Bountiful Beanstalk";
+    const quest = user.quests.QuestBountifulBeanstalk;
+
+    // Bountiful Beanstalk/Dungeon Floor/Ballroom Floor/Great Hall Floor
+    let stage = quest.in_castle ? quest.castle.current_floor.name : "Bountiful Beanstalk";
 
     var subStage = baitName;
     // Leaping Lavish attracts the same mice as Lavish.
@@ -6000,24 +6118,10 @@ function getStageForBountifulBeanstalk() {
         subStage = "Standard Cheese";
     }
 
-    // Check for boss encountering.
-    switch(stage) {
-        case "Bountiful Beanstalk":
-            // <div class="headsUpDisplayBountifulBeanstalkView__climbNextRoomText">Next Zone in 1 catch</div>
-            var climbNextRoomContainer = document.getElementsByClassName("headsUpDisplayBountifulBeanstalkView__climbNextRoomText")[0];
-            if (climbNextRoomContainer && climbNextRoomContainer.innerText == "Next Zone in 1 catch") {
-                subStage = "Boss"
-            }
-            break;
-        case "Dungeon Floor":
-        case "Ballroom Floor":
-        case "Great Hall Floor":
-            // <div class="headsUpDisplayBountifulBeanstalkView__castleNextRoomText headsUpDisplayBountifulBeanstalkView__castleNextRoomText--nextArrow">Next Room in 3 hunts</div>
-            var castleNextRoomContainer = document.getElementsByClassName("headsUpDisplayBountifulBeanstalkView__castleNextRoomText")[0];
-            if (castleNextRoomContainer && castleNextRoomContainer.innerText == "Defeat the Giant!") {
-                subStage = "Giant"
-            }
-            break;
+    if (!quest.in_castle && quest.beanstalk.is_boss_encounter) {
+        subStage = "Boss";
+    } else if (quest.in_castle && quest.castle.is_boss_encounter) {
+        subStage = "Giant";
     }
     return [location, stage, subStage];
 }
