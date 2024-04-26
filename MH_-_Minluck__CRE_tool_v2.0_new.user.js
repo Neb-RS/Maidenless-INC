@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.5.0
+// @version      4.6.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -870,7 +870,7 @@ var allMiceInfo = {
         "power": 6600,
         "effs": [0, 0, 0, 0, 0, 0, 0, 175, 0, 0]
     },
-    "Constructive Critical Artist": {
+    "Constructively Critical Artist": {
         "power": 71500,
         "effs": [150, 0, 0, 0, 0, 0, 100, 0, 0, 0]
     },
@@ -2408,7 +2408,7 @@ var allMiceInfo = {
     },
     "M1000": {
         "power": 118000,
-        "effs": [200, 200, 200, 200, 0, 200, 200, 200, 200, 200]
+        "effs": [200, 200, 200, 200, 0, 200, 200, 200, 200, 0]
     },
     "M400": {
         "power": 16400,
