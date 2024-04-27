@@ -5946,10 +5946,10 @@ function getArInfo() {
             stageInfo = getStageForTableOfContents();
             arInfo = getArInfoForTableOfContents(stageInfo);
             break;
-        /*case "School of Sorcery":
+        case "School of Sorcery":
             stageInfo = getStageForSchoolOfSorcery();
             arInfo = getArInfoForSchoolOfSorcery(stageInfo);
-            break;*/
+            break;
         case "Zokor":
             stageInfo = getStageForZokor();
             arInfo = getArInfoForZokor(stageInfo);
@@ -6006,21 +6006,21 @@ function getArInfoForSchoolOfSorcery(stageInfo) {
         "Arcane Arts": {
             "Standard Cheese": {
                 "FTC": -1.00,
-                "Perpetual Detention": 0.333,
-                "Broomstick Bungler": 0.333,
-                "Misfortune Teller": 0.333,
+                "Perpetual Detention": 0.4000,
+                "Broomstick Bungler": 0.4000,
+                "Misfortune Teller": 0.2000,
             },
             "Apprentice Ambert Cheese": {
                 "FTC": 0.00,
-                "Arcana Overachiever": 0.333,
-                "Invisible Fashionista": 0.333,
-                "Enchanted Chess Club Champion": 0.333,
+                "Arcana Overachiever": 0.4250,
+                "Invisible Fashionista": 0.4250,
+                "Enchanted Chess Club Champion": 0.1500,
             },
             "Master Mimolette Cheese": {
                 "FTC": 0.00,
-                "Illustrious Illusionist": 0.333,
-                "Featherlight": 0.333,
-                "Constructively Critical Artist": 0.333,
+                "Illustrious Illusionist": 0.4750,
+                "Featherlight": 0.3750,
+                "Constructively Critical Artist": 0.1500,
             },
             "Boss": {
                 "FTC": -1.00,
@@ -6030,21 +6030,21 @@ function getArInfoForSchoolOfSorcery(stageInfo) {
         "Shadow Sciences": {
             "Standard Cheese": {
                 "FTC": -1.00,
-                "Mixing Mishap": 0.333,
-                "Uncoordinated Cauldron Carrier": 0.333,
-                "Bookworm": 0.333,
+                "Mixing Mishap": 0.4000,
+                "Uncoordinated Cauldron Carrier": 0.4000,
+                "Bookworm": 0.2000,
             },
             "Apprentice Ambert Cheese": {
                 "FTC": 0.00,
-                "Classroom Keener": 0.333,
-                "Audacious Alchemist": 0.333,
-                "Prestigious Prestidigitator": 0.333,
+                "Classroom Keener": 0.4250,
+                "Audacious Alchemist": 0.4250,
+                "Prestigious Prestidigitator": 0.1500,
             },
             "Master Mimolette Cheese": {
                 "FTC": 0.00,
-                "Classroom Disrupter": 0.333,
-                "Teleporting Truant": 0.333,
-                "Magical Multitasker": 0.333,
+                "Classroom Disrupter": 0.4750,
+                "Teleporting Truant": 0.3750,
+                "Magical Multitasker": 0.1500,
             },
             "Boss": {
                 "FTC": -1.00,
@@ -6053,16 +6053,27 @@ function getArInfoForSchoolOfSorcery(stageInfo) {
         },
         "Final Exam Arcane": {
             "Standard Cheese": {
+                // VERY low amount of hunts for standard
+                // 85 for both FE Arcane + FE Shadow combined
                 "FTC": -1.00,
-                "Sleep Starved Scholar": 1.000,
+                "Perpetual Detention": 0.3000,
+                "Broomstick Bungler": 0.3500,
+                "Misfortune Teller": 0.2500,
+                "Sleep Starved Scholar": 0.1000,
             },
             "Apprentice Ambert Cheese": {
                 "FTC": 0.00,
-                "Class Clown": 1.000,
+                "Arcana Overachiever": 0.3500,
+                "Invisible Fashionista": 0.3250,
+                "Enchanted Chess Club Champion": 0.2250,
+                "Class Clown": 0.1000,
             },
             "Master Mimolette Cheese": {
                 "FTC": 0.00,
-                "Tyrannical Thaumaturge": 1.000,
+                "Illustrious Illusionist": 0.3000,
+                "Featherlight": 0.3500,
+                "Constructively Critical Artist": 0.2500,
+                "Tyrannical Thaumaturge": 0.1000,
             },
             "Boss": {
                 "FTC": -1.00,
@@ -6072,15 +6083,24 @@ function getArInfoForSchoolOfSorcery(stageInfo) {
         "Final Exam Shadow": {
             "Standard Cheese": {
                 "FTC": -1.00,
-                "Cheat Sheet Conjurer": 1.000,
+                "Mixing Mishap": 0.3000,
+                "Uncoordinated Cauldron Carrier": 0.3500,
+                "Bookworm": 0.2500,
+                "Cheat Sheet Conjurer": 0.1000,
             },
             "Apprentice Ambert Cheese": {
                 "FTC": 0.00,
-                "Celestial Summoner": 1.000,
+                "Classroom Keener": 0.3500,
+                "Audacious Alchemist": 0.3250,
+                "Prestigious Prestidigitator": 0.2250,
+                "Celestial Summoner": 0.1000,
             },
             "Master Mimolette Cheese": {
                 "FTC": 0.00,
-                "Data Devourer": 1.000,
+                "Classroom Disrupter": 0.3000,
+                "Teleporting Truant": 0.3500,
+                "Magical Multitasker": 0.2500,
+                "Data Devourer": 0.1000,
             },
             "Boss": {
                 "FTC": -1.00,
