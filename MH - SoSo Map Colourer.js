@@ -95,22 +95,22 @@ const FinalExamBoss = [
 // group location, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
 
-    ["Beanstalk", OutsideSB, 0, "SB", 0, "#45890e"],
-    ["Beanstalk", OutsideAAC, 0, "AAC", 0, "#B6D7A8"],
-    ["Beanstalk", OutsideMMC, 0, "MMC", 0, "#B6D7A8"],
-    ["Beanstalk", OutsideBoss, 89, "Boss", 0, "#B6D7A8"],
-    ["Dungeon", ArcaneArtsSB, 96, "SB", 0, "#dde1f4"],
-    ["Dungeon", ArcaneArtsAAC, 118, "AAC", 0, "#b7bddc"],
-    ["Dungeon", ArcaneArtsMMC, 136, "MMC", 0, "#919ac7"],
-    ["Dungeon", ArcaneArtsBoss, 142, "Boss", 0, "#24347c"],
-    ["Ballroom", ShadowSciencesSB, 96, "SB", 0, "#f7dadb"],
-    ["Ballroom", ShadowSciencesAAC, 118, "AAC", 0, "#e0b1b2"],
-    ["Ballroom", ShadowSciencesMMC, 136, "MMC", 0, "#cc8788"],
-    ["Ballroom", ShadowSciencesBoss, 142, "Boss", 0, "#7e0711"],
-    ["Greathall", FinalExamSB, 107, "SB", 0, "#fce6d5"],
-    ["Greathall", FinalExamAAC, 132, "AAC", 0, "#f2d0b3"],
-    ["Greathall", FinalExamMMC, 160, "MMC", 0, "#e8ba8e"],
-    ["Greathall", FinalExamBoss, 183, "Boss", 0, "#a95b04"],
+    ["Outside", OutsideSB, 0, "Std", 0, "#45890e"],
+    ["Outside", OutsideAAC, 0, "AAC", 0, "#B6D7A8"],
+    ["Outside", OutsideMMC, 0, "MMC", 0, "#B6D7A8"],
+    ["Outside", OutsideBoss, 89, "Boss", 0, "#B6D7A8"],
+    ["Arcane", ArcaneArtsSB, 96, "Std", 0, "#dde1f4"],
+    ["Arcane", ArcaneArtsAAC, 118, "AAC", 0, "#b7bddc"],
+    ["Arcane", ArcaneArtsMMC, 136, "MMC", 0, "#919ac7"],
+    ["Arcane", ArcaneArtsBoss, 142, "Boss", 0, "#24347c"],
+    ["Shadow", ShadowSciencesSB, 96, "Std", 0, "#f7dadb"],
+    ["Shadow", ShadowSciencesAAC, 118, "AAC", 0, "#e0b1b2"],
+    ["Shadow", ShadowSciencesMMC, 136, "MMC", 0, "#cc8788"],
+    ["Shadow", ShadowSciencesBoss, 142, "Boss", 0, "#7e0711"],
+    ["FinalExam", FinalExamSB, 107, "Std", 0, "#fce6d5"],
+    ["FinalExam", FinalExamAAC, 132, "AAC", 0, "#f2d0b3"],
+    ["FinalExam", FinalExamMMC, 160, "MMC", 0, "#e8ba8e"],
+    ["FinalExam", FinalExamBoss, 183, "Boss", 0, "#a95b04"],
 
 ];
 
@@ -388,9 +388,8 @@ function colorize() {
      const headerSpanGroupStyle =
           "; width: auto; padding: 5px; color: black; width: 45px; font-size: 9px; text-shadow: 0px 0px 11px white";
 
-    const beanColor = greyColor//"#2E6309"
-    const lavishColor = greyColor//"#465996"
-    const royalColor = greyColor//"#97010E"
+    const aacColor = greyColor//"#2E6309"
+    const mmcColor = greyColor//"#465996"
 
     for (let i = 0; i < 2; i++) {
         {
@@ -410,22 +409,15 @@ function colorize() {
         {
             const newSpan = document.createElement("span");
             newSpan.classList.add("Header3Span");
-            newSpan.style = "background-color: " + beanColor + headerSpanGroupStyle;
-            newSpan.innerHTML = "Bean";
+            newSpan.style = "background-color: " + aacColor + headerSpanGroupStyle;
+            newSpan.innerHTML = "AAC";
             masterDivHeader.appendChild(newSpan);
         }
         {
             const newSpan = document.createElement("span");
             newSpan.classList.add("Header4Span");
-            newSpan.style = "background-color: " + lavishColor + headerSpanGroupStyle;
-            newSpan.innerHTML = "Lavish";
-            masterDivHeader.appendChild(newSpan);
-        }
-        {
-            const newSpan = document.createElement("span");
-            newSpan.classList.add("Header5Span");
-            newSpan.style = "background-color: " + royalColor + headerSpanGroupStyle;
-            newSpan.innerHTML = "Royal";
+            newSpan.style = "background-color: " + mmcColor + headerSpanGroupStyle;
+            newSpan.innerHTML = "MMC";
             masterDivHeader.appendChild(newSpan);
         }
         {
@@ -438,9 +430,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("BeanstalkSpan");
+        newSpan.classList.add("OutsideSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "BStalk";
+        newSpan.innerHTML = "Outside";
         masterDivRow1.appendChild(newSpan);
     }
     for (let i = 0; i < 5; i++) {
@@ -448,9 +440,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("BallroomSpan");
+        newSpan.classList.add("FinalExamSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Ballroom";
+        newSpan.innerHTML = "Final Exam";
         masterDivRow1.appendChild(newSpan);
     }
     for (let i = 5; i < 10; i++) {
@@ -458,9 +450,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("DungeonSpan");
+        newSpan.classList.add("ArcaneSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Dungeon";
+        newSpan.innerHTML = "Arcane";
         masterDivRow2.appendChild(newSpan);
     }
     for (let i = 0; i < 5; i++) {
@@ -468,9 +460,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("GreatHallSpan");
+        newSpan.classList.add("ShadowSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Great Hall";
+        newSpan.innerHTML = "Shadow";
         masterDivRow2.appendChild(newSpan);
     }
     for (let i = 5; i < 10; i++) {
