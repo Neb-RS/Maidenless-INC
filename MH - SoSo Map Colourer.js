@@ -2,7 +2,7 @@
 // @name         MouseHunt - School of Sorcery Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.2
+// @version      1.0.3
 // @description  Color codes mice on School of Sorcery maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -101,18 +101,18 @@ const miceGroups = [
     ["Outside", OutsideAAC, 0, "AAC", 0, "#B6D7A8"],
     ["Outside", OutsideMMC, 0, "MMC", 0, "#B6D7A8"],
     ["Outside", OutsideBoss, 89, "Boss", 0, "#B6D7A8"],
-    ["Arcane", ArcaneArtsSB, 96, "Std", 0, "#dde1f4"],
-    ["Arcane", ArcaneArtsAAC, 118, "AAC", 0, "#b7bddc"],
-    ["Arcane", ArcaneArtsMMC, 136, "MMC", 0, "#919ac7"],
-    ["Arcane", ArcaneArtsBoss, 142, "Boss", 0, "#24347c"],
+    ["FinalExam", FinalExamSB, 107, "Std", 0, "#dde1f4"],
+    ["FinalExam", FinalExamAAC, 132, "AAC", 0, "#b7bddc"],
+    ["FinalExam", FinalExamMMC, 160, "MMC", 0, "#919ac7"],
+    ["FinalExam", FinalExamBoss, 183, "Boss", 0, "#919ac7"],
+    ["Arcane", ArcaneArtsSB, 96, "Std", 0, "#fce6d5"],
+    ["Arcane", ArcaneArtsAAC, 118, "AAC", 0, "#f2d0b3"],
+    ["Arcane", ArcaneArtsMMC, 136, "MMC", 0, "#e8ba8e"],
+    ["Arcane", ArcaneArtsBoss, 142, "Boss", 0, "#a95b04"],
     ["Shadow", ShadowSciencesSB, 96, "Std", 0, "#f7dadb"],
     ["Shadow", ShadowSciencesAAC, 118, "AAC", 0, "#e0b1b2"],
     ["Shadow", ShadowSciencesMMC, 136, "MMC", 0, "#cc8788"],
     ["Shadow", ShadowSciencesBoss, 142, "Boss", 0, "#7e0711"],
-    ["FinalExam", FinalExamSB, 107, "Std", 0, "#fce6d5"],
-    ["FinalExam", FinalExamAAC, 132, "AAC", 0, "#f2d0b3"],
-    ["FinalExam", FinalExamMMC, 160, "MMC", 0, "#e8ba8e"],
-    ["FinalExam", FinalExamBoss, 183, "Boss", 0, "#a95b04"],
 
 ];
 
