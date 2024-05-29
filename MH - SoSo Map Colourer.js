@@ -2,11 +2,13 @@
 // @name         MouseHunt - School of Sorcery Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.1
+// @version      1.0.2
 // @description  Color codes mice on School of Sorcery maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
+// @downloadURL https://update.greasyfork.org/scripts/496355/MouseHunt%20-%20School%20of%20Sorcery%20Map%20Colourer.user.js
+// @updateURL https://update.greasyfork.org/scripts/496355/MouseHunt%20-%20School%20of%20Sorcery%20Map%20Colourer.meta.js
 // ==/UserScript==
 // Credits:
 // tsitu - Provided the original code.
@@ -37,7 +39,7 @@ const OutsideAAC = [
 const OutsideMMC = [
 ];
 const OutsideBoss = [
-    ["Hall Monitor","100%"],
+    ["Hall Monitor","100%"]
 ];
 const ArcaneArtsSB = [
     ["Perpetual Detention", "32.07%"],
@@ -317,7 +319,7 @@ function colorize() {
     const spans1 = [];
     const spans2 = [];
 
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 16; i++) {
         const newSpan = document.createElement("span");
         newSpan.classList.add(allMiceGroups[i].id + "Span");
         if (allMiceGroups[i].count > -1) {
@@ -334,8 +336,7 @@ function colorize() {
             newSpan.innerHTML = newSpan.innerHTML + allMiceGroups[i].count;
         }
 
-       const iMod5 = Math.floor(i / 5);
-       if (iMod5 == 0 || iMod5 == 2) {
+       if (i < 8) {
             spans1.push(newSpan);
        } else {
             spans2.push(newSpan);
@@ -435,7 +436,7 @@ function colorize() {
         newSpan.innerHTML = "Outside";
         masterDivRow1.appendChild(newSpan);
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         masterDivRow1.appendChild(spans1[i]);
     }
     {
@@ -445,7 +446,7 @@ function colorize() {
         newSpan.innerHTML = "Final Exam";
         masterDivRow1.appendChild(newSpan);
     }
-    for (let i = 5; i < 10; i++) {
+    for (let i = 4; i < 8; i++) {
         masterDivRow1.appendChild(spans1[i]);
     }
     {
@@ -455,7 +456,7 @@ function colorize() {
         newSpan.innerHTML = "Arcane";
         masterDivRow2.appendChild(newSpan);
     }
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 4; i++) {
         masterDivRow2.appendChild(spans2[i]);
     }
     {
@@ -465,7 +466,7 @@ function colorize() {
         newSpan.innerHTML = "Shadow";
         masterDivRow2.appendChild(newSpan);
     }
-    for (let i = 5; i < 10; i++) {
+    for (let i = 4; i < 8; i++) {
         masterDivRow2.appendChild(spans2[i]);
     }
 
