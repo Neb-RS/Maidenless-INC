@@ -77,19 +77,28 @@ const ShadowSciencesMMC = [
 const ShadowSciencesBoss = [
     ["Shadow Master Sorcerer","100%"]
 ];
-const FinalExamSB = [
-    ["Sleep Starved Scholar","10.06%"],
+const FinalExamShadowSB = [
     ["Cheat Sheet Conjurer","11.28%"]
 ];
-const FinalExamAAC = [
-    ["Class Clown","9.83%"],
+const FinalExamShadowAAC = [
     ["Celestial Summoner","9.49%"]
 ];
-const FinalExamMMC = [
-    ["Tyrannical Thaumaturge","10.09%"],
+const FinalExamShadowMMC = [
     ["Data Devourer","10.36%"]
 ];
-const FinalExamBoss = [
+const FinalExamShadowBoss = [
+    ["Mythical Master Sorcerer","100%"]
+]
+const FinalExamArcaneSB = [
+    ["Sleep Starved Scholar","10.06%"]
+];
+const FinalExamArcaneAAC = [
+    ["Class Clown","9.83%"]
+];
+const FinalExamArcaneMMC = [
+    ["Tyrannical Thaumaturge","10.09%"]
+];
+const FinalExamArcaneBoss = [
     ["Mythical Master Sorcerer","100%"]
 ]
 
@@ -97,22 +106,22 @@ const FinalExamBoss = [
 // group location, mice, minimum luck, bait, bait ID, color
 const miceGroups = [
 
-    ["Outside", OutsideSB, 0, "Std", 0, "#45890e"],
-    ["Outside", OutsideAAC, 0, "AAC", 0, "#B6D7A8"],
-    ["Outside", OutsideMMC, 0, "MMC", 0, "#B6D7A8"],
-    ["Outside", OutsideBoss, 89, "Boss", 0, "#B6D7A8"],
-    ["FinalExam", FinalExamSB, 107, "Std", 0, "#dde1f4"],
-    ["FinalExam", FinalExamAAC, 132, "AAC", 0, "#b7bddc"],
-    ["FinalExam", FinalExamMMC, 160, "MMC", 0, "#919ac7"],
-    ["FinalExam", FinalExamBoss, 183, "Boss", 0, "#919ac7"],
-    ["Arcane", ArcaneArtsSB, 96, "Std", 0, "#fce6d5"],
-    ["Arcane", ArcaneArtsAAC, 118, "AAC", 0, "#f2d0b3"],
-    ["Arcane", ArcaneArtsMMC, 136, "MMC", 0, "#e8ba8e"],
-    ["Arcane", ArcaneArtsBoss, 142, "Boss", 0, "#a95b04"],
-    ["Shadow", ShadowSciencesSB, 96, "Std", 0, "#f7dadb"],
-    ["Shadow", ShadowSciencesAAC, 118, "AAC", 0, "#e0b1b2"],
-    ["Shadow", ShadowSciencesMMC, 136, "MMC", 0, "#cc8788"],
-    ["Shadow", ShadowSciencesBoss, 142, "Boss", 0, "#7e0711"],
+    ["FinalExamArcane", FinalExamArcaneSB, 107, "Std", 0, "#ffabab"],
+    ["FinalExamArcane", FinalExamArcaneAAC, 132, "AAC", 0, "#ff8282"],
+    ["FinalExamArcane", FinalExamArcaneMMC, 160, "MMC", 0, "#ff5858"],
+    ["FinalExamArcane", FinalExamArcaneBoss, 183, "Boss", 0, "#ff2e2e"],
+    ["FinalExamShadow", FinalExamShadowSB, 107, "Std", 0, "#e0c4a5"],
+    ["FinalExamShadow", FinalExamShadowAAC, 132, "AAC", 0, "#d0a677"],
+    ["FinalExamShadow", FinalExamShadowMMC, 160, "MMC", 0, "#c1894a"],
+    ["FinalExamShadow", FinalExamShadowBoss, 183, "Boss", 0, "#b16b1d"],
+    ["Arcane", ArcaneArtsSB, 96, "Std", 0, "#b5d09f"],
+    ["Arcane", ArcaneArtsAAC, 118, "AAC", 0, "#8fb86e"],
+    ["Arcane", ArcaneArtsMMC, 136, "MMC", 0, "#6aa13e"],
+    ["Arcane", ArcaneArtsBoss, 142, "Boss", 0, "#45890e"],
+    ["Shadow", ShadowSciencesSB, 96, "Std", 0, "#f2b2eb"],
+    ["Shadow", ShadowSciencesAAC, 118, "AAC", 0, "#eb8be2"],
+    ["Shadow", ShadowSciencesMMC, 136, "MMC", 0, "#e565d8"],
+    ["Shadow", ShadowSciencesBoss, 142, "Boss", 0, "#de3ece"],
 
 ];
 
@@ -431,9 +440,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("OutsideSpan");
+        newSpan.classList.add("FinalExamArcaneSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Outside";
+        newSpan.innerHTML = "Final Exam - Arcane";
         masterDivRow1.appendChild(newSpan);
     }
     for (let i = 0; i < 4; i++) {
@@ -441,9 +450,9 @@ function colorize() {
     }
     {
         const newSpan = document.createElement("span");
-        newSpan.classList.add("FinalExamSpan");
+        newSpan.classList.add("FinalExamShadowSpan");
         newSpan.style = "background-color: " + greyColor + headerSpanLoactionStyle;
-        newSpan.innerHTML = "Final Exam";
+        newSpan.innerHTML = "Final Exam - Shadow";
         masterDivRow1.appendChild(newSpan);
     }
     for (let i = 4; i < 8; i++) {
