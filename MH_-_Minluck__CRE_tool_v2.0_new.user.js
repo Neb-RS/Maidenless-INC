@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.7.0
+// @version      4.7.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -2407,8 +2407,8 @@ var allMiceInfo = {
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
     "M1000": {
-        "power": 118000,
-        "effs": [200, 200, 200, 200, 0, 200, 200, 200, 200, 0]
+        "power": 236000,
+        "effs": [400, 400, 400, 400, 0, 400, 400, 400, 400, 0]
     },
     "M400": {
         "power": 16400,
