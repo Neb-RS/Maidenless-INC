@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.7.1
+// @version      4.8.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -176,7 +176,7 @@ $(document).ajaxStop(function () {
 var allMiceInfo = {
     "Abominable Snow": {
         "power": 1900,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Absolute Acolyte": {
         "power": 59400,
@@ -400,7 +400,7 @@ var allMiceInfo = {
     },
     "Bear": {
         "power": 700,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Bearded Elder": {
         "power": 7825,
@@ -688,7 +688,7 @@ var allMiceInfo = {
     },
     "Centaur": {
         "power": 5690,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Centaur Ranger": {
         "power": 7500,
@@ -704,7 +704,7 @@ var allMiceInfo = {
     },
     "Chameleon": {
         "power": 635,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Champion": {
         "power": 12000,
@@ -732,7 +732,7 @@ var allMiceInfo = {
     },
     "Cherry": {
         "power": 1500,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Cherry Sprite": {
         "power": 2000,
@@ -1012,7 +1012,7 @@ var allMiceInfo = {
     },
     "Craggy Ore": {
         "power": 600,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Cranky Caterpillar": {
         "power": 1500,
@@ -1033,6 +1033,10 @@ var allMiceInfo = {
     "Creepy Marionette": {
         "power": 4000,
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 101, 300]
+    },
+    "Crematio Scorchworth": {
+        "power": 10000,
+        "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     "Crimson Commander": {
         "power": 9299,
@@ -1120,7 +1124,7 @@ var allMiceInfo = {
     },
     "Curious Chemist": {
         "power": 800,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Cursed": {
         "power": 4225,
@@ -1192,7 +1196,7 @@ var allMiceInfo = {
     },
     "Cyclops": {
         "power": 1600,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Cyclops Barbarian": {
         "power": 7500,
@@ -1320,7 +1324,7 @@ var allMiceInfo = {
     },
     "Diamond": {
         "power": 400,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Diamondhide": {
         "power": 48748,
@@ -1412,7 +1416,7 @@ var allMiceInfo = {
     },
     "Eagle Owl": {
         "power": 2295,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Eclipse": {
         "power": 37399,
@@ -1476,7 +1480,7 @@ var allMiceInfo = {
     },
     "Elven Princess": {
         "power": 1270,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Emberstone Scaled": {
         "power": 15575,
@@ -1576,7 +1580,7 @@ var allMiceInfo = {
     },
     "Fairy": {
         "power": 2500,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Fall Familiar": {
         "power": 11500,
@@ -1680,7 +1684,7 @@ var allMiceInfo = {
     },
     "Fog": {
         "power": 160,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Force Fighter Blue": {
         "power": 1000,
@@ -1712,7 +1716,7 @@ var allMiceInfo = {
     },
     "Foxy": {
         "power": 1650,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Free Skiing": {
         "power": 2064,
@@ -1728,7 +1732,7 @@ var allMiceInfo = {
     },
     "Frog": {
         "power": 590,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Frost King": {
         "power": 1768,
@@ -1748,11 +1752,11 @@ var allMiceInfo = {
     },
     "Frosty Snow": {
         "power": 280,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Frozen": {
         "power": 80,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Fuel": {
         "power": 3253,
@@ -1872,11 +1876,11 @@ var allMiceInfo = {
     },
     "Gold": {
         "power": 350,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Goldleaf": {
         "power": 2100,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Golem": {
         "power": 6885,
@@ -1912,7 +1916,7 @@ var allMiceInfo = {
     },
     "Granite": {
         "power": 185,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Granny Spice": {
         "power": 4625,
@@ -2470,6 +2474,10 @@ var allMiceInfo = {
         "power": 36660,
         "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0, 0]
     },
+    "Malignus Vilestrom": {
+        "power": 10000,
+        "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+    },
     "Mammoth": {
         "power": 7000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
@@ -2720,7 +2728,7 @@ var allMiceInfo = {
     },
     "Moosker": {
         "power": 45,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Mossy Moosker": {
         "power": 2000,
@@ -2732,7 +2740,7 @@ var allMiceInfo = {
     },
     "Mountain": {
         "power": 1100,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Mousataur Priestess": {
         "power": 1800,
@@ -2972,7 +2980,7 @@ var allMiceInfo = {
     },
     "Nomad": {
         "power": 13175,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Nomadic Warrior": {
         "power": 2500,
@@ -3132,7 +3140,7 @@ var allMiceInfo = {
     },
     "Pebble": {
         "power": 120,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Peevish Piccoloist": {
         "power": 21000,
@@ -3486,6 +3494,10 @@ var allMiceInfo = {
         "power": 900,
         "effs": [10, 10, 10, 10, 0, 10, 10, 10, 10, 100]
     },
+    "Rimeus Polarblast": {
+        "power": 10000,
+        "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+    },
     "Riptide": {
         "power": 3260,
         "effs": [150, 0, 200, 0, 0, 0, 200, 0, 0, 0]
@@ -3704,7 +3716,7 @@ var allMiceInfo = {
     },
     "Shaman": {
         "power": 755,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Shaolin Kung Fu": {
         "power": 12375,
@@ -3760,7 +3772,7 @@ var allMiceInfo = {
     },
     "Silvertail": {
         "power": 500,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Sinister Egg Painter": {
         "power": 1100,
@@ -3856,7 +3868,7 @@ var allMiceInfo = {
     },
     "Slope Swimmer": {
         "power": 600,
-        "effs": [100, 0, 100, 100, 0, 100, 100, 100, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 100, 100, 0]
     },
     "Sludge": {
         "power": 3900,
@@ -4316,7 +4328,7 @@ var allMiceInfo = {
     },
     "Sylvan": {
         "power": 200,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Tackle Tracker": {
         "power": 10000,
@@ -4440,7 +4452,7 @@ var allMiceInfo = {
     },
     "Tiger": {
         "power": 6700,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Time Punk": {
         "power": 1000,
@@ -4560,7 +4572,7 @@ var allMiceInfo = {
     },
     "Treant": {
         "power": 760,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Treant Queen": {
         "power": 1500,
@@ -4808,11 +4820,11 @@ var allMiceInfo = {
     },
     "Wicked Witch of Whisker Woods": {
         "power": 1270,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Wiggler": {
         "power": 90,
-        "effs": [100, 0, 0, 100, 0, 100, 100, 175, 100, 0]
+        "effs": [100, 100, 100, 100, 0, 100, 100, 175, 100, 0]
     },
     "Wight": {
         "power": 13780,
