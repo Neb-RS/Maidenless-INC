@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.8.0
+// @version      4.8.1
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -4972,7 +4972,10 @@ var dragonbaneCharmMice = new Set([
     "Dragonbreather",
     "Regal Spearman",
     "Paragon of Dragons",
-    "Empyrean Javelineer"
+    "Empyrean Javelineer",
+    "Rimeus Polarblast",
+    "Malignus Vilestrom",
+    "Crematio Scorchworth"
 ]);
 
 var SSSSTMice = new Set([
