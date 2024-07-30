@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.8.1
+// @version      4.9.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -1036,7 +1036,7 @@ var allMiceInfo = {
     },
     "Crematio Scorchworth": {
         "power": 10000,
-        "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0, 0]
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0, 0]
     },
     "Crimson Commander": {
         "power": 9299,
@@ -2476,7 +2476,7 @@ var allMiceInfo = {
     },
     "Malignus Vilestrom": {
         "power": 10000,
-        "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+        "effs": [0, 0, 0, 250, 0, 0, 0, 0, 0, 0]
     },
     "Mammoth": {
         "power": 7000,
@@ -3496,7 +3496,7 @@ var allMiceInfo = {
     },
     "Rimeus Polarblast": {
         "power": 10000,
-        "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0, 0]
+        "effs": [0, 0, 0, 250, 0, 0, 0, 0, 0, 0]
     },
     "Riptide": {
         "power": 3260,
