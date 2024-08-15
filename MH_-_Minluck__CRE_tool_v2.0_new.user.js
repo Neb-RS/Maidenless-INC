@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      4.10.0
+// @version      4.11.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -182,6 +182,10 @@ var allMiceInfo = {
         "power": 59400,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 2750]
     },
+    "Absolutia Harmonius": {
+        "power": 72000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Acolyte": {
         "power": 18000,
         "effs": [25, 0, 175, 0, 0, 25, 0, 0, 0]
@@ -290,6 +294,10 @@ var allMiceInfo = {
         "power": 100000,
         "effs": [0, 0, 0, 400, 0, 0, 0, 0, 0]
     },
+    "Arcticus the Biting Frost": {
+        "power": 189500,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Aristo-Cat Burglar": {
         "power": 14590,
         "effs": [0, 0, 0, 0, 0, 0, 0, 600, 0]
@@ -337,6 +345,10 @@ var allMiceInfo = {
     "Automorat": {
         "power": 3751,
         "effs": [0, 0, 0, 0, 0, 0, 0, 200, 0]
+    },
+    "Avalancheus the Glacial": {
+        "power": 84500,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
     },
     "Baba Gaga": {
         "power": 3750,
@@ -410,6 +422,10 @@ var allMiceInfo = {
         "power": 3000,
         "effs": [0, 0, 0, 0, 0, 0, 175, 0, 0]
     },
+    "Belchazar Banewright": {
+        "power": 103250,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Berserker": {
         "power": 600,
         "effs": [50, 50, 50, 50, 50, 50, 200, 0, 0]
@@ -473,6 +489,10 @@ var allMiceInfo = {
     "Blacksmith": {
         "power": 27899,
         "effs": [0, 0, 0, 0, 300, 0, 300, 300, 0]
+    },
+    "Blizzara Winterosa": {
+        "power": 42400,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Bloomed Sylvan": {
         "power": 1750,
@@ -742,6 +762,10 @@ var allMiceInfo = {
         "power": 55000,
         "effs": [0, 0, 0, 0, 0, 0, 2500, 0, 0]
     },
+    "Chillandria Permafrost": {
+        "power": 103250,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Chip Chiseler": {
         "power": 1260,
         "effs": [0, 0, 0, 0, 0, 100, 0, 0, 0]
@@ -858,6 +882,14 @@ var allMiceInfo = {
         "power": 1135,
         "effs": [100, 0, 100, 0, 25, 200, 25, 0, 0]
     },
+    "Colonel Crisp": {
+        "power": 47000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Combustius Furnaceheart": {
+        "power": 103250,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Confused Courier": {
         "power": 2064,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100]
@@ -937,6 +969,10 @@ var allMiceInfo = {
     "Corrupt Commodore": {
         "power": 300,
         "effs": [100, 100, 100, 175, 100, 100, 100, 100, 0]
+    },
+    "Corrupticus the Blight Baron": {
+        "power": 189500,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
     },
     "Costumed Dog": {
         "power": 1200,
@@ -1035,7 +1071,7 @@ var allMiceInfo = {
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 300]
     },
     "Crematio Scorchworth": {
-        "power": 10000,
+        "power": 54250,
         "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Crimson Commander": {
@@ -1386,6 +1422,10 @@ var allMiceInfo = {
         "power": 947,
         "effs": [10, 10, 10, 10, 10, 10, 10, 10, 100]
     },
+    "Dreck Grimehaven": {
+        "power": 47000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Drudge": {
         "power": 7900,
         "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0]
@@ -1666,6 +1706,10 @@ var allMiceInfo = {
         "power": 5700,
         "effs": [0, 0, 0, 75, 100, 0, 75, 0, 0]
     },
+    "Flamina Cinderbreath": {
+        "power": 82750,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Floating Spore": {
         "power": 9200,
         "effs": [0, 0, 100, 100, 0, 0, 0, 0, 0]
@@ -1730,6 +1774,10 @@ var allMiceInfo = {
         "power": 1276,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100]
     },
+    "Frigidocius Coldshot": {
+        "power": 82750,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Frog": {
         "power": 590,
         "effs": [100, 100, 100, 100, 100, 100, 175, 100, 0]
@@ -1745,6 +1793,10 @@ var allMiceInfo = {
     "Frostlance Guard": {
         "power": 6500,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0]
+    },
+    "Frostnip Icebound": {
+        "power": 38000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Frostwing Commander": {
         "power": 15250,
@@ -1889,6 +1941,10 @@ var allMiceInfo = {
     "Goliath Field": {
         "power": 11175,
         "effs": [10, 10, 10, 10, 10, 10, 10, 10, 100]
+    },
+    "Goopus Dredgemore": {
+        "power": 38000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Gorgon": {
         "power": 9500,
@@ -2162,6 +2218,10 @@ var allMiceInfo = {
         "power": 11340,
         "effs": [0, 0, 0, 200, 0, 0, 100, 0, 0]
     },
+    "Iciclesius the Defender": {
+        "power": 47000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Ignatia": {
         "power": 9400,
         "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0]
@@ -2181,6 +2241,10 @@ var allMiceInfo = {
     "Incompetent Ice Climber": {
         "power": 5000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0]
+    },
+    "Indedarius the Unquenchable": {
+        "power": 84500,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
     },
     "Industrious Digger": {
         "power": 1150,
@@ -2458,6 +2522,10 @@ var allMiceInfo = {
         "power": 6000,
         "effs": [0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
+    "Magnatius Majestica": {
+        "power": 116000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Mairitime Pirate": {
         "power": 137485,
         "effs": [300, 300, 300, 300, 300, 300, 300, 300, 0]
@@ -2475,8 +2543,8 @@ var allMiceInfo = {
         "effs": [0, 0, 0, 0, 100, 0, 0, 0, 0]
     },
     "Malignus Vilestrom": {
-        "power": 10000,
-        "effs": [0, 0, 0, 250, 0, 0, 0, 0, 0]
+        "power": 54250,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Mammoth": {
         "power": 7000,
@@ -2870,6 +2938,10 @@ var allMiceInfo = {
         "power": 28901,
         "effs": [100, 0, 300, 0, 0, 0, 0, 0, 0]
     },
+    "Mythical Dragon Emperor": {
+        "power": 290000,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Mythical Giant King": {
         "power": 222150,
         "effs": [0, 0, 0, 0, 300, 0, 0, 0, 0]
@@ -2985,6 +3057,10 @@ var allMiceInfo = {
     "Nomadic Warrior": {
         "power": 2500,
         "effs": [10, 10, 10, 10, 10, 10, 10, 10, 100]
+    },
+    "Noxio Sludgewell": {
+        "power": 42400,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Nugget": {
         "power": 900,
@@ -3161,6 +3237,10 @@ var allMiceInfo = {
     "Perpetual Detention": {
         "power": 28500,
         "effs": [150, 0, 0, 0, 0, 100, 0, 0, 0]
+    },
+    "Pestilentia the Putrid": {
+        "power": 84500,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
     },
     "Phalanx": {
         "power": 900,
@@ -3495,8 +3575,8 @@ var allMiceInfo = {
         "effs": [10, 10, 10, 10, 10, 10, 10, 10, 100]
     },
     "Rimeus Polarblast": {
-        "power": 10000,
-        "effs": [0, 0, 0, 250, 0, 0, 0, 0, 0]
+        "power": 54250,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Riptide": {
         "power": 3260,
@@ -4138,6 +4218,10 @@ var allMiceInfo = {
         "power": 5210,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100]
     },
+    "Squire Sizzleton": {
+        "power": 38000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Stack of Thieves": {
         "power": 8400,
         "effs": [0, 0, 0, 0, 0, 0, 0, 100, 0]
@@ -4262,6 +4346,10 @@ var allMiceInfo = {
         "power": 3200,
         "effs": [101, 101, 101, 101, 101, 101, 101, 101, 300]
     },
+    "Sulfurious the Raging Inferno": {
+        "power": 189500,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Sultry Saxophonist": {
         "power": 23000,
         "effs": [0, 0, 0, 0, 100, 0, 0, 0, 0]
@@ -4301,6 +4389,10 @@ var allMiceInfo = {
     "Supreme Sensei": {
         "power": 404014,
         "effs": [0, 0, 0, 0, 0, 0, 0, 0, 200]
+    },
+    "Supremia Magnificus": {
+        "power": 125000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Surgeon Bot": {
         "power": 975,
@@ -4434,6 +4526,10 @@ var allMiceInfo = {
         "power": 6000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0]
     },
+    "Three'amat the Mother of Dragons": {
+        "power": 144000,
+        "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Thunder Strike": {
         "power": 1650,
         "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0]
@@ -4518,6 +4614,10 @@ var allMiceInfo = {
         "power": 2250,
         "effs": [0, 0, 0, 0, 0, 0, 0, 200, 0]
     },
+    "Torchbearer Tinderhelm": {
+        "power": 42400,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
+    },
     "Totally Not Tax Fraud": {
         "power": 650,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100]
@@ -4561,6 +4661,10 @@ var allMiceInfo = {
     "Trampoline": {
         "power": 750,
         "effs": [100, 100, 100, 100, 100, 100, 100, 100, 100]
+    },
+    "Tranquilia Protecticus": {
+        "power": 25000,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Travelling Barber": {
         "power": 3253,
@@ -4697,6 +4801,10 @@ var allMiceInfo = {
     "Vaporior": {
         "power": 10000,
         "effs": [0, 100, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "Venomona Festerbloom": {
+        "power": 82750,
+        "effs": [0, 250, 0, 0, 0, 0, 0, 0, 0]
     },
     "Vicious Vampire Squid": {
         "power": 16000,
