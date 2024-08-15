@@ -2242,7 +2242,7 @@ var allMiceInfo = {
         "power": 5000,
         "effs": [0, 0, 0, 100, 0, 0, 0, 0, 0]
     },
-    "Indedarius the Unquenchable": {
+    "Incendarius the Unquenchable": {
         "power": 84500,
         "effs": [0, 500, 0, 0, 0, 0, 0, 0, 0]
     },
@@ -5097,7 +5097,7 @@ var dragonbaneCharmMice = new Set([
     "Frostnip Icebound",
     "Goopus Dredgemore",
     "Iciclesius the Defender",
-    "Indedarius the Unquenchable",
+    "Incendarius the Unquenchable",
     "Magnatius Majestica",
     "Malignus Vilestrom",
     "Mythical Dragon Emperor",
