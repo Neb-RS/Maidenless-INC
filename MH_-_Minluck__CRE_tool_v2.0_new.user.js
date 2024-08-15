@@ -4936,7 +4936,7 @@ var allMiceInfo = {
 //     and the AR of the individual mouse are adjusted in the dictionary so the sum is 100%.
 //     This allows us to display the correct AR easily by using the known AR of the individual cheese.
 
-var allType = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Parental', 'Physical', 'Shadow', 'Tactical', 'Law', 'Rift'];
+var allType = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Physical', 'Shadow', 'Tactical', 'Law', 'Rift'];
 
 var dragonbaneCharmMice = new Set([
     "Dragon",
