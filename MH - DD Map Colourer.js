@@ -2,13 +2,13 @@
 // @name         MouseHunt - Draconic Depths Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.0
+// @version      1.0.1
 // @description  Color codes mice on Draconic Depths maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
 // @include      https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js
-// @downloadURL https://update.greasyfork.org/scripts/496355/MouseHunt%20-%20School%20of%20Sorcery%20Map%20Colourer.user.js
-// @updateURL https://update.greasyfork.org/scripts/496355/MouseHunt%20-%20School%20of%20Sorcery%20Map%20Colourer.meta.js
+// @downloadURL https://update.greasyfork.org/scripts/509039/MouseHunt%20-%20Draconic%20Depths%20Map%20Colourer.user.js
+// @updateURL https://update.greasyfork.org/scripts/509039/MouseHunt%20-%20Draconic%20Depths%20Map%20Colourer.meta.js
 // ==/UserScript==
 // Credits:
 // tsitu - Provided the original code.
