@@ -5048,6 +5048,7 @@ var allType = ['Arcane', 'Draconic', 'Forgotten', 'Hydro', 'Physical', 'Shadow',
 
 var dragonbaneCharmMice = new Set([
     "Dragon",
+    "Icewing",
     "Dragoon",
     "Ful'Mina the Mountain Queen",
     "Thunder Strike",
