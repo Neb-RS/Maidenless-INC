@@ -2,7 +2,7 @@
 // @name         MouseHunt - Draconic Depths Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.1
+// @version      1.0.2
 // @description  Color codes mice on Draconic Depths maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -38,17 +38,14 @@ const ROutside = [
     ["Colonel Crisp","38.64%"]
 ];
 const RZero = [
-    ["Squire Sizzleton","16.48%"],
-    ["Torchbearer Tinderhelm","44.87%"],
-    ["Colonel Crisp","38.64%"]
+    ["Flamina Cinderbreath","60.19%"],
+    ["Crematio Scorchworth","25.91%"],
 ];
 const R100 = [  
-    ["Crematio Scorchworth","25.91%"],
-    ["Flamina Cinderbreath","60.19%"]
+    ["Incendarius the Unquenchable","29.72%"],
+    ["Combustius Furnaceheart","28.19%"]
 ];
 const R750 = [
-    ["Combustius Furnaceheart","28.19%"],
-    ["Incendarius the Unquenchable","29.72%"],
     ["Sulfurious the Raging Inferno","40.16%"]
 ];
 const GOutside = [
@@ -57,17 +54,14 @@ const GOutside = [
     ["Dreck Grimehaven","38.49%"]
 ]
 const GZero = [
-    ["Goopus Dredgemore","16.67%"],
-    ["Noxio Sludgewell","44.84%"],
-    ["Dreck Grimehaven","38.66%"]
-];
-const G100 = [
     ["Malignus Vilestrom","25.49%"],
     ["Venomona Festerbloom","59.77%"]
 ];
-const G750 = [
+const G100 = [
     ["Belchazar Banewright","33.75%"],
     ["Pestilentia the Putrid","29.94%"],
+];
+const G750 = [
     ["Corrupticus the Blight Baron","39.27%"]
 ];
 const BOutside = [
@@ -76,17 +70,14 @@ const BOutside = [
     ["Iciclesius the Defender","41.8%"]
 ]
 const BZero = [
-    ["Frostnip Icebound","14.18%"],
-    ["Blizzara Winterosa","45.66%"],
-    ["Iciclesius the Defender","41.8%"]
-];
-const B100 = [
     ["Rimeus Polarblast","24.7%"],
     ["Frigidocius Coldshot","60.79%"]
 ];
-const B750 = [
+const B100 = [
     ["Avalancheus the Glacial","29.59%"],
     ["Chillandria Permafrost","33.11%"],
+];
+const B750 = [
     ["Arcticus the Biting Frost","39.12%"]
 ];
 const EleOutside = [
@@ -94,13 +85,13 @@ const EleOutside = [
 ]
 const EleZero = [
     ["Absolutia Harmonius","64.2%"]
+    ["Magnatius Majestica","56.52%"],
 ];
 const Ele100 = [
-    ["Magnatius Majestica","56.52%"]
+    ["Supremia Magnificus","29.51%"],
+    ["Three'amat the Mother of Dragons","30.77%"]
 ];
 const Ele750 = [
-    ["Supremia Magnificus","29.51%"],
-    ["Three'amat the Mother of Dragons","30.77%"],
     ["Mythical Dragon Emperor","39.72%"]
 ];
 
@@ -429,7 +420,7 @@ function colorize() {
             const newSpan = document.createElement("span");
             newSpan.classList.add("Header4Span");
             newSpan.style = "background-color: " + mmcColor + headerSpanGroupStyle;
-            newSpan.innerHTML = "250+";
+            newSpan.innerHTML = "100+";
             masterDivHeader.appendChild(newSpan);
         }
         {
