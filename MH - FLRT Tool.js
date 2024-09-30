@@ -465,13 +465,14 @@ const getTreasureLists = async () => {
         "Rare Warpath Treasure Chest",
         "Rare Empyrean Sky Palace Treasure Chest",
         "Rare Folklore Forest Prelude Treasure Chest",
-        "Rare Bountiful Beanstalk Treasure Chest"
+        "Rare Bountiful Beanstalk Treasure Chest",
+        "Rare Draconic Depths Treasure Chest",
     ];
 
     // Define a mapping of treasure chests to dates
     const chestDates = {
-        "Rare New Year's Party Treasure Chest": { start: new Date('2023-12-06'), end: new Date('2024-01-17') },
-        "Rare Naughty Treasure Chest": { start: new Date('2023-12-06'), end: new Date('2024-01-17') },
+        "Rare New Year's Party Treasure Chest": { start: new Date('2024-12-06'), end: new Date('2025-01-17') },
+        "Rare Naughty Treasure Chest": { start: new Date('2024-12-06'), end: new Date('2025-01-17') },
         "Rare Halloween Trick Treasure Chest": { start: new Date('2024-10-01'), end: new Date('2024-11-31') },
     };
 
