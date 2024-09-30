@@ -5,7 +5,7 @@
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
-// @version      5.0.0
+// @version      5.1.0
 // @grant        none
 // @namespace https://greasyfork.org/users/748165
 // ==/UserScript==
@@ -5296,6 +5296,13 @@ function getTrapStat(element) {
     })
 }
 
+function checkAuraActive(auraName) {
+    var panel = document.getElementsByClassName(auraName);
+    var isActive = panel[0].classList.contains('active')
+    logger(isActive);
+    return isActive
+}
+
 function renderBox(list) {
     return new Promise((resolve, reject) => {
         document
@@ -5700,7 +5707,12 @@ function CRSpecialBonusAndEffects(mouseName, mPower, mEff) {
     var adjustedTrapPower = basicTrapPower;
     var adjustedTrapPowerBonus = basicTrapPowerBonus;
     adjustedTrapLuck = basicTrapLuck;
-    if (charmName.includes("Dragonbane") && dragonbaneCharmMice.has(mouseName)) {
+    if (dragonbaneCharmMice.has(mouseName)) {
+        if (checkAuraActive("QuestDragonsMightAura")) {
+            // QuestDragonsMightAura gives +300% Power Bonus against Dragon mice
+            logCRAdjustmentInfo(mouseName, "Dragon's Might Aura +300% power bonus");
+            adjustedTrapPowerBonus += 3;
+        }
         if (charmName == "Dragonbane Charm") {
             // When activated, the charm bursts out a jarring cold blast of air, providing a 300% Power Bonus, making these mice easier to catch.
             logCRAdjustmentInfo(mouseName, "DBC +300% power bonus");
