@@ -2,7 +2,7 @@
 // @name         MH - Consolidated Map Colour Coder
 // @description  Colour code your maps
 // @author       Chromatical
-// @version      1.2.11
+// @version      1.2.12
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
@@ -12,7 +12,6 @@
 
 //Which style to apply
 var applyThisStyle;
-
 $(document).ajaxComplete(async(event,xhr,options) => {
     if (options.url == "https://www.mousehuntgame.com/managers/ajax/board/board.php"){
         $("#chro-madcoder-settings-button")[0] ? null : addButtons();
@@ -753,8 +752,8 @@ function loadPreset(){
     localStorage.setItem("Chro-mapcoder-styles",JSON.stringify([
         //Follow this style
         ["Queso Canyon Grand Tour Treasure Chest",[
-            ["KSS","#6699CC",["Kalor'ignis of the Geyser","Stormsurge, the Vile Tempest"]], //blue
-            ["CinBrut","#99ff66",["Bruticus, the Blazing","Cinderstorm"]], //green
+            ["KSS","#6699CC",["Kalor'ignis of the Geyser","Stormsurge the Vile Tempest"]], //blue
+            ["CinBrut","#99ff66",["Bruticus the Blazing","Cinderstorm"]], //green
             ["BE 3","#ff6666",["Ignatia","Smoldersnap","Bearded Elder"]], //red
             ["SizM","yellow",["Sizzle Pup","Mild Spicekin"]],
             ["Pressure","#cc99ff",["Pyrehyde","Steam Sailor","Vaporior","Warming Wyvern"]], //purple
