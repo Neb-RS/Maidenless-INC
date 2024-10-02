@@ -2,7 +2,7 @@
 // @name         MH - Consolidated Map Colour Coder
 // @description  Colour code your maps
 // @author       Chromatical
-// @version      1.2.12
+// @version      1.2.13
 // @match        https://www.mousehuntgame.com/*
 // @match        https://apps.facebook.com/mousehunt/*
 // @icon         https://www.google.com/s2/favicons?domain=mousehuntgame.com
@@ -758,7 +758,7 @@ function loadPreset(){
             ["SizM","yellow",["Sizzle Pup","Mild Spicekin"]],
             ["Pressure","#cc99ff",["Pyrehyde","Steam Sailor","Vaporior","Warming Wyvern"]], //purple
             ["QR", "#00cc44",["Pump Raider","Tiny Saboteur","Croquet Crusher","Sleepy Merchant"]], //darker green
-            ["Corky", "orange",["Fuzzy Drake","Rambunctious Rain Rumbler","Horned Cork Hoarder","Cork Defender","Burly Bruiser","Corky, the Collector"]],
+            ["Corky", "orange",["Fuzzy Drake","Rambunctious Rain Rumbler","Horned Cork Hoarder","Cork Defender","Burly Bruiser","Corky the Collector"]],
             ["PP", "#99ffff",["Old Spice Collector","Spice Farmer","Spice Sovereign","Spice Raider","Granny Spice","Spice Finder","Spice Seer","Spice Reaper"]], //cyan
             ["CQ", "pink",["Rubble Rouser","Rubble Rummager","Tiny Toppler","Ore Chipper","Chip Chiseler","Grampa Golem","Nachore Golem","Fiery Crusher",]],
             ["Boss", "silver",["Inferna, The Engulfed","Nachous, The Molten","Queen Quesada","Emberstone Scaled","Corkataur",]]
