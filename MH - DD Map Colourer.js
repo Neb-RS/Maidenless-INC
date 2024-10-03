@@ -2,7 +2,7 @@
 // @name         MouseHunt - Draconic Depths Map Colourer
 // @author       tsitu & Leppy & Neb & kuh & in59te & Warden Slayer
 // @namespace    https://greasyfork.org/en/users/967077-maidenless
-// @version      1.0.2
+// @version      1.0.3
 // @description  Color codes mice on Draconic Depths maps according to type. Max ML shown per group and AR shown individually.
 // @match        http://www.mousehuntgame.com/*
 // @match        https://www.mousehuntgame.com/*
@@ -39,7 +39,7 @@ const ROutside = [
 ];
 const RZero = [
     ["Flamina Cinderbreath","60.19%"],
-    ["Crematio Scorchworth","25.91%"],
+    ["Crematio Scorchworth","25.91%"]
 ];
 const R100 = [  
     ["Incendarius the Unquenchable","29.72%"],
@@ -59,7 +59,7 @@ const GZero = [
 ];
 const G100 = [
     ["Belchazar Banewright","33.75%"],
-    ["Pestilentia the Putrid","29.94%"],
+    ["Pestilentia the Putrid","29.94%"]
 ];
 const G750 = [
     ["Corrupticus the Blight Baron","39.27%"]
@@ -84,8 +84,8 @@ const EleOutside = [
     ["Tranquilia Protecticus","100%"]
 ]
 const EleZero = [
-    ["Absolutia Harmonius","64.2%"]
-    ["Magnatius Majestica","56.52%"],
+    ["Absolutia Harmonius","64.2%"],
+    ["Magnatius Majestica","56.52%"]
 ];
 const Ele100 = [
     ["Supremia Magnificus","29.51%"],
